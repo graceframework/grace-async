@@ -6,9 +6,6 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails:grails-docs:$grailsVersion"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-        classpath 'io.github.groovylang.groovydoc:groovydoc-gradle-plugin:1.0.1'
     }
 }
 
@@ -19,7 +16,7 @@ repositories {
 version project.projectVersion
 
 ext {
-    commonBuild = 'https://raw.githubusercontent.com/grails/grails-common-build/1549696f8d1a6bce3d84db9c4c1bfde61eddf175'
+    commonBuild = 'https://raw.githubusercontent.com/grails/grails-common-build/master'
 }
 
 subprojects {
@@ -48,12 +45,10 @@ subprojects {
         apply plugin:"org.grails.grails-web"
     }
     else if(isGrailsPlugin) {
-        apply from:"${commonBuild}/common-project.gradle"
-        apply from:"${commonBuild}/common-publishing.gradle"
+        apply from:"${commonBuild}/common-plugin.gradle"
     }
     else {
         apply from:"${commonBuild}/common-project.gradle"
-        apply from:"${commonBuild}/common-publishing.gradle"
     }
 
     dependencies {
@@ -61,4 +56,5 @@ subprojects {
     }
 }
 
+apply from:"${commonBuild}/common-publishing.gradle"
 apply from:"${commonBuild}/common-docs.gradle"
