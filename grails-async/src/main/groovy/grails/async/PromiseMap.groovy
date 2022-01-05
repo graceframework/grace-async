@@ -29,8 +29,8 @@ import java.util.concurrent.TimeUnit
 @CompileStatic
 class PromiseMap<K,V> implements Promise<Map<K,V>> {
 
-    protected LinkedHashMap<K, Promise> promises = [:]
-    protected LinkedHashMap<Promise, K> promisesKeys = [:]
+    protected HashMap<K, Promise<V>> promises = new LinkedHashMap<>()
+    protected HashMap<Promise<V>, K> promisesKeys = new LinkedHashMap<>()
 
     PromiseMap() {
     }
@@ -107,7 +107,7 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
      * @return The promise
      */
     Promise put(K k, value) {
-        put(k, Promises.createBoundPromise(value))
+        put(k, Promises.createBoundPromise(value as V))
     }
 
     /**
@@ -117,7 +117,7 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
      * @param promise The promise
      * @return The previous promise
      */
-    Promise put(K k, Promise promise) {
+    Promise put(K k, Promise<V> promise) {
         promisesKeys.put(promise, k)
         promises.put(k, promise)
     }
@@ -129,7 +129,7 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
      * @param promise The promise
      * @return The previous promise
      */
-    Promise put(K k, Closure callable) {
+    Promise put(K k, Closure<V> callable) {
         def promise = Promises.createPromise(callable)
         promisesKeys.put(promise, k)
         promises.put(k, promise)
