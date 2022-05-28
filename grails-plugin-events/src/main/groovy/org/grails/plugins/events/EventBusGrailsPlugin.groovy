@@ -22,6 +22,8 @@ import groovy.util.logging.Slf4j
 import org.grails.events.bus.spring.EventBusFactoryBean
 import org.grails.events.gorm.GormDispatcherRegistrar
 import org.grails.events.spring.SpringEventTranslator
+import org.springframework.beans.factory.config.BeanDefinition
+import org.springframework.context.annotation.Role
 import reactor.bus.EventBus
 
 
@@ -45,7 +47,9 @@ class EventBusGrailsPlugin extends Plugin {
     Closure doWithSpring() {
         {->
             Config config = grailsApplication.config
-            grailsEventBus(EventBusFactoryBean)
+            grailsEventBus(EventBusFactoryBean) { bean ->
+                bean.role = BeanDefinition.ROLE_INFRASTRUCTURE
+            }
             gormDispatchEventRegistrar(GormDispatcherRegistrar, ref("grailsEventBus"))
 
             // the legacy reactor EventBus, here for backwards compatibility
