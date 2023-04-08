@@ -16,8 +16,12 @@
 package grails.async.services
 
 import groovy.transform.CompileStatic
+import org.springframework.beans.BeanWrapper
+import org.springframework.beans.MutablePropertyValues
+import org.springframework.beans.PropertyAccessorFactory
+
 import grails.async.decorator.PromiseDecorator
-import org.springframework.beans.annotation.AnnotationBeanUtils
+//import org.springframework.beans.annotation.AnnotationBeanUtils
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.annotation.Transactional
@@ -49,7 +53,9 @@ class TransactionalPromiseDecorator implements PromiseDecorator, TransactionDefi
     TransactionalPromiseDecorator(PlatformTransactionManager transactionManager, Transactional transactionDefinition) {
         this.transactionManager = transactionManager
         final definition = new DefaultTransactionDefinition()
-        AnnotationBeanUtils.copyPropertiesToBean(transactionDefinition, definition)
+//        AnnotationBeanUtils.copyPropertiesToBean(transactionDefinition, definition)
+        BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(definition)
+        bw.setPropertyValues(new MutablePropertyValues(transactionDefinition.getProperties()))
         this.transactionDefinition = definition
     }
 

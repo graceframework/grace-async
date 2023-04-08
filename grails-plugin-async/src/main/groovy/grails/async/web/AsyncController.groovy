@@ -8,8 +8,8 @@ import org.springframework.web.context.request.async.AsyncWebRequest
 import org.springframework.web.context.request.async.WebAsyncManager
 import org.springframework.web.context.request.async.WebAsyncUtils
 
-import javax.servlet.AsyncContext
-import javax.servlet.http.HttpServletRequest
+import jakarta.servlet.AsyncContext
+import jakarta.servlet.http.HttpServletRequest
 
 /**
  * Exposes a startAsync() method for access to the Servlet 3.x API
@@ -21,7 +21,7 @@ trait AsyncController {
     /**
      * Raw access to the Servlet 3.0 startAsync method
      *
-     * @return a new {@link javax.servlet.AsyncContext}
+     * @return a new {@link jakarta.servlet.AsyncContext}
      */
     AsyncContext startAsync() {
         GrailsWebRequest webRequest = (GrailsWebRequest)RequestContextHolder.currentRequestAttributes()

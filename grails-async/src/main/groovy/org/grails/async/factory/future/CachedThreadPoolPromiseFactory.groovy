@@ -6,7 +6,7 @@ import grails.async.factory.AbstractPromiseFactory
 import groovy.transform.CompileStatic
 import org.grails.async.factory.BoundPromise
 
-import javax.annotation.PreDestroy
+import jakarta.annotation.PreDestroy
 import java.util.concurrent.Callable
 import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService

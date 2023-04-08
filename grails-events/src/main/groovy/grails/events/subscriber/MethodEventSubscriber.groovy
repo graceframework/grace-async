@@ -12,7 +12,7 @@ import java.lang.reflect.Method
  * @since 3.3
  */
 @CompileStatic
-class MethodEventSubscriber extends MethodSubscriber implements EventSubscriber {
+class MethodEventSubscriber extends MethodSubscriber {
     MethodEventSubscriber(Object target, Method method) {
         super(target, method)
         if( !(parameterTypes.length == 1 && parameterTypes[0].isAssignableFrom(Event)) ) {

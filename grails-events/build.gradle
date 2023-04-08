@@ -1,4 +1,4 @@
 dependencies {
-    compile "org.springframework:spring-context:$springVersion"
-    compile "org.springframework:spring-tx:$springVersion"
+    api "org.springframework:spring-context:$springVersion"
+    api "org.springframework:spring-tx:$springVersion"
 }

@@ -20,7 +20,7 @@ import java.lang.reflect.Method
 @Slf4j
 @EqualsAndHashCode(includes = ['target', 'method'])
 @ToString(includes = ['method'])
-class MethodSubscriber implements Subscriber {
+class MethodSubscriber implements Subscriber<Object, Object> {
 
     final Object target
     final Method method
@@ -51,7 +51,7 @@ class MethodSubscriber implements Subscriber {
                     return ReflectionUtils.invokeMethod(method, target, arg)
                 }
                 else {
-                    def converted = conversionService.canConvert(arg.getClass(), parameterType) ? conversionService.convert(arg, parameterType) : null
+                    def converted = conversionService.canConvert(arg.getClass(), parameterType) ? conversionService.convert(arg, parameterType as Class<Object>) : null
                     if(converted != null) {
                         return ReflectionUtils.invokeMethod(method, target, converted)
                     }

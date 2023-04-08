@@ -1,5 +1,7 @@
 dependencies {
-    compile "org.grails:grails-core:$grailsVersion"
-    compile project(":grails-events"), project(":grails-events-transform")
-    compile project(":grails-events-compat")
+    api "org.grails:grails-core:$grailsVersion", {
+        exclude group: "org.codehaus.groovy", module: "groovy"
+    }
+    api project(":grails-events"), project(":grails-events-transform")
+    api project(":grails-events-compat")
 }

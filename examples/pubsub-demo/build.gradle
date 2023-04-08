@@ -32,7 +32,7 @@ dependencies {
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails:grails-gorm-testing-support"
     testCompile "org.grails:grails-web-testing-support"
-    testCompile "io.micronaut:micronaut-http-client:$micronautVersion"
+    // testCompile "io.micronaut:micronaut-http-client:$micronautVersion"
 }
 
 bootRun {
