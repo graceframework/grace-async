@@ -42,14 +42,14 @@ subprojects {
         maven { url "https://repo.grails.org/grails/core" }
     }
 
-    if(it.projectDir.path.endsWith("examples/${it.name}".toString())) {
+    if (it.projectDir.path.endsWith("examples/${it.name}".toString())) {
         apply plugin:"org.grails.grails-web"
     }
-    else if(isGrailsPlugin) {
-        apply from:"${commonBuild}/common-plugin.gradle"
+    else if (isGrailsPlugin) {
+        apply from: resources.text.fromInsecureUri("${commonBuild}/common-plugin.gradle")
     }
     else {
-        apply from:"${commonBuild}/common-project.gradle"
+        apply from: resources.text.fromInsecureUri("${commonBuild}/common-project.gradle")
     }
 
     dependencies {
