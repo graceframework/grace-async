@@ -1,7 +1,6 @@
 dependencies {
     compileOnly "jakarta.servlet:jakarta.servlet-api:$servletApiVersion"
-    compileOnly 'javax:javaee-web-api:6.0'
-    api "org.grails:grails-plugin-controllers:$grailsVersion"
+    implementation "org.grails:grails-plugin-controllers:$grailsVersion"
     api project(':grails-plugin-events')
     api project(':grails-async')
 

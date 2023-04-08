@@ -18,7 +18,7 @@ repositories {
 version project.projectVersion
 
 ext {
-    commonBuild = 'https://raw.githubusercontent.com/grails/grails-common-build/23.0.x'
+    commonBuild = 'http://localhost:9000'
 }
 
 subprojects {
@@ -43,20 +43,20 @@ subprojects {
         maven { url "https://repo.grails.org/grails/core" }
     }
 
-    if(it.projectDir.path.endsWith("examples/${it.name}".toString())) {
+    if (it.projectDir.path.endsWith("examples/${it.name}".toString())) {
         apply plugin:"org.grails.grails-web"
     }
-    else if(isGrailsPlugin) {
-        apply from:"${commonBuild}/common-plugin.gradle"
+    else if (isGrailsPlugin) {
+        apply from: resources.text.fromInsecureUri("${commonBuild}/common-plugin.gradle")
     }
     else {
-        apply from:"${commonBuild}/common-project.gradle"
+        apply from: resources.text.fromInsecureUri("${commonBuild}/common-project.gradle")
     }
 
     dependencies {
-        compile 'javax.annotation:javax.annotation-api:1.3.2'
+        compileOnly 'jakarta.annotation:jakarta.annotation-api:2.1.1'
     }
 }
 
-apply from:"${commonBuild}/common-publishing.gradle"
-apply from:"${commonBuild}/common-docs.gradle"
+apply from:resources.text.fromInsecureUri("${commonBuild}/common-publishing.gradle")
+apply from:resources.text.fromInsecureUri("${commonBuild}/common-docs.gradle")

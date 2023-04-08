@@ -1,6 +1,6 @@
 dependencies {
     api project(":grails-events")
-    api 'org.codehaus.gpars:gpars:1.2.1', {
+    implementation 'org.codehaus.gpars:gpars:1.2.1', {
         exclude group:'org.multiverse', module:'multiverse-core'
         exclude group:'org.codehaus.groovy', module: 'groovy-all'
     }

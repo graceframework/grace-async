@@ -1,12 +1,12 @@
 dependencies {
     api project(":grails-events")
-    api "org.grails:grails-datastore-gorm:$gormVersion", {
+    compileOnly "org.grails:grails-datastore-gorm:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
         exclude group: "org.codehaus.groovy", module: "groovy"
     }
 
-    testImplementation "org.springframework:spring-aop:$springVersion"
-    testImplementation "org.springframework:spring-expression:$springVersion"
+    testRuntimeOnly "org.springframework:spring-aop:$springVersion"
+    testRuntimeOnly "org.springframework:spring-expression:$springVersion"
     testImplementation "org.grails:grails-datastore-gorm-test:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
         exclude group:'org.codehaus.groovy', module:'groovy'
