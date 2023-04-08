@@ -1,6 +1,6 @@
 dependencies {
-    compile project(":grails-async")
-    compile "io.reactivex:rxjava:$rxJavaVersion"
+    api project(":grails-async")
+    implementation "io.reactivex:rxjava:$rxJavaVersion"
 }
 
 

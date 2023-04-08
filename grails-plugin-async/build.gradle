@@ -1,10 +1,9 @@
 dependencies {
     compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
-    compileOnly 'javax:javaee-web-api:6.0'
-    compile "org.grails:grails-plugin-controllers:$grailsVersion"
-    compile project(':grails-plugin-events')
-    compile project(':grails-async')
+    implementation "org.grails:grails-plugin-controllers:$grailsVersion"
+    api project(':grails-plugin-events')
+    api project(':grails-async')
 
-    testCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
-    testCompile "org.springframework:spring-test:$springVersion"
+    testImplementation "javax.servlet:javax.servlet-api:$servletApiVersion"
+    testImplementation "org.springframework:spring-test:$springVersion"
 }

@@ -1,9 +1,9 @@
 dependencies {
-    compile project(":grails-events")
-    compile "io.reactivex:rxjava:$rxJavaVersion"
+    api project(":grails-events")
+    implementation "io.reactivex:rxjava:$rxJavaVersion"
 
-    testCompile project(":grails-events-transform")
-    testCompile "org.grails:grails-datastore-gorm-test:$gormVersion", {
+    testImplementation project(":grails-events-transform")
+    testImplementation "org.grails:grails-datastore-gorm-test:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
     }
 }
