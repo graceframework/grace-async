@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentLinkedQueue
 @CompileStatic
 abstract class AbstractEventBus implements EventBus {
     protected final Map<CharSequence, Collection<Subscription>> subscriptions = new ConcurrentHashMap<CharSequence, Collection<Subscription>>().withDefault {
-        new ConcurrentLinkedQueue<ClosureSubscription>()
+        new ConcurrentLinkedQueue<ClosureSubscription>() as Collection<Subscription>
     }
 
     @Override

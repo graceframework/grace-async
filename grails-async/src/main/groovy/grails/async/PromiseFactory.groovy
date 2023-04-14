@@ -15,6 +15,8 @@
  */
 package grails.async
 
+import groovy.transform.CompileStatic
+
 import grails.async.decorator.PromiseDecorator
 import grails.async.decorator.PromiseDecoratorLookupStrategy
 
@@ -27,6 +29,7 @@ import java.util.concurrent.TimeUnit
  * @author Graeme Rocher
  * @since 2.3
  */
+@CompileStatic
 interface PromiseFactory {
 
     /**
