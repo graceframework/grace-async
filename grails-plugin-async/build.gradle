@@ -5,5 +5,6 @@ dependencies {
     api project(':grails-async')
 
     testImplementation "jakarta.servlet:jakarta.servlet-api:$servletApiVersion"
+    testImplementation "org.grails:grails-test:$grailsVersion"
     testImplementation "org.springframework:spring-test:$springVersion"
 }

@@ -1,13 +1,13 @@
-package org.grails.async.factory.rxjava
+package org.grails.async.factory.rxjava3
 
 import grails.async.Promise
 import grails.async.PromiseList
 import grails.async.factory.AbstractPromiseFactory
 import groovy.transform.CompileStatic
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.grails.async.factory.BoundPromise
-import rx.Observable
-import rx.Single
-import rx.schedulers.Schedulers
 
 import java.util.concurrent.TimeUnit
 
@@ -15,7 +15,8 @@ import java.util.concurrent.TimeUnit
  * An RxJava {@link grails.async.PromiseFactory} implementation
  *
  * @author Graeme Rocher
- * @since 3.3
+ * @author Michael Yan
+ * @since 5.2
  */
 @CompileStatic
 class RxPromiseFactory extends AbstractPromiseFactory {
@@ -32,7 +33,7 @@ class RxPromiseFactory extends AbstractPromiseFactory {
     @Override
     <T> Promise<T> createPromise(Closure<T>[] closures) {
         if(closures.length == 1) {
-            return new RxPromise<T>(this,closures[0], Schedulers.io())
+            return new RxPromise<T>(this, closures[0], Schedulers.io())
         }
         else {
             def promiseList = new PromiseList()
@@ -55,24 +56,24 @@ class RxPromiseFactory extends AbstractPromiseFactory {
 
     @Override
     <T> Promise<List<T>> onComplete(List<Promise<T>> promises, Closure<?> callable) {
-        new RxPromise<T>(this, (Observable<List<T>>) Observable.concat(
-                promises.collect() { Promise p ->
-                    if(p instanceof BoundPromise) {
-                        return Observable.just(((BoundPromise)p).value)
-                    }
-                    else {
-                        return ((RxPromise)p).subject
-                    }
+        new RxPromise<T>(this, Observable.concat(
+            promises.collect() { Promise p ->
+                if(p instanceof BoundPromise) {
+                    return Observable.just(((BoundPromise)p).value)
                 }
+                else {
+                    return ((RxPromise)p).toObservable()
+                }
+            }
         ).toList())
-        .onComplete(callable)
+         .onComplete(callable)
     }
 
     @Override
     <T> Promise<List<T>> onError(List<Promise<T>> promises, Closure<?> callable) {
-        new RxPromise<T>(this, (Observable<List<T>>) Observable.concat(
-                promises.collect() { Promise p-> ((RxPromise)p).subject }
+        new RxPromise<T>(this, Observable.concat(
+                promises.collect() { Promise p-> ((RxPromise)p).toObservable() }
         ).toList())
-        .onError(callable)
+                .onError(callable)
     }
 }
