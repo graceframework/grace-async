@@ -115,7 +115,7 @@ class RxEventBus extends AbstractEventBus {
             super(eventId, subscriptions, subscriber)
             this.subscription = subject.observeOn(scheduler)
                     .subscribe( { Object event ->
-                EventTrigger trigger = buildTrigger(event as Event)
+                EventTrigger trigger = buildTrigger((Event) event)
                 trigger.proceed()
             }  as Action1, { Throwable t ->
                 log.error("Error occurred triggering event listener for event [$eventId]: ${t.message}", t)
