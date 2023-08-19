@@ -1,5 +1,6 @@
 dependencies {
     api project(":grails-events")
+    compileOnly "org.grails:grails-datastore-core:$gormVersion"
     compileOnly "org.grails:grails-datastore-gorm:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
     }
