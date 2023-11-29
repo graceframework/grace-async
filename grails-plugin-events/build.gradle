@@ -1,5 +1,5 @@
 dependencies {
     api "org.grails:grails-core:$grailsVersion"
     api project(":grails-events-core"), project(":grails-events-transform")
-    api project(":grails-events-compat")
+    compileOnly project(":grails-events-compat")
 }
