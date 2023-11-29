@@ -1,4 +1,4 @@
 dependencies {
-    api project(":grails-async")
+    api project(":grails-async-core")
     implementation "io.reactivex:rxjava:$rxJavaVersion"
 }

@@ -2,7 +2,7 @@ dependencies {
     compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
     implementation "org.grails:grails-plugin-controllers:$grailsVersion"
     api project(':grails-plugin-events')
-    api project(':grails-async')
+    api project(':grails-async-core')
 
     testImplementation "javax.servlet:javax.servlet-api:$servletApiVersion"
     testImplementation "org.grails:grails-test:$grailsVersion"
