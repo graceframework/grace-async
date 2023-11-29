@@ -15,7 +15,7 @@ import reactor.fn.Consumer
  * Bridges the OLD API to the new
  * @deprecated Here for compatibility only. Do not use directly
  */
-@Deprecated
+@Deprecated(since = '5.5', forRemoval = true)
 @CompileStatic
 trait Events {
 
