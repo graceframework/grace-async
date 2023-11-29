@@ -3,7 +3,7 @@ package reactor.bus;
 /**
  * @deprecated Here for compatibility only. Do not use directly
  */
-@Deprecated
+@Deprecated(since = "5.5", forRemoval = true)
 public class Event<T> extends grails.events.Event<T> {
     private volatile        Object              replyTo = null;
 

@@ -8,7 +8,7 @@ import reactor.fn.Consumer
 /**
  * @deprecated Here for compatibility only. Do not use directly
  */
-@Deprecated
+@Deprecated(since = '5.5', forRemoval = true)
 @Slf4j
 class EventBus  implements Bus {
 
