@@ -17,9 +17,11 @@ package org.grails.plugins.events;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 
 import grails.events.bus.EventBus;
@@ -51,16 +53,22 @@ public class EventBusAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
-    @SuppressWarnings("deprecation")
-    public reactor.bus.EventBus eventBus(EventBus grailsEventBus) {
-        return new reactor.bus.EventBus(grailsEventBus);
-    }
-
-    @Bean
     @ConditionalOnProperty(name = "grails.events.spring", havingValue = "true")
     public SpringEventTranslator springEventTranslator(EventBus grailsEventBus) {
         return new SpringEventTranslator(grailsEventBus);
+    }
+
+    @SuppressWarnings("deprecation")
+    @ConditionalOnClass(reactor.bus.EventBus.class)
+    @Configuration
+    static class EventCompatAutoConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public reactor.bus.EventBus eventBus(EventBus grailsEventBus) {
+            return new reactor.bus.EventBus(grailsEventBus);
+        }
+
     }
 
 }

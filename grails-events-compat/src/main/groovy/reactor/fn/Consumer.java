@@ -25,7 +25,7 @@ package reactor.fn;
  * @param <T> the type of values to accept
  * @deprecated Here for compatibility only. Do not use directly
  */
-@Deprecated
+@Deprecated(since = "5.5", forRemoval = true)
 public interface Consumer<T> {
 
     /**

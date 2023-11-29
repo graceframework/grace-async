@@ -1,4 +1,4 @@
 dependencies {
-    api project(":grails-events")
+    api project(":grails-events-core")
     implementation "org.springframework:spring-context:$springVersion"
 }

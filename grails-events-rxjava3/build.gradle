@@ -1,4 +1,4 @@
 dependencies {
-    api project(":grails-events")
+    api project(":grails-events-core")
     implementation "io.reactivex.rxjava3:rxjava:$rxJava3Version"
 }
