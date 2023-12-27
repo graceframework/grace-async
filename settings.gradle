@@ -1,4 +1,4 @@
-rootProject.name = 'grails-async'
+rootProject.name = 'grace-async'
 
 include 'grails-async'
 include 'grails-async-gpars'
