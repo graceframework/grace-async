@@ -43,7 +43,7 @@ nexusPublishing {
 }
 
 subprojects { project->
-    if (project.name.startsWith('grails-plugin')) {
+    if (project.name.startsWith('grace-plugin')) {
         group "org.graceframework.plugins"
     }
     else {
