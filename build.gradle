@@ -45,6 +45,7 @@ nexusPublishing {
 subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
         group "org.graceframework.plugins"
+        artifactId(subproject.name - 'grace-plugin-')
     }
     else {
         group "org.graceframework"
