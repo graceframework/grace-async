@@ -26,7 +26,7 @@ ext.pomInfo = {
 
 publishing {
     publications {
-        pluginMaven(MavenPublication) {
+        maven(MavenPublication) {
             artifactId project.name
             from components.java
 
@@ -59,23 +59,6 @@ publishing {
             }
         }
     }
-
-    // if (version.endsWith('-SNAPSHOT')) {
-    //     repositories {
-    //         maven {
-    //             credentials {
-    //                 username System.getenv('ARTIFACTORY_USERNAME') ?: rootProject.properties.get('artifactoryUsername')
-    //                 password System.getenv("ARTIFACTORY_PASSWORD") ?: rootProject.properties.get('artifactoryPassword')
-    //             }
-
-    //             if (group == 'org.grails.plugins') {
-    //                 url "https://repo.graceframework.org/grails/plugins3-snapshots-local"
-    //             } else {
-    //                 url "https://repo.graceframework.org/grails/libs-snapshots-local"
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 jar {
@@ -90,9 +73,7 @@ jar {
 afterEvaluate {
     signing {
         required { isReleaseVersion && gradle.taskGraph.hasTask("publish")  }
-        Publication[] publications = new Publication[project.publishing.publications.size()]
-        project.publishing.publications.findAll().toArray(publications)
-        sign(publications)
+        sign publishing.publications.maven
     }
 
     tasks.withType(Sign) {

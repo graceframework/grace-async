@@ -19,6 +19,9 @@ ext {
     userOrg = "graceframework"
 }
 
+
+version project.projectVersion
+
 apply plugin:'idea'
 
 apply plugin: 'maven-publish'

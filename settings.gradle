@@ -1,4 +1,4 @@
-rootProject.name = 'grace-async'
+rootProject.name = 'Grace.Async'
 
 include 'grace-async'
 include 'grace-async-gpars'
