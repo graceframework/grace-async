@@ -27,7 +27,12 @@ ext.pomInfo = {
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId project.name
+            if (project.name.startsWith('grace-plugin')) {
+                artifactId(project.name - 'grace-plugin-')
+            }
+            else {
+                artifactId project.name
+            }
             from components.java
 
             pom {
