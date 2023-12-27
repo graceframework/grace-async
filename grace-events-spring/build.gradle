@@ -1,4 +1,4 @@
 dependencies {
-    compile project(":grails-events")
+    compile project(":grace-events")
     compile "org.springframework:spring-context:$springVersion"
 }

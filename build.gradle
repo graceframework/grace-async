@@ -81,7 +81,7 @@ subprojects { project->
     apply from: '../publishing/mavenCentral.gradle'
 
 
-    if (project.name.startsWith('grails-')) {
+    if (project.name.startsWith('grace-')) {
 
         configurations {
             documentation

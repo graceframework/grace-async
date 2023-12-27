@@ -1,5 +1,5 @@
 dependencies {
-    compile project(":grails-async")
+    compile project(":grace-async")
     compile "io.reactivex:rxjava:$rxJavaVersion"
 }
 

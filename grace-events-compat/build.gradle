@@ -1,0 +1,3 @@
+dependencies {
+    compile project(":grace-events"), project(":grace-events-transform")
+}

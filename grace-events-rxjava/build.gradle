@@ -1,8 +1,8 @@
 dependencies {
-    compile project(":grails-events")
+    compile project(":grace-events")
     compile "io.reactivex:rxjava:$rxJavaVersion"
 
-    testCompile project(":grails-events-transform")
+    testCompile project(":grace-events-transform")
     testCompile "org.grails:grails-datastore-gorm-test:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
     }
