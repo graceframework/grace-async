@@ -3,7 +3,7 @@ dependencies {
     compile "io.reactivex:rxjava:$rxJavaVersion"
 
     testCompile project(":grace-events-transform")
-    testCompile "org.grails:grails-datastore-gorm-test:$gormVersion", {
-        exclude group:'org.grails', module:'grails-datastore-gorm-validation'
+    testCompile "org.graceframework:grace-datastore-gorm-test:$gormVersion", {
+        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
     }
 }

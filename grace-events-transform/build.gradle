@@ -1,12 +1,12 @@
 dependencies {
     compile project(":grace-events")
-    compile "org.grails:grails-datastore-gorm:$gormVersion", {
-        exclude group:'org.grails', module:'grails-datastore-gorm-validation'
+    compile "org.graceframework:grace-datastore-gorm:$gormVersion", {
+        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
     }
 
     testRuntime "org.springframework:spring-aop:$springVersion"
     testRuntime "org.springframework:spring-expression:$springVersion"
-    testCompile "org.grails:grails-datastore-gorm-test:$gormVersion", {
-        exclude group:'org.grails', module:'grails-datastore-gorm-validation'
+    testCompile "org.graceframework:grace-datastore-gorm-test:$gormVersion", {
+        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
     }
 }
