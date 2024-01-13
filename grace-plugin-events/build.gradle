@@ -1,3 +1,5 @@
+apply plugin:"org.graceframework.grace-plugin"
+
 dependencies {
     compile "org.graceframework:grace-core:$graceVersion"
     compile project(":grace-events"), project(":grace-events-transform")

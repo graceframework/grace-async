@@ -48,8 +48,6 @@ nexusPublishing {
 subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
         group "org.graceframework.plugins"
-
-        apply plugin: 'org.graceframework.grace-plugin'
     }
     else {
         group "org.graceframework"

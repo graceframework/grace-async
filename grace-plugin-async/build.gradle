@@ -1,3 +1,5 @@
+apply plugin:"org.graceframework.grace-plugin"
+
 dependencies {
     compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
     compileOnly 'javax:javaee-web-api:6.0'
