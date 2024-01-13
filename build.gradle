@@ -4,6 +4,9 @@ buildscript {
         mavenCentral()
         maven { url "https://repo.grails.org/grails/core" }
         maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+        if (project.projectVersion.endsWith('-SNAPSHOT')) {
+            maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+        }
     }
     dependencies {
         classpath "io.github.gradle-nexus:publish-plugin:1.3.0"
@@ -45,6 +48,8 @@ nexusPublishing {
 subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
         group "org.graceframework.plugins"
+
+        apply plugin: 'org.graceframework.grace-plugin'
     }
     else {
         group "org.graceframework"
@@ -72,6 +77,9 @@ subprojects { project->
         mavenCentral()
         // maven { url "https://repo.grails.org/grails/core" }
         maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+        if (project.projectVersion.endsWith('-SNAPSHOT')) {
+            maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+        }
     }
 
     dependencyManagement {
