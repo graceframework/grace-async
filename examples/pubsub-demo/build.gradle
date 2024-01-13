@@ -1,21 +1,21 @@
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.grails:grails-core"
+    compile "org.graceframework:grace-core"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-plugin-url-mappings"
-    compile "org.grails:grails-plugin-rest"
-    compile "org.grails:grails-plugin-codecs"
-    compile "org.grails:grails-plugin-interceptors"
-    compile "org.grails:grails-plugin-services"
-    compile "org.grails:grails-plugin-datasource"
-    compile "org.grails:grails-plugin-databinding"
-    compile project(":grails-plugin-async")
-    runtime project(":grails-events-rxjava")
-//    runtime project(":grails-async-rxjava")
-    compile "org.grails:grails-web-boot"
-    compile "org.grails:grails-logging"
+    compile "org.graceframework:grace-plugin-url-mappings"
+    compile "org.graceframework:grace-plugin-rest"
+    compile "org.graceframework:grace-plugin-codecs"
+    compile "org.graceframework:grace-plugin-interceptors"
+    compile "org.graceframework:grace-plugin-services"
+    compile "org.graceframework:grace-plugin-datasource"
+    compile "org.graceframework:grace-plugin-databinding"
+    compile project(":grace-plugin-async")
+    runtime project(":grace-events-rxjava")
+//    runtime project(":grace-async-rxjava")
+    compile "org.graceframework:grace-web-boot"
+    compile "org.graceframework:grace-logging"
     compile "org.grails.plugins:cache", {
         exclude module:'asset-pipeline-grails'
     }
@@ -24,14 +24,14 @@ dependencies {
     compile "org.hibernate:hibernate-ehcache:$hibernateCoreVersion"
     compile "org.grails.plugins:views-json"
     compile "org.grails.plugins:views-json-templates"
-    console "org.grails:grails-console"
+    console "org.graceframework:grace-console"
     profile "org.grails.profiles:rest-api"
     runtime "com.h2database:h2"
     runtime "org.apache.tomcat:tomcat-jdbc"
 
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails:grails-gorm-testing-support"
-    testCompile "org.grails:grails-web-testing-support"
+    // testCompile "org.graceframework:grace-plugin-testing"
+    // testCompile "org.graceframework:grace-gorm-testing-support"
+    // testCompile "org.graceframework:grace-web-testing-support"
     testCompile "io.micronaut:micronaut-http-client:$micronautVersion"
 }
 

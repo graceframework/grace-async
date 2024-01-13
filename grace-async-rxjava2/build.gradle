@@ -1,4 +1,4 @@
 dependencies {
-    compile project(":grails-events")
+    compile project(":grace-async")
     compile "io.reactivex.rxjava2:rxjava:$rxJava2Version"
 }

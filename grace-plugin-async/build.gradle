@@ -1,9 +1,9 @@
 dependencies {
     compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
     compileOnly 'javax:javaee-web-api:6.0'
-    compile "org.grails:grails-plugin-controllers:$grailsVersion"
-    compile project(':grails-plugin-events')
-    compile project(':grails-async')
+    compile "org.graceframework:grace-plugin-controllers:$graceVersion"
+    compile project(':grace-plugin-events')
+    compile project(':grace-async')
 
     testCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
     testCompile "org.springframework:spring-test:$springVersion"

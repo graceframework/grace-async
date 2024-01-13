@@ -1,5 +1,5 @@
 dependencies {
-    compile project(":grails-events")
+    compile project(":grace-events")
     compile "org.grails:grails-datastore-gorm:$gormVersion", {
         exclude group:'org.grails', module:'grails-datastore-gorm-validation'
     }
