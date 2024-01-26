@@ -1,0 +1,89 @@
+ext."signing.keyId" = rootProject.hasProperty("signing.keyId") ? rootProject.getProperty('signing.keyId') : System.getenv('SIGNING_KEY')
+ext."signing.password" = rootProject.hasProperty("signing.password") ? rootProject.getProperty('signing.password') : System.getenv('SIGNING_PASSPHRASE')
+ext."signing.secretKeyRingFile" = rootProject.hasProperty("signing.secretKeyRingFile") ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
+
+ext.pomInfo = {
+    delegate.url 'https://async.graceframework.org/latest/'
+    delegate.licenses {
+        delegate.license {
+            delegate.name 'The Apache Software License, Version 2.0'
+            delegate.url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+    delegate.scm {
+        delegate.url 'https://github.com/graceframework/grace-async/'
+        delegate.connection 'scm:git:git://github.com/graceframework/grace-async'
+        delegate.developerConnection 'scm:git:ssh://github.com:graceframework/grace-async'
+    }
+    delegate.developers {
+        developer {
+            delegate.id 'rainboyan'
+            delegate.name 'Michael Yan'
+            delegate.email 'rain@rainboyan.com'
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            if (project.name.startsWith('grace-plugin')) {
+                artifactId(project.name - 'grace-plugin-')
+            }
+            else {
+                artifactId project.name
+            }
+            from components.java
+
+            pom {
+                name = 'Grace Async Framework'
+                description = 'Provides Async features of Grace aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model.'
+            }
+
+            pom.withXml {
+                def pomNode = asNode()
+                pomNode.children().last() + pomInfo
+                try {
+                    pomNode.dependencyManagement.replaceNode {}
+                } catch (Throwable e) {
+                    // ignore
+                }
+
+                // simply remove dependencies without a version
+                // version-less dependencies are handled with dependencyManagement
+                // see https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/8 for more complete solutions
+                pomNode.dependencies.dependency.findAll {
+                    it.version.text().isEmpty()
+                }.each {
+                    try {
+                        it.replaceNode {}
+                    } catch (Throwable e) {
+                        // ignore
+                    }
+                }
+            }
+        }
+    }
+}
+
+jar {
+    manifest.mainAttributes(
+            "Built-By": System.properties['user.name'],
+            "Created-By": System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
+            "Implementation-Title": "Grace Async",
+            "Implementation-Version": projectVersion,
+            "Implementation-Vendor": 'graceframework.org')
+}
+
+afterEvaluate {
+    signing {
+        required { isReleaseVersion && gradle.taskGraph.hasTask("publish")  }
+        sign publishing.publications.maven
+    }
+
+    tasks.withType(Sign) {
+        onlyIf { isReleaseVersion }
+    }
+}
+
+task install(dependsOn: project.tasks.withType(PublishToMavenLocal))
