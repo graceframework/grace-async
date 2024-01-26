@@ -2,10 +2,10 @@ name: Grace CI
 on:
   push:
     branches:
-      - '[5-9]+.[0-9]+.x'
+      - 'release/[5-9]+.[0-9]+.0'
   pull_request:
     branches:
-      - '[5-9]+.[0-9]+.x'
+      - 'release/[5-9]+.[0-9]+.0'
   workflow_dispatch:
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        java: ['11', '15']
+        java: ['11']
     env:
       WORKSPACE: ${{ github.workspace }}
     steps:
