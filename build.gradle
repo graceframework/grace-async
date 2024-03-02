@@ -63,6 +63,10 @@ subprojects { project->
     apply plugin: "org.gradle.test-retry"
     apply plugin: "io.spring.dependency-management"
 
+    if (project.name.startsWith('grace-plugin')) {
+        apply plugin: 'org.graceframework.grace-plugin'
+    }
+
     sourceCompatibility = 11
     targetCompatibility = 11
 

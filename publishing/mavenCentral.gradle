@@ -3,7 +3,7 @@ ext."signing.password" = rootProject.hasProperty("signing.password") ? rootProje
 ext."signing.secretKeyRingFile" = rootProject.hasProperty("signing.secretKeyRingFile") ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
 
 ext.pomInfo = {
-    delegate.url 'https://async.graceframework.org/latest/'
+    delegate.url 'https://github.com/graceframework/grace-async'
     delegate.licenses {
         delegate.license {
             delegate.name 'The Apache Software License, Version 2.0'
@@ -11,7 +11,7 @@ ext.pomInfo = {
         }
     }
     delegate.scm {
-        delegate.url 'https://github.com/graceframework/grace-async/'
+        delegate.url 'https://github.com/graceframework/grace-async'
         delegate.connection 'scm:git:git://github.com/graceframework/grace-async'
         delegate.developerConnection 'scm:git:ssh://github.com:graceframework/grace-async'
     }
