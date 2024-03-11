@@ -1,5 +1,5 @@
 dependencies {
-    api project(":grails-async")
+    api project(":grace-async")
     implementation 'org.codehaus.gpars:gpars:1.2.1', {
         exclude group:'org.multiverse', module:'multiverse-core'
         exclude group:'org.codehaus.groovy', module: 'groovy-all'
