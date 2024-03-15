@@ -1,5 +1,5 @@
 dependencies {
-    api project(":grace-events")
+    api project(":grace-events-core")
     implementation "io.reactivex:rxjava:$rxJavaVersion"
 
     testImplementation project(":grace-events-transform")

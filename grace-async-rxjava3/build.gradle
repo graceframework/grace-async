@@ -1,4 +1,4 @@
 dependencies {
-    api project(":grace-async")
+    api project(":grace-async-core")
     implementation "io.reactivex.rxjava3:rxjava:$rxJava3Version"
 }

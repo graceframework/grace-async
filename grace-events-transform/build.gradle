@@ -1,5 +1,5 @@
 dependencies {
-    api project(":grace-events")
+    api project(":grace-events-core")
     compileOnly "org.graceframework:grace-datastore-gorm:$gormVersion", {
         exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
         exclude group: "org.codehaus.groovy", module: "groovy"
