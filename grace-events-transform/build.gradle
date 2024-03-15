@@ -1,0 +1,14 @@
+dependencies {
+    api project(":grace-events")
+    compileOnly "org.graceframework:grace-datastore-gorm:$gormVersion", {
+        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
+        exclude group: "org.codehaus.groovy", module: "groovy"
+    }
+
+    testRuntimeOnly "org.springframework:spring-aop:$springVersion"
+    testRuntimeOnly "org.springframework:spring-expression:$springVersion"
+    testImplementation "org.graceframework:grace-datastore-gorm-test:$gormVersion", {
+        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
+        exclude group:'org.codehaus.groovy', module:'groovy'
+    }
+}
