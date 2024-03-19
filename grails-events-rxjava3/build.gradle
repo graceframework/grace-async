@@ -1,4 +1,0 @@
-dependencies {
-    api project(":grails-events")
-    implementation "io.reactivex.rxjava3:rxjava:$rxJava3Version"
-}
