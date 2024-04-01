@@ -1,0 +1,17 @@
+apply plugin:"org.graceframework.grace-plugin"
+
+dependencies {
+    compileOnly "javax.servlet:javax.servlet-api:$servletApiVersion"
+    implementation "org.graceframework:grace-plugin-controllers:$graceVersion"
+    api project(':grace-plugin-events')
+    api project(':grace-async')
+
+    testImplementation "javax.servlet:javax.servlet-api:$servletApiVersion"
+    testImplementation "org.springframework:spring-test:$springVersion"
+}
+
+jar {
+    enabled = true
+    archiveClassifier.set('')
+    includeEmptyDirs = false
+}
