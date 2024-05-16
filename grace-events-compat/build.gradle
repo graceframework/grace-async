@@ -1,0 +1,3 @@
+dependencies {
+    api project(":grace-events-core"), project(":grace-events-transform")
+}
