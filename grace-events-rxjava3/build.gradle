@@ -1,0 +1,4 @@
+dependencies {
+    api project(":grace-events")
+    implementation "io.reactivex.rxjava3:rxjava:$rxJava3Version"
+}

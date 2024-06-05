@@ -18,23 +18,23 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
-    implementation "org.grails:grails-boot"
-    implementation "org.grails:grails-core"
-    implementation "org.grails:grails-plugin-codecs"
-    implementation "org.grails:grails-plugin-controllers"
-    implementation "org.grails:grails-plugin-datasource"
-    implementation "org.grails:grails-plugin-databinding"
-    implementation "org.grails:grails-plugin-domain-class"
-    implementation "org.grails:grails-plugin-i18n"
-    implementation "org.grails:grails-plugin-interceptors"
-    implementation "org.grails:grails-plugin-rest"
-    implementation "org.grails:grails-plugin-services"
-    implementation "org.grails:grails-plugin-url-mappings"
-    implementation project(":grails-plugin-async")
-    runtimeOnly project(":grails-events-rxjava")
-//    runtimeOnly project(":grails-async-rxjava")
-    implementation "org.grails:grails-web-boot"
-    implementation "org.grails:grails-logging"
+    implementation "org.graceframework:grace-boot"
+    implementation "org.graceframework:grace-core"
+    implementation "org.graceframework:grace-plugin-codecs"
+    implementation "org.graceframework:grace-plugin-controllers"
+    implementation "org.graceframework:grace-plugin-datasource"
+    implementation "org.graceframework:grace-plugin-databinding"
+    implementation "org.graceframework:grace-plugin-domain-class"
+    implementation "org.graceframework:grace-plugin-i18n"
+    implementation "org.graceframework:grace-plugin-interceptors"
+    implementation "org.graceframework:grace-plugin-rest"
+    implementation "org.graceframework:grace-plugin-services"
+    implementation "org.graceframework:grace-plugin-url-mappings"
+    implementation project(":grace-plugin-async")
+    runtimeOnly project(":grace-events-rxjava")
+//    runtimeOnly project(":grace-async-rxjava")
+    implementation "org.graceframework:grace-web-boot"
+    implementation "org.graceframework:grace-logging"
     implementation "org.grails.plugins:cache", {
         exclude module:'asset-pipeline-grails'
     }
@@ -43,14 +43,14 @@ dependencies {
     implementation "org.hibernate:hibernate-ehcache:$hibernateCoreVersion"
     implementation "org.grails.plugins:views-json"
     implementation "org.grails.plugins:views-json-templates"
-    console "org.grails:grails-console"
+    console "org.graceframework:grace-console"
     profile "org.grails.profiles:rest-api"
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
 
-    testImplementation "org.grails:grails-plugin-testing"
-    testImplementation "org.grails:grails-gorm-testing-support"
-    testImplementation "org.grails:grails-web-testing-support"
+    testImplementation "org.graceframework:grace-plugin-testing"
+    testImplementation "org.graceframework:grace-gorm-testing-support"
+    testImplementation "org.graceframework:grace-web-testing-support"
     testImplementation "io.micronaut:micronaut-http-client:$micronautVersion"
 }
 

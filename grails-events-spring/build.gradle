@@ -1,4 +1,0 @@
-dependencies {
-    api project(":grails-events")
-    implementation "org.springframework:spring-context:$springVersion"
-}
