@@ -3,6 +3,7 @@ dependencies {
     implementation "org.graceframework:grace-plugin-controllers:$graceVersion"
     api project(':grace-plugin-events')
     api project(':grace-async')
+    compileOnly project(":grace-events-compat")
 
     testImplementation "javax.servlet:javax.servlet-api:$servletApiVersion"
     testImplementation "org.graceframework:grace-test:$graceVersion"
