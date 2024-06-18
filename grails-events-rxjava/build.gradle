@@ -1,9 +1,0 @@
-dependencies {
-    api project(":grails-events")
-    implementation "io.reactivex:rxjava:$rxJavaVersion"
-
-    testImplementation project(":grails-events-transform")
-    testImplementation "org.grails:grails-datastore-gorm-test:$gormVersion", {
-        exclude group:'org.grails', module:'grails-datastore-gorm-validation'
-    }
-}
