@@ -52,10 +52,6 @@ class EventBusGrailsPlugin extends Plugin {
             }
             gormDispatchEventRegistrar(GormDispatcherRegistrar, ref("grailsEventBus"))
 
-            // the legacy reactor EventBus, here for backwards compatibility
-            eventBus(EventBus, ref('grailsEventBus'))
-
-
             // make it possible to disable reactor events
             if(config.getProperty(TRANSLATE_SPRING_EVENTS, Boolean.class, false)) {
                 springEventTranslator(SpringEventTranslator, ref('grailsEventBus'))
