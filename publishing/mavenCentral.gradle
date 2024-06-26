@@ -36,6 +36,13 @@ publishing {
             }
             from components.java
 
+            afterEvaluate {
+                if (project.name.startsWith('grace-plugin')) {
+                    artifact source: "${project.buildDir}/classes/groovy/main/META-INF/grails-plugin.xml",
+                        classifier: "plugin",
+                        extension: 'xml'
+                }
+            }
             pom {
                 name = projectName
                 description = "Grace Async Framework : $projectName"
