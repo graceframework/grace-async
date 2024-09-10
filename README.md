@@ -7,7 +7,7 @@
 [![Grace Version](https://img.shields.io/badge/Grace-2023.0.0-blue?style=flat&color=f49b06)](https://github.com/graceframework/grace-framework/releases/tag/v2023.0.0)
 [![Spring Boot Version](https://img.shields.io/badge/Spring_Boot-3.0.13-blue?style=flat&color=6db33f)](https://github.com/spring-projects/spring-boot/releases)
 
-= Grace Async and Events Framework
+# Grace Async and Events Framework
 
 This project contains APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as GPars and RxJava, RxJava2, RxJava3.
 
