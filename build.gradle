@@ -103,7 +103,7 @@ subprojects { project->
 
             testImplementation "org.spockframework:spock-core:$spockVersion"
             testImplementation "net.bytebuddy:byte-buddy:$bytebuddyVersion"
-            testImplementation "org.objenesis:objenesis:3.2"
+            testImplementation "org.objenesis:objenesis:$objenesisVersion"
             testImplementation "org.apache.groovy:groovy-test-junit5:${groovyVersion}"
             testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
             testImplementation "org.junit.platform:junit-platform-runner:1.8.2"
