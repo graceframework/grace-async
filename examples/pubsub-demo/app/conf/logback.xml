@@ -15,4 +15,5 @@
         <appender-ref ref="STDOUT" />
     </root>
     <logger name="pubsub.demo.Application" level="debug"/>
+    <logger name="org.grails.plugins.support" level="debug"/>
 </configuration>

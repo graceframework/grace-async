@@ -1,57 +1,103 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://repo.grails.org/grails/core" }
-        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
-    }
-    dependencies {
-        classpath "org.graceframework.plugins:views-gradle:5.0.0"
-    }
+plugins {
+    id "eclipse"
+    id "idea"
+    id "war"
+    id "org.graceframework.grace-web"
+    // id "org.graceframework.asset-pipeline"
+    id "com.github.erdi.webdriver-binaries"
+    // id "org.graceframework.grace-gsp"
+    id "org.graceframework.plugins.views-json"
 }
 
-apply plugin: "org.graceframework.plugins.views-json"
+group "grace.apps"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    developmentOnly
+}
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    console "org.graceframework:grace-console"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
     implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
     implementation "org.graceframework:grace-boot"
     implementation "org.graceframework:grace-core"
+    implementation "org.graceframework:grace-logging"
     implementation "org.graceframework:grace-plugin-codecs"
     implementation "org.graceframework:grace-plugin-controllers"
-    implementation "org.graceframework:grace-plugin-datasource"
+    implementation "org.graceframework:grace-plugin-converters"
     implementation "org.graceframework:grace-plugin-databinding"
+    implementation "org.graceframework:grace-plugin-datasource"
     implementation "org.graceframework:grace-plugin-domain-class"
     implementation "org.graceframework:grace-plugin-i18n"
     implementation "org.graceframework:grace-plugin-interceptors"
+    implementation "org.graceframework:grace-plugin-management"
     implementation "org.graceframework:grace-plugin-rest"
     implementation "org.graceframework:grace-plugin-services"
     implementation "org.graceframework:grace-plugin-url-mappings"
-    implementation project(":grace-plugin-async")
-    runtimeOnly project(":grace-events-rxjava")
-    runtimeOnly project(":grace-async-rxjava")
-    implementation "org.graceframework:grace-logging"
+    implementation "org.graceframework.plugins:async"
     implementation "org.graceframework.plugins:cache"
-    implementation "org.graceframework.plugins:hibernate5"
-    implementation "org.hibernate:hibernate-core:$hibernateCoreVersion"
-    implementation "org.hibernate:hibernate-ehcache:$hibernateCoreVersion"
+    implementation "org.graceframework.plugins:database-migration"
+    implementation "org.graceframework.plugins:events"
     implementation "org.graceframework.plugins:views-json"
-    implementation "org.graceframework.plugins:views-json-templates"
-    console "org.graceframework:grace-console"
-    profile "org.graceframework.profiles:rest-api"
+    // implementation "org.graceframework.plugins:fields"
+    // implementation "org.graceframework:grace-plugin-gsp"
+    implementation "org.graceframework.plugins:hibernate"
+    // implementation "org.graceframework.plugins:scaffolding"
+    runtimeOnly "org.graceframework:grace-events-rxjava"
+    runtimeOnly "org.graceframework:grace-async-rxjava"
+    profile "org.graceframework.profiles:web"
+    runtimeOnly "org.graceframework.plugins:asset-pipeline-plugin:6.1.0-M1"
     runtimeOnly "com.h2database:h2"
-    runtimeOnly "org.apache.tomcat:tomcat-jdbc"
-
-    testImplementation "org.graceframework:grace-plugin-testing"
-    testImplementation "org.graceframework:grace-gorm-testing-support"
-    testImplementation "org.graceframework:grace-web-testing-support"
-    testImplementation "io.micronaut:micronaut-http-client:$micronautVersion"
+    testImplementation "org.graceframework:grace-test-support"
+    testImplementation "org.mockito:mockito-core"
+    testImplementation "org.graceframework.plugins:geb"
+    testImplementation "org.seleniumhq.selenium:selenium-remote-driver:4.2.2"
+    testImplementation "org.seleniumhq.selenium:selenium-api:4.2.2"
+    testImplementation "org.seleniumhq.selenium:selenium-support:4.2.2"
+    testRuntimeOnly "org.seleniumhq.selenium:selenium-chrome-driver:4.2.2"
+    testRuntimeOnly "org.seleniumhq.selenium:selenium-firefox-driver:4.2.2"
 }
 
-bootRun {
-    jvmArgs('-Dspring.output.ansi.enabled=always')
-    sourceResources sourceSets.main
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(Jar) {
+    configure {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+}
+
+tasks.withType(GroovyCompile) {
+    configure(groovyOptions) {
+        forkOptions.jvmArgs = ['-Xmx1024m']
+    }
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+webdriverBinaries {
+    chromedriver {
+        version = '126.0.6478.126'
+        fallbackTo32Bit = true
+    }
+    geckodriver '0.33.0'
+}
+
+tasks.withType(Test) {
+    systemProperty "geb.env", System.getProperty('geb.env')
+    systemProperty "geb.build.reportsDir", reporting.file("geb/integrationTest")
+    systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+    systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
 }
