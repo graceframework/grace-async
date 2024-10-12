@@ -101,10 +101,15 @@ subprojects { project->
             documentation "info.picocli:picocli:4.6.3"
             documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
 
-            testImplementation "org.spockframework:spock-core:$spockVersion"
+            testImplementation "org.spockframework:spock-core:$spockVersion", {
+                exclude group: "org.junit.platform", module: "junit-platform-engine"
+            }
             testImplementation "net.bytebuddy:byte-buddy:$bytebuddyVersion"
             testImplementation "org.objenesis:objenesis:$objenesisVersion"
-            testImplementation "org.apache.groovy:groovy-test-junit5:${groovyVersion}"
+            testImplementation "org.apache.groovy:groovy-test-junit5:${groovyVersion}", {
+                exclude group: "org.junit.platform", module: "junit-platform-launcher"
+                exclude group: "org.junit.jupiter", module: "junit-jupiter-engine"
+            }
             testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
             testImplementation "org.junit.platform:junit-platform-runner:$junitJupiterPlatformVersion"
             testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
