@@ -30,7 +30,10 @@ class EventBusFactoryBean extends EventBusBuilder implements FactoryBean<EventBu
 
     @Override
     EventBus getObject() throws Exception {
-        return eventBus
+        if (this.eventBus == null) {
+            this.eventBus = createDefaultEventBus()
+        }
+        return this.eventBus
     }
 
     @Override
@@ -50,11 +53,11 @@ class EventBusFactoryBean extends EventBusBuilder implements FactoryBean<EventBu
 
     @Override
     protected EventBus createDefaultEventBus() {
-        if(applicationContext.containsBean("grailsPromiseFactory")) {
-            Object promiseFactory = applicationContext.getBean("grailsPromiseFactory")
-            if(promiseFactory instanceof ExecutorService) {
+        if (this.applicationContext.containsBean("grailsPromiseFactory")) {
+            Object promiseFactory = this.applicationContext.getBean("grailsPromiseFactory")
+            if (promiseFactory instanceof ExecutorService) {
                 log.debug("Creating event bus from PromiseFactory {}", promiseFactory)
-                return new ExecutorEventBus((ExecutorService)promiseFactory)
+                return new ExecutorEventBus((ExecutorService) promiseFactory)
             }
         }
         return super.createDefaultEventBus()
