@@ -135,6 +135,10 @@ subprojects { project->
             }
         }
 
+        tasks.named('compileJava') {
+            inputs.files(tasks.named('processResources'))
+        }
+
         groovydoc.classpath = configurations.documentation
     }
 
