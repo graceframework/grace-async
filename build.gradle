@@ -18,7 +18,7 @@ ext {
 }
 
 
-version project.projectVersion
+version = project.projectVersion
 
 apply plugin:'idea'
 
@@ -42,12 +42,12 @@ nexusPublishing {
 
 subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
-        group "org.graceframework.plugins"
+        group = "org.graceframework.plugins"
     }
     else {
-        group "org.graceframework"
+        group = "org.graceframework"
     }
-    version project.projectVersion
+    version = project.projectVersion
 
     if (project.name.startsWith('examples') || project.name.endsWith('docs')) {
         return
