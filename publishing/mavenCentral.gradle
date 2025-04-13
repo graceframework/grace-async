@@ -45,7 +45,12 @@ publishing {
             }
             pom {
                 name = projectName
-                description = "Grace Async Framework : $projectName"
+                if (project.name.contains('async')) {
+                    description = "Grace Async Framework : $projectName"
+                }
+                if (project.name.contains('events')) {
+                    description = "Grace Events Framework : $projectName"
+                }
             }
 
             pom.withXml {
