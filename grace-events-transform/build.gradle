@@ -1,7 +1,11 @@
 dependencies {
     api project(":grace-events-core")
+    api "jakarta.annotation:jakarta.annotation-api:$jakartaAnnotationVersion"
+    compileOnly "org.graceframework:grace-datastore-core:$gormVersion", {
+        transitive = false
+    }
     compileOnly "org.graceframework:grace-datastore-gorm:$gormVersion", {
-        exclude group:'org.graceframework', module:'grace-datastore-gorm-validation'
+        transitive = false
     }
 
     testRuntimeOnly "org.springframework:spring-aop:$springVersion"
