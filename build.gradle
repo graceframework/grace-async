@@ -39,6 +39,17 @@ nexusPublishing {
     }
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+        if (project.projectVersion.endsWith('-SNAPSHOT')) {
+            maven {
+                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            }
+        }
+    }
+}
+
 subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
         group = "org.graceframework.plugins"
