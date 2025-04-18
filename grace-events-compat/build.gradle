@@ -1,3 +1,4 @@
 dependencies {
-    api project(":grace-events-core"), project(":grace-events-transform")
+    api project(":grace-events-core")
+    api project(":grace-events-transform")
 }

@@ -74,6 +74,19 @@ subprojects { project->
     if (project.name.startsWith('grace-plugin')) {
         apply plugin: 'org.graceframework.grace-plugin'
     }
+    else {
+        apply plugin: "io.spring.dependency-management"
+
+        dependencyManagement {
+            imports {
+                mavenBom "org.graceframework:grace-bom:$graceVersion"
+            }
+            applyMavenExclusions false
+            generatedPomCustomization {
+                enabled = false
+            }
+        }
+    }
 
     repositories {
         mavenCentral()
@@ -89,25 +102,25 @@ subprojects { project->
         }
 
         dependencies {
-            api "org.apache.groovy:groovy:$groovyVersion"
-            api "org.slf4j:slf4j-api:$slf4jVersion"
+            api "org.apache.groovy:groovy"
+            api "org.slf4j:slf4j-api"
             documentation "org.fusesource.jansi:jansi:$jansiVersion"
-            documentation "org.apache.groovy:groovy-dateutil:$groovyVersion"
+            documentation "org.apache.groovy:groovy-dateutil"
             documentation "info.picocli:picocli:4.6.3"
             documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
 
-            testImplementation "org.spockframework:spock-core:$spockVersion", {
+            testImplementation "org.spockframework:spock-core", {
                 exclude group: "org.junit.platform", module: "junit-platform-engine"
             }
-            testImplementation "net.bytebuddy:byte-buddy:$bytebuddyVersion"
+            testImplementation "net.bytebuddy:byte-buddy"
             testImplementation "org.objenesis:objenesis:$objenesisVersion"
-            testImplementation "org.apache.groovy:groovy-test-junit5:${groovyVersion}", {
+            testImplementation "org.apache.groovy:groovy-test-junit5", {
                 exclude group: "org.junit.platform", module: "junit-platform-launcher"
                 exclude group: "org.junit.jupiter", module: "junit-jupiter-engine"
             }
-            testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
-            testImplementation "org.junit.platform:junit-platform-runner:$junitJupiterPlatformVersion"
-            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+            testImplementation "org.junit.jupiter:junit-jupiter-api"
+            testImplementation "org.junit.platform:junit-platform-runner"
+            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
         }
 
         java {

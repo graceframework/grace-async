@@ -2,28 +2,6 @@ ext."signing.keyId" = rootProject.hasProperty("signing.keyId") ? rootProject.get
 ext."signing.password" = rootProject.hasProperty("signing.password") ? rootProject.getProperty('signing.password') : System.getenv('SIGNING_PASSPHRASE')
 ext."signing.secretKeyRingFile" = rootProject.hasProperty("signing.secretKeyRingFile") ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
 
-ext.pomInfo = {
-    delegate.url 'https://github.com/graceframework/grace-async/'
-    delegate.licenses {
-        delegate.license {
-            delegate.name 'The Apache Software License, Version 2.0'
-            delegate.url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-        }
-    }
-    delegate.scm {
-        delegate.url 'https://github.com/graceframework/grace-async/'
-        delegate.connection 'scm:git:git://github.com/graceframework/grace-async'
-        delegate.developerConnection 'scm:git:ssh://github.com:graceframework/grace-async'
-    }
-    delegate.developers {
-        developer {
-            delegate.id 'rainboyan'
-            delegate.name 'Michael Yan'
-            delegate.email 'rain@rainboyan.com'
-        }
-    }
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
@@ -35,6 +13,15 @@ publishing {
                 artifactId = project.name
             }
             from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
 
             afterEvaluate {
                 if (project.name.startsWith('grace-plugin')) {
@@ -51,11 +38,25 @@ publishing {
                 if (project.name.contains('events')) {
                     description = "Grace Events Framework : $projectName"
                 }
-            }
-
-            pom.withXml {
-                def pomNode = asNode()
-                pomNode.children().last() + pomInfo
+                url = 'https://github.com/graceframework/grace-async'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/graceframework/grace-async.git'
+                    developerConnection = 'scm:git:ssh://github.com:graceframework/grace-async.git'
+                    url = 'https://github.com/graceframework/grace-async'
+                }
+                developers {
+                    developer {
+                        id = 'rainboyan'
+                        name = 'Michael Yan'
+                        email = 'rain@rainboyan.com'
+                    }
+                }
             }
         }
     }
