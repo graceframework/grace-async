@@ -1,6 +1,6 @@
 dependencies {
     api project(":grace-events-core")
-    implementation "io.reactivex:rxjava:$rxJavaVersion"
+    implementation "io.reactivex:rxjava"
 
     testImplementation project(":grace-events-transform")
     testImplementation "org.graceframework:grace-datastore-gorm-test", {
