@@ -4,12 +4,12 @@ NOTE: Although GORM executes persistence operations asynchronously, these operat
 
 === The AsyncEntity Trait
 
-Since Grails 3.3, the asynchronous part of GORM is optional. To enable it you first need to add the `grails-datastore-gorm-async` dependency to `build.gradle`:
+Since Grails 3.3, the asynchronous part of GORM is optional. To enable it you first need to add the `grace-datastore-gorm-async` dependency to `build.gradle`:
 
 [source,groovy]
 .build.gradle
 ----
-compile "org.grails:grails-datastore-gorm-async"
+compile "org.graceframework:grace-datastore-gorm-async"
 ----
 
 Then in your domain classes you wish to allow asynchronous processing you should use the `AsyncEntity` trait:

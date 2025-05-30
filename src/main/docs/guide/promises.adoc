@@ -5,7 +5,7 @@ To use the Grails Promise abstraction you should add a dependency on the `async`
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.grails.plugins:async:{version}"
+runtime "org.graceframework.plugins:async:{version}"
 ----
 
 === Promise Basics
@@ -79,7 +79,7 @@ However, the design of the Grails promises framework is such that you can swap o
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.grails:grails-async-rxjava:{version}"
+runtime "org.graceframework:grace-async-rxjava:{version}"
 ----
 
 With the above in place RxJava 1.x will be used to create `Promise` instances.
@@ -91,17 +91,20 @@ The following table summarizes the available implementation and the dependency t
 |Framework | Dependency | Implementation Class
 
 |GPars 1.2.x
-|`grails-async-gpars`
+|`grace-async-gpars`
 |`org.grails.async.factory.gpars.GparsPromiseFactory`
 
 |RxJava 1.2.x
-|`grails-async-rxjava`
+|`grace-async-rxjava`
 |`org.grails.async.factory.rxjava.RxPromiseFactory`
 
 |RxJava 2.x
-|`grails-async-rxjava2`
+|`grace-async-rxjava2`
 |`org.grails.async.factory.rxjava2.RxPromiseFactory`
 
+|RxJava 3.x
+|`grace-async-rxjava3`
+|`org.grails.async.factory.rxjava3.RxPromiseFactory`
 |===
 
 You can also override the `grails.async.PromiseFactory` class used by `Promises` by setting the `promiseFactory` static field.

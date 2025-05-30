@@ -7,7 +7,7 @@ To use the Grails Events abstraction you should add a dependency on the `events`
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.grails.plugins:events:{version}"
+runtime "org.graceframework.plugins:events:{version}"
 ----
 
 If no asynchronous framework in present on the classpath then by default Grails creates an EventBus based off of the currently active `PromiseFactory`. The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`).
@@ -17,7 +17,7 @@ If you wish to use a popular async framework such as RxJava as the `EventBus` im
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.grails:grails-events-rxjava:{version}"
+runtime "org.graceframework:grace-events-rxjava:{version}"
 ----
 
 The following table summarizes async framework support and the necessary dependency:
@@ -27,15 +27,19 @@ The following table summarizes async framework support and the necessary depende
 |Framework | Dependency | Implementation Class
 
 |GPars 1.2.x
-|`grails-events-gpars`
+|`grace-events-gpars`
 |`org.grails.events.gpars.ActorEventBus`
 
 |RxJava 1.2.x
-|`grails-events-rxjava`
+|`grace-events-rxjava`
 |`org.grails.events.rxjava.RxEventBus`
 
 |RxJava 2.x
-|`grails-events-rxjava2`
+|`grace-events-rxjava2`
 |`org.grails.events.rxjava2.RxEventBus`
+
+|RxJava 3.x
+|`grace-events-rxjava3`
+|`org.grails.events.rxjava3.RxEventBus`
 
 |===
