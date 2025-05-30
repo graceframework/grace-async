@@ -1,4 +1,7 @@
 introduction: Introduction
+releases:
+  title: Release History
+  release6: What's new in 6.x
 promises: Promises
 events:
     title: Events

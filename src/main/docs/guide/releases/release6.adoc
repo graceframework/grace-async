@@ -1,0 +1,309 @@
+=== 6.3.0
+
+https://github.com/graceframework/grace-async/releases/tag/v6.3.0[release notes]
+
+🛠 Improvements
+
+* Update README - Add document badge
+* Use javaParserCoreVersion in the build dependencies
+* Add publishing docs action for release workflow 
+* Add docs 
+* Add Gradle docs task 
+* Add Gradle docs workflow 
+* Use RxJava, RxJava2, RxJava3 GORM dependencies' versions in the BOM https://github.com/graceframework/grace-async/issues/65[#65]
+* Use GORM dependencies' versions in the BOM https://github.com/graceframework/grace-async/issues/64[#64]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.3.0-RC1 https://github.com/graceframework/grace-async/issues/62[#62]
+* Upgrade to Grace 2023.3.0-RC2 https://github.com/graceframework/grace-async/issues/67[#67]
+* Upgrade to Grace Data 2023.3.0-RC1 https://github.com/graceframework/grace-async/issues/63[#63]
+* Upgrade to Gradle 8.14 https://github.com/graceframework/grace-async/issues/66[#66]
+
+=== 6.3.0-RC1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.3.0-RC1[release notes]
+
+🛠 Improvements
+
+* Update README Update badge versions of Grace and Spring Boot
+* Streamline Gradle build scripts: using the Spring Dependency Management Plugin to manage dependencies and versions https://github.com/graceframework/grace-async/issues/60[#60]
+* Add Sonatype OSS Snapshots repository https://github.com/graceframework/grace-async/issues/57[#57]
+* Remove dependency on events plugin https://github.com/graceframework/grace-async/issues/56[#56]
+* Explicitly add dependencies on jakarta.annotation-api and grace-datastore-core https://github.com/graceframework/grace-async/issues/55[#55]
+* Remove the unnecessary workaround for removing the generated extra dependencyManagement of POM https://github.com/graceframework/grace-async/issues/50[#50]
+
+🐞 Bug Fixes
+
+* Add missing dependecies of spring-boot-autoconfigure in async plugin https://github.com/graceframework/grace-async/issues/53[#53]
+* Correct the description of generated POM for events modules https://github.com/graceframework/grace-async/issues/52[#52]
+* Don't apply plugin: 'io.spring.dependency-management' on project's modules https://github.com/graceframework/grace-async/issues/51[#51] https://github.com/graceframework/grace-async/issues/50[#50]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.3.0-M2 https://github.com/graceframework/grace-async/issues/45[#45]
+* Upgrade to Grace Data 2023.3.0-M1 https://github.com/graceframework/grace-async/issues/47[#47]
+* Upgrade to Gradle 8.13 https://github.com/graceframework/grace-async/issues/54[#54]
+* Upgrade to Groovy 4.0.26 https://github.com/graceframework/grace-async/issues/46[#46]
+* Upgrade to Java Parser 3.26.4 https://github.com/graceframework/grace-async/issues/61[#61]
+* Upgrade to Spring Framework 6.1.18 https://github.com/graceframework/grace-async/issues/48[#48]
+* Upgrade to SLF4J 2.0.17 https://github.com/graceframework/grace-async/issues/49[#49]
+
+=== 6.3.0-M1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.3.0-M1[release notes]
+
+🛠 Improvements
+
+* Remove unused Gradle version properties https://github.com/graceframework/grace-async/issues/44[#44]
+* Removes excluded Groovy 3.0 from GORM dependencies https://github.com/graceframework/grace-async/issues/43[#43]
+* Update README Update badge of Grace to current version
+* Cleanup gradle.properties 
+* Update github workflows Switch to 6.3.x branch
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.3.0-M1 https://github.com/graceframework/grace-async/issues/42[#42]
+
+=== 6.2.0
+
+https://github.com/graceframework/grace-async/releases/tag/v6.2.0[release notes]
+
+🛠 Improvements
+
+* Update README
+* Update GitHub issue template https://github.com/graceframework/grace-async/issues/39[#39]
+* Update build scripts to avoid deprecation warnings with Gradle 8 https://github.com/graceframework/grace-async/issues/38[#38]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.2.0-RC1 https://github.com/graceframework/grace-async/issues/35[#35]
+* Upgrade to Grace Data 2023.2.0-RC1 https://github.com/graceframework/grace-async/issues/36[#36]
+* Upgrade to Test Retry Gradle Plugin 1.6.0 https://github.com/graceframework/grace-async/issues/37[#37]
+
+=== 6.2.0-RC1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.2.0-RC1[release notes]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.2.0-M3 https://github.com/graceframework/grace-async/issues/32[#32]
+* Upgrade to Grace 2023.2.0-M2 https://github.com/graceframework/grace-async/issues/28[#28]
+* Upgrade to Grace Data 2023.2.0-M1 https://github.com/graceframework/grace-async/issues/29[#29]
+* Upgrade to Gradle 8.12 https://github.com/graceframework/grace-async/issues/33[#33]
+* Upgrade to RxJava 3.1.10 https://github.com/graceframework/grace-async/issues/31[#31]
+* Upgrade to Spring Framework 6.1.16 https://github.com/graceframework/grace-async/issues/30[#30]
+* Upgrade to Spring Dependency Management Plugin 1.1.7 https://github.com/graceframework/grace-async/issues/34[#34]
+
+=== 6.2.0-M1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.2.0-M1[release notes]
+
+🛠 Improvements
+
+* Update README Update badge of Spring Boot to current version
+* Update README 
+* Update github workflows
+
+🚀 Dependency Upgrades
+
+* Upgrade to Byte Buddy 1.14.19 https://github.com/graceframework/grace-async/issues/24[#24]
+* Upgrade to Grace 2023.2.0-M1 https://github.com/graceframework/grace-async/issues/21[#21]
+* Upgrade to Gradle Wrapper 7.6.4 https://github.com/graceframework/grace-async/issues/23[#23]
+* Upgrade to JUnit Platform 1.10.5 https://github.com/graceframework/grace-async/issues/26[#26]
+* Upgrade to JUnit Jupiter 5.10.5 https://github.com/graceframework/grace-async/issues/25[#25]
+* Upgrade to Spring Framework 6.1.15 https://github.com/graceframework/grace-async/issues/22[#22]
+* Upgrade to SLF4J 2.0.16 https://github.com/graceframework/grace-async/issues/27[#27]
+
+=== 6.1.0
+
+https://github.com/graceframework/grace-async/releases/tag/v6.1.0[release notes]
+
+🛠 Improvements
+
+* Use Java 17 toolchain https://github.com/graceframework/grace-async/issues/18[#18]
+* Use `gradlePluginPortal()` https://github.com/graceframework/grace-async/issues/17[#17]
+* Update Badges
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.1.0-RC1 https://github.com/graceframework/grace-async/issues/14[#14]
+* Upgrade to Grace Data 2023.1.0-RC1 https://github.com/graceframework/grace-async/issues/16[#16]
+* Upgrade to Groovy 4.0.24 https://github.com/graceframework/grace-async/issues/15[#15]
+
+=== 6.1.0-RC1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.1.0-RC1[release notes]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace Data 2023.1.0-M3 https://github.com/graceframework/grace-async/issues/13[#13]
+* Upgrade to Grace 2023.1.0-M3 https://github.com/graceframework/grace-async/issues/11[#11]
+* Upgrade to Gradle Nexus Publish Plugin 2.0.0 https://github.com/graceframework/grace-async/issues/12[#12]
+
+=== 6.1.0-M3
+
+https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M3[release notes]
+
+🛠 Improvements
+
+* Only add dependency `jakarta.annotation-api` to `grace-async-core` https://github.com/graceframework/grace-async/issues/10[#10]
+* Generate Spring Boot configuration metadata file https://github.com/graceframework/grace-async/issues/9[#9]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.1.0-M2 https://github.com/graceframework/grace-async/issues/7[#7]
+* Upgrade to Grace Data 2023.1.0-M2 https://github.com/graceframework/grace-async/issues/8[#8]
+
+=== 6.1.0-M2
+
+https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M2[release notes]
+
+🛠 Improvements
+
+* Auto-Configure Events Plugin https://github.com/graceframework/grace-async/issues/5[#5]
+* Auto-Configure Async Plugin https://github.com/graceframework/grace-async/issues/4[#4]
+* Update Examples Upgrade to Grace 2023.1.0-M1 https://github.com/graceframework/grace-async/issues/3[#3]
+
+🐞 Bug Fixes
+
+* Resolve JUnit version conflicts https://github.com/graceframework/grace-async/issues/6[#6]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2023.1.0-M1 https://github.com/graceframework/grace-async/issues/1[#1]
+* Upgrade to Grace Data 2023.1.0-M1 https://github.com/graceframework/grace-async/issues/2[#2]
+
+=== 6.1.0-M1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M1[release notes]
+
+🛠 Improvements
+
+* Remove setting role type `BeanDefinition.ROLE_INFRASTRUCTURE` of bean `grailsEventBus`
+* Remove setting role type `BeanDefinition.ROLE_INFRASTRUCTURE` of bean `asyncPromiseResponseActionResultTransformer`
+* Define `jakartaAnnotationVersion` 2.1.1 in `gradle.properties`
+* Update README
+* Update README
+* Change README.adoc to markdown
+* Update README
+
+🚀 Dependency Upgrades
+
+* Upgrade to Byte Buddy 1.14.16
+* Upgrade to Grace 2023.0.2
+* Upgrade to Grace 2023.0.1
+* Upgrade to Groovy 4.0.23
+* Upgrade to GORM 2023.0.1
+* Upgrade to Jakarta Inject 2.0.1
+* Upgrade to JavaParser 3.26.2
+* Upgrade to JUnit Jupiter 5.9.3 and JUnit Platform 1.9.3
+* Upgrade to Objenesis 3.4
+* Upgrade to SLF4J 2.0.13
+* Upgrade to Spring Dependency Management Plugin 1.1.6
+
+=== 6.0.1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.1[release notes]
+
+* Release v6.0.1
+* Upgrade to RxJava 3.1.9
+* Upgrade to SLF4J 2.0.9
+* Upgrade to Spring Framework 6.0.23
+* Upgrade to Grace GORM 2023.0.0
+* Upgrade to Grace 2023.0.0
+* Set version to 6.0.1-SNAPSHOT
+
+=== 6.0.0
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0[release notes]
+
+* Release v6.0.0
+* Upgrade to GORM 2023.0.0-RC1
+* Upgrade to Groovy 4.0.22
+* Upgrade to Grace 2023.0.0-RC2
+
+=== 6.0.0-RC1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0-RC1[release notes]
+
+* Release v6.0.0-RC1
+* Make dependency `grace-plugin-events` and `grace-events-compat` compileOnly
+* Make dependency `grace-events-compat` compileOnly
+* Upgrade to Spring Framework 6.0.22
+* Upgrade to GORM 2023.0.0-M5
+* Upgrade to Groovy 4.0.21
+* Upgrade to Grace 2023.0.0-M7
+* Add artifact `grails-plugin.xml`
+* Update github workflows
+* Update github workflows
+* Back to 6.0.0-SNAPSHOT
+
+=== 6.0.0-M4
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M4[release notes]
+
+* Release v6.0.0-M4
+* Set `archiveClassifier` with 'plugin'
+* Revert "Upgrade to Groovy 4.0.21"
+* Remove the legacy reactor `EventBus`
+* Fixes group of grace-test
+* Upgrade to Spring Framework 6.0.14
+* Upgrade to Groovy 4.0.21
+* Upgrade to Grace GORM 2023.0.0-M4
+* Upgrade to Grace 2023.0.0-M6
+* Grace: update github workflows
+* Set version to 6.0.0-SNAPSHOT
+* Grace: migrate to grace
+
+=== 6.0.0-M3
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M3[release notes]
+
+* Release v6.0.0-M3
+* Upgrade to Grace GORM 2023.0.0-M3
+* Upgrade to Grace 2023.0.0-M5
+* Update github workflows
+* Migrate to Grace
+* Release v6.0.0-M2
+* Upgrade to Hibernate core 5.6.15.Final
+
+=== 6.0.0-M2
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M2[release notes]
+
+* Release v6.0.0-M2
+* Remove unused travci files
+* Update plugins info
+* Migrate to grace app dir
+* Rename submodules
+* Grace: update gradle build scripts
+* Grace: update gradle build scripts
+* Upgrade to Grace GORM 2023.0.0-M2
+* Upgrade to Grace 2023.0.0-M2
+* Grace: update github workflows
+* Grace: migrate to grace
+* Upgrade to RxJava 3.1.6
+
+=== 6.0.0-M1
+
+https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M1[release notes]
+
+* Release v6.0.0-M1
+* Upgrade to Grace GORM 2023.0.0-M1
+* Grace: update github workflows
+* Grace: update github workflows
+* Grace: migrate to Groovy 4
+* Fixes Groovy STC errors
+* Upgrade to Hibernate core 5.6.15.Final
+* Upgrade to Groovy 4.0.11
+* Upgrade to Spring Framework 6.0.8
+* Support RxJava 3.0
+* Update build.gradle
+* Update build.gradle
+* Update examples
+* Update Dependencies
+* Update build.gradle to Gradle 7
+* Support Jakarta EE: migrate to jakarta.* namespace
+* Upgrade to Gradle 7.6.1
+* Next development version: 6.0.0-SNAPSHOT
