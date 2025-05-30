@@ -21,8 +21,59 @@ version = project.projectVersion
 
 apply plugin:'idea'
 
+apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: "io.github.gradle-nexus.publish-plugin"
+apply plugin: 'org.graceframework.grace-doc'
+
+configurations {
+    documentation
+}
+
+dependencies {
+    documentation 'com.github.javaparser:javaparser-core:3.26.4'
+    documentation "org.apache.groovy:groovy:$groovyVersion"
+    documentation "org.apache.groovy:groovy-ant:$groovyVersion"
+}
+
+def cleanTask = project.tasks.findByName('clean')
+if (cleanTask == null) {
+    task clean(type: Delete) {
+        delete(buildDir)
+    }
+}
+else {
+    cleanTask.doLast {
+        ant.delete(dir: 'build/docs')
+    }
+}
+
+tasks.withType(Groovydoc) {
+    group = 'Documentation'
+    docTitle = "Grace Async and Events Framework - ${project.version}"
+    destinationDir = project.file('build/docs/manual/api')
+    def files = []
+    project.rootProject.subprojects
+            .findAll { !it.name != 'docs' && !it.name.startsWith('examples') }
+            .each { subproject ->
+                if(subproject.file('src/main/groovy').exists()) {
+                    files += subproject.files('src/main/groovy')
+                }
+                if(subproject.file('src/main/java').exists()) {
+                    files += subproject.files('src/main/java')
+                }
+            }
+    if (project.file('src/main/groovy').exists()) {
+        files += project.files('src/main/groovy')
+    }
+    source = files
+    classpath += configurations.documentation
+}
+
+docs {
+    dependsOn groovydoc
+    sourceDir = project.file('src/main/docs')
+}
 
 nexusPublishing {
     repositories {
