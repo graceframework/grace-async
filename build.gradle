@@ -31,7 +31,7 @@ configurations {
 }
 
 dependencies {
-    documentation 'com.github.javaparser:javaparser-core:3.26.4'
+    documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
     documentation "org.apache.groovy:groovy:$groovyVersion"
     documentation "org.apache.groovy:groovy-ant:$groovyVersion"
 }
