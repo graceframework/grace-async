@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>3 Events 6.3.0-SNAPSHOT</title>
+    <title>4 Events 6.3.0-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -41,22 +41,25 @@ function addJsClass() {
                         <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/promises.html"><strong>2</strong><span>Promises</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/releases.html"><strong>2</strong><span>Release History</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/events.html"><strong>3</strong><span>Events</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/promises.html"><strong>3</strong><span>Promises</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncGorm.html"><strong>4</strong><span>Asynchronous GORM</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/events.html"><strong>4</strong><span>Events</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/rxjava.html"><strong>5</strong><span>RxJava Support</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncGorm.html"><strong>5</strong><span>Asynchronous GORM</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncRequests.html"><strong>6</strong><span>Asynchronous Request Handling</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/rxjava.html"><strong>6</strong><span>RxJava Support</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncServletApi.html"><strong>7</strong><span>Servlet 3.0 Async</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncRequests.html"><strong>7</strong><span>Asynchronous Request Handling</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncServletApi.html"><strong>8</strong><span>Servlet 3.0 Async</span></a>
                         </div>
                         
                     </div>
@@ -80,18 +83,18 @@ function addJsClass() {
             <div id="main" class="corner-all">
 
                 
-                    <div class="toc-item prev-left"><a href="../guide/promises.html">&lt;&lt; <strong>2</strong><span>Promises</span></a></div>
+                    <div class="toc-item prev-left"><a href="../guide/promises.html">&lt;&lt; <strong>3</strong><span>Promises</span></a></div>
                 
 
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
-                    <div class="toc-item next-right"><a href="../guide/asyncGorm.html"><strong>4</strong><span>Asynchronous GORM</span> >></a></div>
+                    <div class="toc-item next-right"><a href="../guide/asyncGorm.html"><strong>5</strong><span>Asynchronous GORM</span> >></a></div>
                 
 
 
                 <div class="project">
-                    <h1>3 Events</h1>
+                    <h1>4 Events</h1>
 
                     <p><strong>Version:</strong> 6.3.0-SNAPSHOT</p>
                 </div>
@@ -100,22 +103,22 @@ function addJsClass() {
                 <div id="table-of-content">
                     <h2>Table of Contents</h2>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#notifying"><strong>3.1</strong><span>Event Publishing</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#notifying"><strong>4.1</strong><span>Event Publishing</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#consuming"><strong>3.2</strong><span>Subscribing to Events</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#consuming"><strong>4.2</strong><span>Subscribing to Events</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#annotations"><strong>3.3</strong><span>Reactor Spring Annotations</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#annotations"><strong>4.3</strong><span>Reactor Spring Annotations</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#gormEvents"><strong>3.4</strong><span>Events from GORM</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#gormEvents"><strong>4.4</strong><span>Events from GORM</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#springEvents"><strong>3.5</strong><span>Events from Spring</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#springEvents"><strong>4.5</strong><span>Events from Spring</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#configure"><strong>3.6</strong><span>Configure the Default Event Bus</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#configure"><strong>4.6</strong><span>Configure the Default Event Bus</span></a>
                     </div>
                     
                 </div>
@@ -123,7 +126,7 @@ function addJsClass() {
 
                 
 
-<h1 id="events"><a class="anchor" href="#events"></a>3 Events</h1>
+<h1 id="events"><a class="anchor" href="#events"></a>4 Events</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events.adoc"'>
@@ -201,7 +204,7 @@ function addJsClass() {
 </table>
 
 
-<h2 id="notifying"><a class="anchor" href="#notifying"></a>3.1 Event Publishing</h2>
+<h2 id="notifying"><a class="anchor" href="#notifying"></a>4.1 Event Publishing</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/notifying.adoc"'>
@@ -265,7 +268,7 @@ class SumService <span class="directive">implements</span> EventPublisher {
 </div>
 
 
-<h2 id="consuming"><a class="anchor" href="#consuming"></a>3.2 Subscribing to Events</h2>
+<h2 id="consuming"><a class="anchor" href="#consuming"></a>4.2 Subscribing to Events</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/consuming.adoc"'>
@@ -331,7 +334,7 @@ class TotalService <span class="directive">implements</span> EventBusAware {
 </div>
 
 
-<h2 id="annotations"><a class="anchor" href="#annotations"></a>3.3 Reactor Spring Annotations</h2>
+<h2 id="annotations"><a class="anchor" href="#annotations"></a>4.3 Reactor Spring Annotations</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/annotations.adoc"'>
@@ -361,7 +364,7 @@ class TotalService <span class="directive">implements</span> EventBusAware {
 </div>
 
 
-<h2 id="gormEvents"><a class="anchor" href="#gormEvents"></a>3.4 Events from GORM</h2>
+<h2 id="gormEvents"><a class="anchor" href="#gormEvents"></a>4.4 Events from GORM</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/gormEvents.adoc"'>
@@ -430,7 +433,7 @@ If you plan to modify properties of an entity being inserted, use the <code>Enti
 </div>
 
 
-<h2 id="springEvents"><a class="anchor" href="#springEvents"></a>3.5 Events from Spring</h2>
+<h2 id="springEvents"><a class="anchor" href="#springEvents"></a>4.5 Events from Spring</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/springEvents.adoc"'>
@@ -472,7 +475,7 @@ If you plan to modify properties of an entity being inserted, use the <code>Enti
 </div>
 
 
-<h2 id="configure"><a class="anchor" href="#configure"></a>3.6 Configure the Default Event Bus</h2>
+<h2 id="configure"><a class="anchor" href="#configure"></a>4.6 Configure the Default Event Bus</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/events/configure.adoc"'>
@@ -514,9 +517,9 @@ beans = {
 
                 <div style="clear:both;margin-top:15px;"></div>
                 
-                    <div class="toc-item prev-left"><a href="../guide/promises.html">&lt;&lt; <strong>2</strong><span>Promises</span></a></div>
+                    <div class="toc-item prev-left"><a href="../guide/promises.html">&lt;&lt; <strong>3</strong><span>Promises</span></a></div>
                 
-                    <div class="toc-item next-right"><a href="../guide/asyncGorm.html"><strong>4</strong><span>Asynchronous GORM</span> >></a></div>
+                    <div class="toc-item next-right"><a href="../guide/asyncGorm.html"><strong>5</strong><span>Asynchronous GORM</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>
