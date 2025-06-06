@@ -27,7 +27,7 @@ function addJsClass() {
         
         <div class="docHeader">
             <h1 class="docTitle">Grace Async and Events Framework</h1>
-            <h3 class="docSubTitle">Provides APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as GPars and RxJava, RxJava2, RxJava3</h3>
+            <h3 class="docSubTitle">Provides various asynchronous libraries and frameworks that integrate Grace</h3>
         </div>
     </div>
     <div class="navLinks">
@@ -44,22 +44,10 @@ function addJsClass() {
                         <div class="toc-item" style="margin-left:0"><a href="../guide/releases.html"><strong>2</strong><span>Release History</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/promises.html"><strong>3</strong><span>Promises</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/usage.html"><strong>3</strong><span>Usage</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/events.html"><strong>4</strong><span>Events</span></a>
-                        </div>
-                        
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncGorm.html"><strong>5</strong><span>Asynchronous GORM</span></a>
-                        </div>
-                        
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/rxjava.html"><strong>6</strong><span>RxJava Support</span></a>
-                        </div>
-                        
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncRequests.html"><strong>7</strong><span>Asynchronous Request Handling</span></a>
-                        </div>
-                        
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/asyncServletApi.html"><strong>8</strong><span>Servlet 3.0 Async</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/support.html"><strong>4</strong><span>Support</span></a>
                         </div>
                         
                     </div>
@@ -111,10 +99,11 @@ function addJsClass() {
 
 
 <div class="paragraph">
-<p>With modern hardware featuring multiple cores, many programming languages have been adding asynchronous, parallel programming APIs, Groovy being no exception.</p>
+<p>This project contains APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as <a href="https://github.com/GPars/GPars">GPars</a> and <a href="https://github.com/ReactiveX/RxJava/tree/1.x">RxJava</a>, <a href="https://github.com/ReactiveX/RxJava/releases/tag/v2.2.21">RxJava2</a>, <a href="https://github.com/ReactiveX/RxJava/releases">RxJava3</a>.</p>
 </div>
 <div class="paragraph">
-<p>Added Grails 2.3 and since 3.3 an external project, the Async features of Grails aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model.</p>
+<p>The Async framework aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model,
+and the Events framework provides a new Events API that replaces the previous implementation that was based on Reactor <a href="https://github.com/reactor/reactor/tree/v2.0.8.RELEASE">2.x</a> (which is no longer maintained and deprecated).</p>
 </div>
 
 

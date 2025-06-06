@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>3.1 Async Plugin 6.3.0-SNAPSHOT</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <div class="navHeader">
+        
+        <span id="logo">
+            <a href="https://graceframework.org" title="Grace Framework Website">
+                <img src="../img/grace.svg" alt="Grace Framework" />
+            </a>
+        </span>
+        
+        <div class="docHeader">
+            <h1 class="docTitle">Grace Async and Events Framework</h1>
+            <h3 class="docSubTitle">Provides various asynchronous libraries and frameworks that integrate Grace</h3>
+        </div>
+    </div>
+    <div class="navLinks">
+        <ul>
+            <li>
+                <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                    <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                    <div id="nav-summary-childs" style="display:none;">
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/releases.html"><strong>2</strong><span>Release History</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/usage.html"><strong>3</strong><span>Usage</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/support.html"><strong>4</strong><span>Support</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" href="../api/index.html">API Docs</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/releases.html">&lt;&lt; <strong>2</strong><span>Release History</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/support.html"><strong>4</strong><span>Support</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>3.1 Async Plugin</h1>
+
+                    <p><strong>Version:</strong> 6.3.0-SNAPSHOT</p>
+                </div>
+
+                
+
+                
+
+<h2 id="async"><a class="anchor" href="#async"></a>3.1 Async Plugin</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/6.3.x/src/main/docs/guide/async.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use the Async framework you should add a dependency on the <code>async</code> plugin to your <code>build.gradle</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework.plugins:async:6.3.0-SNAPSHOT"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default the <code>Promises</code> static methods use an instance of <code>PromiseFactory</code>. This <code>PromiseFactory</code> interface has various implementations.
+The default implementation is <a href="../api/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html">CachedThreadPoolPromiseFactory</a> which uses a thread pool that will create threads as needed (the same as <code>java.util.concurrent.Executors.newCachedThreadPool()</code>)</p>
+</div>
+<div class="paragraph">
+<p>However, the design of the promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations.
+For example to use RxJava 1.x simply add the RxJava dependency to <code>build.gradle</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework:grace-async-rxjava:6.3.0-SNAPSHOT"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table summarizes async framework support and the necessary dependency:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. PromiseFactory Implementations</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Framework</th>
+<th class="tableblock halign-left valign-top">Dependency</th>
+<th class="tableblock halign-left valign-top">Implementation Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GPars 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-gpars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.gpars.GparsPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava.RxPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava2.RxPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava3.RxPromiseFactory</code></p></td>
+</tr>
+</tbody>
+</table>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/releases.html">&lt;&lt; <strong>2</strong><span>Release History</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/support.html"><strong>4</strong><span>Support</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    Copyright &copy; 2022-2025 Michael Yan and the original authors. The content is licensed under a Creative Commons Attribution 4.0 International (CC BY SA 4.0) license.
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
