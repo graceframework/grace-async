@@ -26,55 +26,6 @@ apply plugin: 'maven-publish'
 apply plugin: "io.github.gradle-nexus.publish-plugin"
 apply plugin: 'org.graceframework.grace-doc'
 
-configurations {
-    documentation
-}
-
-dependencies {
-    documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
-    documentation "org.apache.groovy:groovy:$groovyVersion"
-    documentation "org.apache.groovy:groovy-ant:$groovyVersion"
-}
-
-def cleanTask = project.tasks.findByName('clean')
-if (cleanTask == null) {
-    task clean(type: Delete) {
-        delete(buildDir)
-    }
-}
-else {
-    cleanTask.doLast {
-        ant.delete(dir: 'build/docs')
-    }
-}
-
-tasks.withType(Groovydoc) {
-    group = 'Documentation'
-    docTitle = "Grace Async and Events Framework - ${project.version}"
-    destinationDir = project.file('build/docs/manual/api')
-    def files = []
-    project.rootProject.subprojects
-            .findAll { !it.name != 'docs' && !it.name.startsWith('examples') }
-            .each { subproject ->
-                if(subproject.file('src/main/groovy').exists()) {
-                    files += subproject.files('src/main/groovy')
-                }
-                if(subproject.file('src/main/java').exists()) {
-                    files += subproject.files('src/main/java')
-                }
-            }
-    if (project.file('src/main/groovy').exists()) {
-        files += project.files('src/main/groovy')
-    }
-    source = files
-    classpath += configurations.documentation
-}
-
-docs {
-    dependsOn groovydoc
-    sourceDir = project.file('src/main/docs')
-}
-
 nexusPublishing {
     repositories {
         sonatype {
@@ -98,6 +49,17 @@ allprojects {
                 url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
             }
         }
+    }
+
+    configurations {
+        documentation
+    }
+
+    dependencies {
+        documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
+        documentation "org.apache.groovy:groovy:$groovyVersion"
+        documentation "org.apache.groovy:groovy-ant:$groovyVersion"
+        documentation "org.apache.groovy:groovy-dateutil:$groovyVersion"
     }
 }
 
@@ -139,26 +101,10 @@ subprojects { project->
         }
     }
 
-    repositories {
-        mavenCentral()
-    }
-
-    apply from: '../publishing/mavenCentral.gradle'
-
-
     if (project.name.startsWith('grace-')) {
-
-        configurations {
-            documentation
-        }
-
         dependencies {
             api "org.apache.groovy:groovy"
             api "org.slf4j:slf4j-api"
-            documentation "org.fusesource.jansi:jansi:$jansiVersion"
-            documentation "org.apache.groovy:groovy-dateutil"
-            documentation "info.picocli:picocli:4.6.3"
-            documentation "com.github.javaparser:javaparser-core:$javaParserCoreVersion"
 
             testImplementation "org.spockframework:spock-core", {
                 exclude group: "org.junit.platform", module: "junit-platform-engine"
@@ -200,8 +146,47 @@ subprojects { project->
         tasks.named('compileJava') {
             inputs.files(tasks.named('processResources'))
         }
-
-        groovydoc.classpath = configurations.documentation
     }
 
+    apply from: '../publishing/mavenCentral.gradle'
+}
+
+
+def cleanTask = project.tasks.findByName('clean')
+if (cleanTask == null) {
+    task clean(type: Delete) {
+        delete(buildDir)
+    }
+}
+else {
+    cleanTask.doLast {
+        ant.delete(dir: 'build/docs')
+    }
+}
+
+tasks.withType(Groovydoc) {
+    group = 'Documentation'
+    docTitle = "Grace Async and Events Framework - ${project.version}"
+    destinationDir = project.file('build/docs/manual/api')
+    def files = []
+    project.rootProject.subprojects
+            .findAll { !it.name != 'docs' && !it.name.startsWith('examples') }
+            .each { subproject ->
+                if(subproject.file('src/main/groovy').exists()) {
+                    files += subproject.files('src/main/groovy')
+                }
+                if(subproject.file('src/main/java').exists()) {
+                    files += subproject.files('src/main/java')
+                }
+            }
+    if (project.file('src/main/groovy').exists()) {
+        files += project.files('src/main/groovy')
+    }
+    source = files
+    classpath += configurations.documentation
+}
+
+docs {
+    dependsOn groovydoc
+    sourceDir = project.file('src/main/docs')
 }
