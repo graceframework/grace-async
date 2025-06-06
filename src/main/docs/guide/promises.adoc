@@ -1,17 +1,16 @@
 A Promise is a concept being embraced by many concurrency frameworks. They are similar to `java.util.concurrent.Future` instances, but include a more user friendly exception handling model, useful features like chaining and the ability to attach listeners.
 
-To use the Grails Promise abstraction you should add a dependency on the `async` plugin to your `build.gradle` file:
+To use the `Promise` abstraction you should add a dependency on the `async` plugin to your `build.gradle` file:
 
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.graceframework.plugins:async:{version}"
+implementation "org.graceframework.plugins:async:{version}"
 ----
 
 === Promise Basics
 
-
-In Grails the `grails.async.Promises` class provides the entry point to the Promise API:
+The `grails.async.Promises` class provides the entry point to the Promise API:
 
 [source,groovy]
 ----
@@ -72,14 +71,16 @@ def result = p.get(1,MINUTES)
 
 === The PromiseFactory Interface
 
-By default the `Promises` static methods use an instance of `PromiseFactory`. This `PromiseFactory` interface has various implementations. The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`)
+By default the `Promises` static methods use an instance of `PromiseFactory`. This `PromiseFactory` interface has various implementations.
+The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`)
 
-However, the design of the Grails promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations. For example to use RxJava 1.x simply add the RxJava dependency to `build.gradle`:
+However, the design of the promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations.
+For example to use RxJava 1.x simply add the RxJava dependency to `build.gradle`:
 
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.graceframework:grace-async-rxjava:{version}"
+implementation "org.graceframework:grace-async-rxjava:{version}"
 ----
 
 With the above in place RxJava 1.x will be used to create `Promise` instances.
@@ -110,7 +111,8 @@ The following table summarizes the available implementation and the dependency t
 You can also override the `grails.async.PromiseFactory` class used by `Promises` by setting the `promiseFactory` static field.
 
 
-One common use case for this is unit testing, typically you do not want promises to execute asynchronously during unit tests, as this makes tests harder to write. For this purpose Grails ships with a `org.grails.async.factory.SynchronousPromiseFactory` instance that makes it easier to test promises:
+One common use case for this is unit testing, typically you do not want promises to execute asynchronously during unit tests, as this makes tests harder to write.
+For this purpose Grails ships with a `org.grails.async.factory.SynchronousPromiseFactory` instance that makes it easier to test promises:
 
 [source,groovy]
 ----
@@ -120,10 +122,10 @@ import grails.async.*
 Promises.promiseFactory = new SynchronousPromiseFactory()
 ----
 
-Using the `PromiseFactory` mechanism it is theoretically possible to plug in other concurrency libraries into the Grails framework. For this you need to override the two interfaces `grails.async.Promise` and `grails.async.PromiseFactory`.
+Using the `PromiseFactory` mechanism it is theoretically possible to plug in other concurrency libraries into the Grace framework.
+For this you need to override the two interfaces `grails.async.Promise` and `grails.async.PromiseFactory`.
 
 === Promise Chaining
-
 
 It is possible to chain several promises and wait for the chain to complete using the `then` method:
 
@@ -147,8 +149,7 @@ If an exception occurs at any point in the chain it will be propagated back to t
 
 === Promise Lists and Maps
 
-
-Grails' async API also features the concept of a promise lists and maps. These are represented by the `grails.async.PromiseList` and `grails.async.PromiseMap` classes respectively.
+The Async API also features the concept of a promise lists and maps. These are represented by the `grails.async.PromiseList` and `grails.async.PromiseMap` classes respectively.
 
 The easiest way to create a promise list or map is via the `tasks` method of the `Promises` class:
 
@@ -176,10 +177,9 @@ list.onComplete { List results ->
 }
 ----
 
-NOTE: The `PromiseList` class does not implement the java.util.List interface, but instead returns a java.util.List from the get() method
+NOTE: The `PromiseList` class does not implement the `java.util.List` interface, but instead returns a `java.util.List` from the `get()` method.
 
 Working with `PromiseMap` instances is largely similar. Again you can either use the `tasks` method:
-
 
 [source,groovy]
 ----
@@ -208,11 +208,10 @@ map.onComplete { Map results ->
 ----
 
 
-
 === DelegateAsync Transformation
 
-
-It is quite common to require both synchronous and asynchronous versions of the same API. Developing both can result in a maintenance problem as typically the asynchronous API would simply delegate to the synchronous version.
+It is quite common to require both synchronous and asynchronous versions of the same API.
+Developing both can result in a maintenance problem as typically the asynchronous API would simply delegate to the synchronous version.
 
 The `DelegateAsync` transformation is designed to mitigate this problem by transforming any synchronous API into an asynchronous one.
 

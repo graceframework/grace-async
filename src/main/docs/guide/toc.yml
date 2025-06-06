@@ -1,20 +1,9 @@
 introduction: Introduction
 releases:
   title: Release History
-  release6: What's new in 6.x
-promises: Promises
-events:
-    title: Events
-    notifying: Event Publishing
-    consuming: Subscribing to Events
-    annotations: Reactor Spring Annotations
-    gormEvents: Events from GORM
-    springEvents: Events from Spring
-    configure: Configure the Default Event Bus
-asyncGorm: Asynchronous GORM
-rxjava:
-  title: RxJava Support
-  serverSentEvents: Server Sent Events
-  rxGorm: RxGORM
-asyncRequests: Asynchronous Request Handling
-asyncServletApi: Servlet 3.0 Async
+  6.x: What's new in 6.x
+usage:
+  title: Usage
+  async: Async Plugin
+  events: Events Plugin
+support: Support

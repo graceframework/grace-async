@@ -1,3 +1,4 @@
-With modern hardware featuring multiple cores, many programming languages have been adding asynchronous, parallel programming APIs, Groovy being no exception.
+This project contains APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as https://github.com/GPars/GPars[GPars] and https://github.com/ReactiveX/RxJava/tree/1.x[RxJava], https://github.com/ReactiveX/RxJava/releases/tag/v2.2.21[RxJava2], https://github.com/ReactiveX/RxJava/releases[RxJava3].
 
-Added Grails 2.3 and since 3.3 an external project, the Async features of Grails aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model.
+The Async framework aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model, 
+and the Events framework provides a new Events API that replaces the previous implementation that was based on Reactor https://github.com/reactor/reactor/tree/v2.0.8.RELEASE[2.x] (which is no longer maintained and deprecated).

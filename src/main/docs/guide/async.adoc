@@ -1,0 +1,43 @@
+To use the Async framework you should add a dependency on the `async` plugin to your `build.gradle` file:
+
+[source,groovy,subs="attributes"]
+.build.gradle
+----
+implementation "org.graceframework.plugins:async:{version}"
+----
+
+By default the `Promises` static methods use an instance of `PromiseFactory`. This `PromiseFactory` interface has various implementations.
+The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`)
+
+However, the design of the promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations.
+For example to use RxJava 1.x simply add the RxJava dependency to `build.gradle`:
+
+[source,groovy,subs="attributes"]
+.build.gradle
+----
+implementation "org.graceframework:grace-async-rxjava:{version}"
+----
+
+The following table summarizes async framework support and the necessary dependency:
+
+.PromiseFactory Implementations
+|===
+|Framework | Dependency | Implementation Class
+
+|GPars 1.2.x
+|`grace-async-gpars`
+|`org.grails.async.factory.gpars.GparsPromiseFactory`
+
+|RxJava 1.2.x
+|`grace-async-rxjava`
+|`org.grails.async.factory.rxjava.RxPromiseFactory`
+
+|RxJava 2.x
+|`grace-async-rxjava2`
+|`org.grails.async.factory.rxjava2.RxPromiseFactory`
+
+|RxJava 3.x
+|`grace-async-rxjava3`
+|`org.grails.async.factory.rxjava3.RxPromiseFactory`
+
+|===

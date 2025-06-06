@@ -1,23 +1,25 @@
-Grails 3.3 introduces a new Events API that replaces the previous implementation that was based on Reactor 2.x (which is no longer maintained and deprecated).
+This project introduces a new Events API that replaces the previous implementation that was based on Reactor 2.x (which is no longer maintained and deprecated).
 
-In Grails 3.3 and above a new link:{api}/grails/events/bus/EventBus.html[EventBus] abstraction has been introduced. Like the `PromiseFactory` notion, there are implementations of the `EventBus` interface for common asynchronous frameworks like GPars and RxJava.
+The Events framework introduces a new link:{api}/grails/events/bus/EventBus.html[EventBus] abstraction.
+Like the `PromiseFactory` notion, there are implementations of the `EventBus` interface for common asynchronous frameworks like GPars and RxJava.
 
-To use the Grails Events abstraction you should add a dependency on the `events` plugin to your `build.gradle` file:
+To use the Events abstraction you should add a dependency on the `events` plugin to your `build.gradle` file:
 
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.graceframework.plugins:events:{version}"
+implementation "org.graceframework.plugins:events:{version}"
 ----
 
-If no asynchronous framework in present on the classpath then by default Grails creates an EventBus based off of the currently active `PromiseFactory`. The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`).
+If no asynchronous framework in present on the classpath then by default Grace creates an EventBus based off of the currently active `PromiseFactory`.
+The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`).
 
 If you wish to use a popular async framework such as RxJava as the `EventBus` implementation then you will need to add the appropriate dependency. For example for RxJava 1.x:
 
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-runtime "org.graceframework:grace-events-rxjava:{version}"
+implementation "org.graceframework:grace-events-rxjava:{version}"
 ----
 
 The following table summarizes async framework support and the necessary dependency:

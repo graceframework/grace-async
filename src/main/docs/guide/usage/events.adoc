@@ -1,0 +1,43 @@
+
+[cols="1,1,2"]
+|===
+| **Group**
+| **ArtifactId**
+| **Description**
+
+| org.graceframework
+| grace-events-core
+|
+
+| org.graceframework
+| grace-events-compat
+|
+
+| org.graceframework
+| grace-events-transform
+|
+
+| org.graceframework
+| grace-events-gpars
+|
+
+| org.graceframework
+| grace-events-spring
+|
+
+| org.graceframework
+| grace-events-rxjava
+|
+
+| org.graceframework
+| grace-events-rxjava2
+|
+
+| org.graceframework
+| grace-events-rxjava3
+|
+
+| org.graceframework.plugins
+| events
+|
+|===
