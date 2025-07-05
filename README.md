@@ -8,9 +8,13 @@
 [![Grace Version](https://img.shields.io/badge/Grace-2023.3.0-blue?style=flat&color=f49b06)](https://github.com/graceframework/grace-framework/releases/tag/v2023.3.0-RC2)
 [![Spring Boot Version](https://img.shields.io/badge/Spring_Boot-3.3.12-blue?style=flat&color=6db33f)](https://github.com/spring-projects/spring-boot/releases/tag/v3.3.12)
 
-# Grace Async and Events Framework
+# Grace Async Framework
 
 This project contains APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as [GPars](https://github.com/GPars/GPars) and [RxJava](https://github.com/ReactiveX/RxJava/tree/1.x), [RxJava2](https://github.com/ReactiveX/RxJava/releases/tag/v2.2.21), [RxJava3](https://github.com/ReactiveX/RxJava/releases).
+
+
+> [!IMPORTANT]
+> Grace `events` plugin and the related modules have already been splitting into its' own repository []`grace-events`](https://github.com/graceframework/grace-events).
 
 ## Versions
 
@@ -18,6 +22,7 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 
 | Plugin Version | Grace Version |
 |----------------|---------------|
+| 7.0.x          | 2024.0.x      |
 | 6.3.x          | 2023.3.x      |
 | 6.2.x          | 2023.2.x      |
 | 6.1.x          | 2023.1.x      |
