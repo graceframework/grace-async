@@ -66,7 +66,7 @@ subprojects { project->
         group = "org.graceframework.plugins"
     }
     else {
-        group = "org.graceframework"
+        group = "org.graceframework.async"
     }
     version = project.projectVersion
 
@@ -75,7 +75,7 @@ subprojects { project->
             packageGroup = 'org.graceframework.plugins'
         }
         else {
-            packageGroup = "org.graceframework"
+            packageGroup = "org.graceframework.async"
         }
     }
 
