@@ -14,7 +14,7 @@ This project contains APIs and libraries that integrate Grace with various async
 
 
 > [!IMPORTANT]
-> Since 7.0, Grace `events` plugin and the related modules have already been splitting into its' own repository []`grace-events`](https://github.com/graceframework/grace-events).
+> Since 7.0, Grace `events` plugin and the related modules have already been split into its' own repository [`grace-events`](https://github.com/graceframework/grace-events).
 
 ## Versions
 
@@ -38,4 +38,5 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 ## Links
 
 - [Grace Framework](https://github.com/graceframework/grace-framework)
+- [Grace Events](https://github.com/graceframework/grace-events)
 - [Grace Plugins](https://github.com/grace-plugins)
