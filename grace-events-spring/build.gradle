@@ -1,4 +1,0 @@
-dependencies {
-    api project(":grace-events-core")
-    implementation "org.springframework:spring-context"
-}

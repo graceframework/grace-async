@@ -173,7 +173,7 @@ else {
 
 tasks.withType(Groovydoc) {
     group = 'Documentation'
-    docTitle = "Grace Async and Events Framework - ${project.version}"
+    docTitle = "Grace Async Framework - ${project.version}"
     destinationDir = project.file('build/docs/manual/api')
     def files = []
     project.rootProject.subprojects

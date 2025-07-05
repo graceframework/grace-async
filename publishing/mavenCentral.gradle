@@ -35,9 +35,6 @@ publishing {
                 if (project.name.contains('async')) {
                     description = "Grace Async Framework : $projectName"
                 }
-                if (project.name.contains('events')) {
-                    description = "Grace Events Framework : $projectName"
-                }
                 url = 'https://github.com/graceframework/grace-async'
                 licenses {
                     license {
