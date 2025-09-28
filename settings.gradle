@@ -5,7 +5,6 @@ include 'grace-async-gpars'
 include 'grace-async-rxjava'
 include 'grace-async-rxjava2'
 include 'grace-async-rxjava3'
-include 'grace-plugin-async'
 
 // examples
 // include 'pubsub-demo'
