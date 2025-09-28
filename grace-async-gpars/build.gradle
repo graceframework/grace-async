@@ -4,4 +4,5 @@ dependencies {
         exclude group:'org.multiverse', module:'multiverse-core'
         exclude group:'org.codehaus.groovy', module: 'groovy-all'
     }
+    testImplementation "org.slf4j:slf4j-simple"
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,13 +15,16 @@
  */
 package grails.async
 
-import grails.async.decorator.PromiseDecorator
-import org.grails.async.factory.SynchronousPromiseFactory
 import spock.lang.Issue
 import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
+
+import grails.async.decorator.PromiseDecorator
+import org.grails.async.factory.SynchronousPromiseFactory
 
 /**
  * @author Graeme Rocher
+ * @author Michael Yan
  * @since 2.3
  */
 class SynchronousPromiseFactorySpec extends Specification {
@@ -35,6 +38,9 @@ class SynchronousPromiseFactorySpec extends Specification {
     }
 
     void "Test add promise decorator"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
+
         when:"A decorator is added"
         def decorator = { Closure c ->
             return { "*${c.call(*it)}*" }
@@ -44,19 +50,29 @@ class SynchronousPromiseFactorySpec extends Specification {
         def result = p.get()
 
         then:"The result is decorate"
-        result == "*10*"
+        conditions.eventually {
+            result == "*10*"
+        }
     }
 
     void "Test promise map handling"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise map is created"
         def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four:{2 * 2})
         def result = map.get()
 
         then:"The map is valid"
-        result == [one: 1, two: 2, four: 4]
+        conditions.eventually {
+            result == [one: 1, two: 2, four: 4]
+        }
     }
 
     void "Test promise list handling"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise list is created from two promises"
         def p1 = Promises.createPromise { 1 + 1 }
         def p2 = Promises.createPromise { 2 + 2 }
@@ -67,9 +83,10 @@ class SynchronousPromiseFactorySpec extends Specification {
             result = v
         }
 
-        sleep 200
         then:"The result is correct"
-        result == [2,4]
+        conditions.eventually {
+            result == [2, 4]
+        }
 
         when:"A promise list is created from two closures"
         list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
@@ -78,12 +95,15 @@ class SynchronousPromiseFactorySpec extends Specification {
             result = v
         }
 
-        sleep 200
         then:"The result is correct"
-        result == [2,4]
+        conditions.eventually {
+            result == [2, 4]
+        }
     }
 
     void "Test promise onComplete handling"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
 
         when:"A promise is executed with an onComplete handler"
         def promise = Promises.createPromise { 1 + 1 }
@@ -95,14 +115,17 @@ class SynchronousPromiseFactorySpec extends Specification {
         promise.onError {
             hasError = true
         }
-        sleep 1000
 
         then:"The onComplete handler is invoked and the onError handler is ignored"
-        result == 2
-        hasError == false
+        conditions.eventually {
+            result == 2
+            hasError == false
+        }
     }
 
     void "Test promise onError handling"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
 
         when:"A promise is executed with an onComplete handler"
         def promise = Promises.createPromise {
@@ -119,22 +142,32 @@ class SynchronousPromiseFactorySpec extends Specification {
         sleep 1000
 
         then:"The onComplete handler is invoked and the onError handler is ignored"
-        result == null
-        error != null
-        error.message == "bad"
+        conditions.eventually {
+            result == null
+            error != null
+            error.message == "bad"
+        }
     }
 
     void "Test promise chaining"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise is chained"
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise.then { it * 2 } then { it + 6 }
         def val = promise.get()
 
         then:'the chain is executed'
-        val == 10
+        conditions.eventually {
+            val == 10
+        }
     }
 
     void "Test promise chaining with exception"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise is chained"
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise.then { it * 2 } then { throw new RuntimeException("bad")} then { it + 6 }
@@ -142,24 +175,30 @@ class SynchronousPromiseFactorySpec extends Specification {
 
         then:'the chain is executed'
         thrown RuntimeException
-        val == null
+        conditions.eventually {
+            val == null
+        }
     }
 
     @Issue("GRAILS-9229")
     void "Test promise is executed without calling get"() {
         given:
+        def conditions = new PollingConditions(timeout: 2)
         Closure callable = Mock(Closure)
 
         when:"A promise is created"
         Promises.createPromise(callable)
 
         then:'the closure is executed'
-        1 * callable.call()
+        conditions.eventually {
+            1 * callable.call()
+        }
     }
 
     @Issue("GRAILS-10152")
     void "Test promise closure is not executed multiple times if it returns null"() {
         given:
+        def conditions = new PollingConditions(timeout: 2)
         Closure callable =  Mock(Closure) {
             call() >> null
         }
@@ -168,6 +207,8 @@ class SynchronousPromiseFactorySpec extends Specification {
         Promises.waitAll([Promises.createPromise(callable), Promises.createPromise(callable)])
 
         then:'the closure is executed twice'
-        2 * callable.call()
+        conditions.eventually {
+            2 * callable.call()
+        }
     }
 }

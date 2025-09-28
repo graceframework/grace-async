@@ -15,18 +15,22 @@
  */
 package grails.async
 
-import spock.lang.Specification
-
 import java.util.concurrent.ExecutionException
+
+import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
 
 /**
  * @author Graeme Rocher
+ * @author Michael Yan
  * @since 2.3
  */
 class PromiseListSpec extends Specification{
 
-
     void "Test promise list handling"() {
+        given:
+            def conditions = new PollingConditions(timeout: 2)
+
         when:"A list of promises is created"
             def list = new PromiseList()
             list << { 1 }
@@ -36,13 +40,17 @@ class PromiseListSpec extends Specification{
             list.onComplete { List results ->
                 res = results
             }
-            sleep 500
 
         then:'then the result from onComplete is correct'
-            res == [1,2,3]
+            conditions.eventually {
+                res == [1,2,3]
+            }
     }
 
     void "Test promise list handling with some async operations and some values"() {
+        given:
+            def conditions = new PollingConditions(timeout: 2)
+
         when:"A list of promises is created"
             def list = new PromiseList()
             list << { 1 }
@@ -52,23 +60,31 @@ class PromiseListSpec extends Specification{
             list.onComplete { List results ->
                 res = results
             }
-            sleep 500
 
         then:'then the result from onComplete is correct'
-            res == [1,2,3]
+            conditions.eventually {
+                res == [1,2,3]
+            }
     }
 
     void "Test promise list with then chaining"() {
+        given:
+            def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise list is used with then chaining"
             def list = new PromiseList<Integer>()
             list << { 1 } << { 2 } << {3}
-            def result = list   .get()
+            def result = list.get()
         then:"An appropriately populated list is produced"
-            result == [1,2,3]
-
+            conditions.eventually {
+                result == [1,2,3]
+            }
     }
 
     void "Test promise list with an exception"() {
+        given:
+            def conditions = new PollingConditions(timeout: 2)
+
         when:"A promise list with a promise that throws an exception"
             def list = new PromiseList()
             list << {
@@ -84,7 +100,9 @@ class PromiseListSpec extends Specification{
 
         then:'the onError handler is invoked with the exception'
             def err = thrown(ExecutionException)
-            err != null
-            err.message == "java.lang.RuntimeException: bad"
+            conditions.eventually {
+                err != null
+                err.message == "java.lang.RuntimeException: bad"
+            }
     }
 }

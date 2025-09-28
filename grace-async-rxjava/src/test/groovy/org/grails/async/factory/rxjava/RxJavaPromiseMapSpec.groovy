@@ -1,15 +1,33 @@
+/*
+ * Copyright 2013-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.grails.async.factory.rxjava
 
 import grails.async.PromiseMap
-import spock.lang.Ignore
 import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
 
 /**
- * Created by graemerocher on 29/03/2017.
+ * @author Graeme Rocher
+ * @author Michael Yan
+ * @since 2.3
  */
 class RxJavaPromiseMapSpec extends Specification{
 
     void "Test PromiseMap with mixture of normal entries and promises populated via constructor"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is used with an onComplete handler"
         def map = new PromiseMap<String, Integer>(one:{1}, four:4, eight:{4*2})
         Map<String, Integer> result
@@ -17,16 +35,17 @@ class RxJavaPromiseMapSpec extends Specification{
             result = m
         }
 
-        sleep 300
-
         then:"An appropriately populated map is returned to the onComplete event"
-        result != null
-        result["one"] == 1
-        result["four"] == 4
-        result["eight"] == 8
-
+        conditions.eventually {
+            result != null
+            result["one"] == 1
+            result["four"] == 4
+            result["eight"] == 8
+        }
     }
+
     void "Test PromiseMap with mixture of normal entries and promises"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is used with an onComplete handler"
         def map = new PromiseMap<String, Integer>()
         map["one"] = { 1 }
@@ -38,17 +57,17 @@ class RxJavaPromiseMapSpec extends Specification{
             result = m
         }
 
-        sleep 300
-
         then:"An appropriately populated map is returned to the onComplete event"
-        result != null
-        result["one"] == 1
-        result["four"] == 4
-        result["eight"] == 8
-
+        conditions.eventually {
+            result != null
+            result["one"] == 1
+            result["four"] == 4
+            result["eight"] == 8
+        }
     }
 
     void "Test that a PromiseMap populates values from promises onComplete"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is used with an onComplete handler"
         def map = new PromiseMap<String, Integer>()
         map["one"] = { 1 }
@@ -60,19 +79,17 @@ class RxJavaPromiseMapSpec extends Specification{
             result = m
         }
 
-        sleep 300
-
         then:"An appropriately populated map is returned to the onComplete event"
-        result != null
-        result["one"] == 1
-        result["four"] == 4
-        result["eight"] == 8
-
-
+        conditions.eventually {
+            result != null
+            result["one"] == 1
+            result["four"] == 4
+            result["eight"] == 8
+        }
     }
 
-
     void "Test that a PromiseMap triggers onError for an exception and ignoresonComplete"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is used with an onComplete handler"
         def map = new PromiseMap<String, Integer>()
         map["one"] = { 1 }
@@ -88,17 +105,16 @@ class RxJavaPromiseMapSpec extends Specification{
             err = it
         }
 
-        sleep 300
-
         then:"An appropriately populated map is returned to the onComplete event"
-        result == null
-        err != null
-        err.message == "bad"
-
+        conditions.eventually {
+            result == null
+            err != null
+            err.message == "bad"
+        }
     }
 
-    @Ignore
     void "Test PromiseMap with then chaining"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is used with then chaining"
         def map = new PromiseMap<String, Integer>()
         map["one"] = { 1 }
@@ -111,10 +127,11 @@ class RxJavaPromiseMapSpec extends Specification{
         }
         def result = promise.get()
         then:"An appropriately populated map is returned to the onComplete event"
-        result != null
-        result["one"] == 1
-        result["four"] == 4
-        result["eight"] == 8
-
+        conditions.eventually {
+            result != null
+            result["one"] == 1
+            result["four"] == 4
+            result["eight"] == 8
+        }
     }
 }

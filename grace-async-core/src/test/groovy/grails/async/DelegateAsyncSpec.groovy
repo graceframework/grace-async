@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,17 +15,22 @@
  */
 package grails.async
 
+import spock.util.concurrent.PollingConditions
+
 import grails.async.decorator.PromiseDecorator
 import grails.async.decorator.PromiseDecoratorProvider
 import spock.lang.Specification
 
 /**
  * @author Graeme Rocher
+ * @author Michael Yan
  * @since 2.3
  */
-class DelegateAsyncSpec extends Specification{
+class DelegateAsyncSpec extends Specification {
 
     void "Test delegate async applied to class with a method taking arguments"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
 
         when:"The DelegateAsync annotation is applied to a class."
             def mathService = new AsyncMathService()
@@ -37,10 +42,14 @@ class DelegateAsyncSpec extends Specification{
             def val = p.get()
 
         then:"It is correct"
+        conditions.eventually {
             val == 3
+        }
     }
 
     void "Test delegate async applied to field with a method taking arguments"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
 
         when:"The DelegateAsync annotation is applied to a class."
             def mathService = new AsyncMathService2()
@@ -52,10 +61,14 @@ class DelegateAsyncSpec extends Specification{
             def val = p.get()
 
         then:"It is correct"
+        conditions.eventually {
             val == 3
+        }
     }
 
     void "Test delegate async passes decorators to created promises if target is a DecoratorProvider"() {
+        given:
+        def conditions = new PollingConditions(timeout: 2)
 
         when:"The DelegateAsync annotation is applied to a class."
             def mathService = new AsyncMathService3()
@@ -66,10 +79,13 @@ class DelegateAsyncSpec extends Specification{
         when:"The the value of the promise is obtained"
             def val = p.get()
 
-        then:"The decorator is applied to the value "
+        then:"The decorator is applied to the value"
+        conditions.eventually {
             val == 6
+        }
     }
 }
+
 class MathService {
     Integer sum(int n1, int n2) {
         n1 + n2
@@ -81,15 +97,18 @@ class MathService {
     // having this method here makes sure that the
     // transformation can deal with copying parameters
     // that are generics placeholders
-    public <T> void someMethod(T arg) {}
+    <T> void someMethod(T arg) {}
 }
+
 @DelegateAsync(MathService)
 class AsyncMathService {}
+
 class AsyncMathService2 {
 
     @DelegateAsync
     MathService ms = new MathService()
 }
+
 @DelegateAsync(MathService)
 class AsyncMathService3 implements PromiseDecoratorProvider {
     List<PromiseDecorator> decorators = [ { Closure c ->

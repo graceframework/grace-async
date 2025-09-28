@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,12 +18,13 @@ package grails.async
 import grails.async.decorator.PromiseDecorator
 import org.grails.async.factory.gpars.GparsPromiseFactory
 import spock.lang.Specification
-
+import spock.util.concurrent.PollingConditions
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
 /**
  * @author Graeme Rocher
+ * @author Michael Yan
  * @since 2.3
  */
 class GparsPromiseSpec extends Specification {
@@ -33,6 +34,7 @@ class GparsPromiseSpec extends Specification {
     }
 
     void "Test add promise decorator"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A decorator is added"
         def decorator = { Closure c ->
             return { "*${c.call(*it)}*" }
@@ -42,9 +44,11 @@ class GparsPromiseSpec extends Specification {
         def result = p.get()
 
         then:"The result is decorate"
-        result == "*10*"
-
+        conditions.eventually {
+            result == "*10*"
+        }
     }
+
     void "Test promise timeout handling"() {
         when:"a promise that takes a while is created"
         def p = Promises.createPromise {
@@ -55,18 +59,22 @@ class GparsPromiseSpec extends Specification {
 
         then:"A timeout error occurs"
         thrown TimeoutException
-
     }
+
     void "Test promise map handling"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise map is created"
         def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four:{2 * 2})
         def result = map.get()
 
         then:"The map is valid"
-        result == [one: 1, two: 2, four: 4]
+        conditions.eventually {
+            result == [one: 1, two: 2, four: 4]
+        }
     }
 
     void "Test promise list handling"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise list is created from two promises"
         def p1 = Promises.createPromise { 1 + 1 }
         def p2 = Promises.createPromise { 2 + 2 }
@@ -77,9 +85,10 @@ class GparsPromiseSpec extends Specification {
             result = v
         }
 
-        sleep 400
         then:"The result is correct"
-        result == [2,4]
+        conditions.eventually {
+            result == [2,4]
+        }
 
         when:"A promise list is created from two closures"
         list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
@@ -88,15 +97,14 @@ class GparsPromiseSpec extends Specification {
             result = v
         }
 
-        sleep 400
         then:"The result is correct"
-        result == [2,4]
-
-
+        conditions.eventually {
+            result == [2,4]
+        }
     }
 
     void "Test promise onComplete handling"() {
-
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise is executed with an onComplete handler"
         def promise = Promises.createPromise { 1 + 1 }
         def result
@@ -107,17 +115,16 @@ class GparsPromiseSpec extends Specification {
         promise.onError {
             hasError = true
         }
-        sleep 1000
 
         then:"The onComplete handler is invoked and the onError handler is ignored"
-        result == 2
-        hasError == false
-
-
+        conditions.eventually {
+            result == 2
+            hasError == false
+        }
     }
 
     void "Test promise onError handling"() {
-
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise is executed with an onComplete handler"
         def promise = Promises.createPromise {
             throw new RuntimeException("bad")
@@ -130,25 +137,30 @@ class GparsPromiseSpec extends Specification {
         promise.onError { err ->
             error = err
         }
-        sleep 1000
 
         then:"The onComplete handler is invoked and the onError handler is ignored"
-        result == null
-        error != null
-        error.message == "bad"
+        conditions.eventually {
+            result == null
+            error != null
+            error.message == "bad"
+        }
     }
 
     void "Test promise chaining"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise is chained"
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise.then { it * 2 } then { it + 6 }
         def val = promise.get()
 
         then:'the chain is executed'
-        val == 10
+        conditions.eventually {
+            val == 10
+        }
     }
 
     void "Test promise chaining with exception"() {
+        def conditions = new PollingConditions(timeout: 10)
         when:"A promise is chained"
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise.then { it * 2 } then { throw new RuntimeException("bad")} then { it + 6 }
@@ -156,7 +168,9 @@ class GparsPromiseSpec extends Specification {
 
         then:'the chain is executed'
         thrown RuntimeException
-        val == null
+        conditions.eventually {
+            val == null
+        }
     }
 }
 
