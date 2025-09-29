@@ -15,9 +15,10 @@
  */
 package org.grails.async.factory.rxjava2
 
-import grails.async.PromiseList
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
+
+import grails.async.PromiseList
 
 /**
  * @author Graeme Rocher
@@ -28,7 +29,7 @@ class RxPromiseListSpec extends Specification {
 
     void "Test promise list handling"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A list of promises is created"
+        when: 'A list of promises is created'
         def list = new PromiseList()
         list << { 1 }
         list << { 2 }
@@ -38,59 +39,62 @@ class RxPromiseListSpec extends Specification {
             res = results
         }
 
-        then:'then the result from onComplete is correct'
+        then: 'then the result from onComplete is correct'
         conditions.eventually {
-            res == [1,2,3]
+            res == [1, 2, 3]
         }
     }
 
     void "Test promise list handling with some async operations and some values"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A list of promises is created"
+        when: 'A list of promises is created'
         def list = new PromiseList()
         list << { 1 }
-        list <<  2
+        list << 2
         list << { 3 }
         def res
         list.onComplete { List results ->
             res = results
         }
 
-        then:'then the result from onComplete is correct'
+        then: 'then the result from onComplete is correct'
         conditions.eventually {
-            res == [1,2,3]
+            res == [1, 2, 3]
         }
     }
 
     void "Test promise list with then chaining"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise list is used with then chaining"
+
+        when: 'A promise list is used with then chaining'
         def list = new PromiseList<Integer>()
         list << { 1 }
         def promise = list
                 .then {
-            it << 2; it
-        }
-        .then {
-            // Thread.dumpStack()
-            it << 3; it
-        }
+                    it << 2; it
+                }
+                .then {
+                    // Thread.dumpStack()
+                    it << 3; it
+                }
         def result = promise.get()
-        then:"An appropriately populated list is produced"
+
+        then: 'An appropriately populated list is produced'
         conditions.eventually {
-            result == [1,2,3]
+            result == [1, 2, 3]
         }
     }
 
     void "Test promise list with an exception"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise list with a promise that throws an exception"
+
+        when: 'A promise list with a promise that throws an exception'
         def list = new PromiseList()
         list << {
             1
         }
         list << {
-            throw new RuntimeException("bad")
+            throw new RuntimeException('bad')
         }
         list << {
             3
@@ -106,13 +110,13 @@ class RxPromiseListSpec extends Specification {
 
         list.get()
 
-        then:'the onError handler is invoked with the exception'
+        then: 'the onError handler is invoked with the exception'
         thrown(RuntimeException)
         conditions.eventually {
             err != null
-            err.message == "bad"
+            err.message == 'bad'
             res == null
         }
     }
-}
 
+}

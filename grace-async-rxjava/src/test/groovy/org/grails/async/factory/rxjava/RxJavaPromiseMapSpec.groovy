@@ -15,86 +15,91 @@
  */
 package org.grails.async.factory.rxjava
 
-import grails.async.PromiseMap
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
+
+import grails.async.PromiseMap
 
 /**
  * @author Graeme Rocher
  * @author Michael Yan
  * @since 2.3
  */
-class RxJavaPromiseMapSpec extends Specification{
+class RxJavaPromiseMapSpec extends Specification {
 
     void "Test PromiseMap with mixture of normal entries and promises populated via constructor"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is used with an onComplete handler"
-        def map = new PromiseMap<String, Integer>(one:{1}, four:4, eight:{4*2})
+
+        when: 'A promise map is used with an onComplete handler'
+        def map = new PromiseMap<String, Integer>(one: { 1 }, four: 4, eight: { 4 * 2 })
         Map<String, Integer> result
         map.onComplete { Map<String, Integer> m ->
             result = m
         }
 
-        then:"An appropriately populated map is returned to the onComplete event"
+        then: 'An appropriately populated map is returned to the onComplete event'
         conditions.eventually {
             result != null
-            result["one"] == 1
-            result["four"] == 4
-            result["eight"] == 8
+            result['one'] == 1
+            result['four'] == 4
+            result['eight'] == 8
         }
     }
 
     void "Test PromiseMap with mixture of normal entries and promises"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is used with an onComplete handler"
+
+        when: 'A promise map is used with an onComplete handler'
         def map = new PromiseMap<String, Integer>()
-        map["one"] = { 1 }
-        map["four"] = 4
-        map["eight"] = { 4 * 2 }
+        map['one'] = { 1 }
+        map['four'] = 4
+        map['eight'] = { 4 * 2 }
 
         Map<String, Integer> result
         map.onComplete { Map<String, Integer> m ->
             result = m
         }
 
-        then:"An appropriately populated map is returned to the onComplete event"
+        then: 'An appropriately populated map is returned to the onComplete event'
         conditions.eventually {
             result != null
-            result["one"] == 1
-            result["four"] == 4
-            result["eight"] == 8
+            result['one'] == 1
+            result['four'] == 4
+            result['eight'] == 8
         }
     }
 
     void "Test that a PromiseMap populates values from promises onComplete"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is used with an onComplete handler"
+
+        when: 'A promise map is used with an onComplete handler'
         def map = new PromiseMap<String, Integer>()
-        map["one"] = { 1 }
-        map["four"] = { 2 + 2 }
-        map["eight"] = { 4 * 2 }
+        map['one'] = { 1 }
+        map['four'] = { 2 + 2 }
+        map['eight'] = { 4 * 2 }
 
         Map<String, Integer> result
         map.onComplete { Map<String, Integer> m ->
             result = m
         }
 
-        then:"An appropriately populated map is returned to the onComplete event"
+        then: 'An appropriately populated map is returned to the onComplete event'
         conditions.eventually {
             result != null
-            result["one"] == 1
-            result["four"] == 4
-            result["eight"] == 8
+            result['one'] == 1
+            result['four'] == 4
+            result['eight'] == 8
         }
     }
 
     void "Test that a PromiseMap triggers onError for an exception and ignoresonComplete"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is used with an onComplete handler"
+
+        when: 'A promise map is used with an onComplete handler'
         def map = new PromiseMap<String, Integer>()
-        map["one"] = { 1 }
-        map["four"] = { throw new RuntimeException("bad") }
-        map["eight"] = { 4 * 2 }
+        map['one'] = { 1 }
+        map['four'] = { throw new RuntimeException('bad') }
+        map['eight'] = { 4 * 2 }
 
         Map<String, Integer> result
         Throwable err
@@ -105,19 +110,20 @@ class RxJavaPromiseMapSpec extends Specification{
             err = it
         }
 
-        then:"An appropriately populated map is returned to the onComplete event"
+        then: 'An appropriately populated map is returned to the onComplete event'
         conditions.eventually {
             result == null
             err != null
-            err.message == "bad"
+            err.message == 'bad'
         }
     }
 
     void "Test PromiseMap with then chaining"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is used with then chaining"
+
+        when: 'A promise map is used with then chaining'
         def map = new PromiseMap<String, Integer>()
-        map["one"] = { 1 }
+        map['one'] = { 1 }
         def promise = map.then {
             println it
             it['four'] = 4; it
@@ -126,12 +132,14 @@ class RxJavaPromiseMapSpec extends Specification{
             it['eight'] = 8; it
         }
         def result = promise.get()
-        then:"An appropriately populated map is returned to the onComplete event"
+
+        then: 'An appropriately populated map is returned to the onComplete event'
         conditions.eventually {
             result != null
-            result["one"] == 1
-            result["four"] == 4
-            result["eight"] == 8
+            result['one'] == 1
+            result['four'] == 4
+            result['eight'] == 8
         }
     }
+
 }

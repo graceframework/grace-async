@@ -1,6 +1,24 @@
+/*
+ * Copyright 2013-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.grails.async.factory.rxjava3
 
-import grails.async.Promise
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
+
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 import io.reactivex.rxjava3.core.Observable
@@ -14,14 +32,12 @@ import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.functions.Function
 import io.reactivex.rxjava3.subjects.ReplaySubject
 import io.reactivex.rxjava3.subjects.Subject
+
+import grails.async.Promise
 import org.grails.async.factory.BoundPromise
 
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.TimeoutException
-
 /**
- * Promise based on RxJava 3.0.x
+ * Promise based on RxJava 3.1.x
  *
  * @author Graeme Rocher
  * @author Michael Yan
@@ -29,7 +45,8 @@ import java.util.concurrent.TimeoutException
  */
 @CompileStatic
 @PackageScope
-class RxPromise<T>  implements Promise<T> {
+class RxPromise<T> implements Promise<T> {
+
     protected final Subject<T> subject
     protected final RxPromiseFactory promiseFactory
     protected final Observable<T> observable
@@ -37,9 +54,9 @@ class RxPromise<T>  implements Promise<T> {
     protected boolean finished = false
 
     RxPromise(RxPromiseFactory promiseFactory, Closure callable, Scheduler scheduler) {
-        this(promiseFactory, Single.create( { SingleEmitter<? super T> singleSubscriber ->
+        this(promiseFactory, Single.create({ SingleEmitter<? super T> singleSubscriber ->
             try {
-                singleSubscriber.onSuccess((T)callable.call())
+                singleSubscriber.onSuccess((T) callable.call())
             } catch (Throwable t) {
                 singleSubscriber.onError(t)
             }
@@ -63,6 +80,7 @@ class RxPromise<T>  implements Promise<T> {
         this.observable = observable
         this.promiseFactory = promiseFactory
         observable.subscribe(new Observer<T>() {
+
             @Override
             void onSubscribe(Disposable d) {
                 subscription = d
@@ -82,6 +100,7 @@ class RxPromise<T>  implements Promise<T> {
             void onComplete() {
                 finished = true
             }
+
         })
         this.subject = subject
     }
@@ -114,7 +133,7 @@ class RxPromise<T>  implements Promise<T> {
 
     @Override
     boolean cancel(boolean mayInterruptIfRunning) {
-        if(subscription != null) {
+        if (subscription != null) {
             subscription.dispose()
             return subscription.isDisposed()
         }
@@ -123,12 +142,10 @@ class RxPromise<T>  implements Promise<T> {
 
     @Override
     boolean isCancelled() {
-        if(subscription == null) {
+        if (subscription == null) {
             return false
         }
-        else {
-            return subscription.isDisposed()
-        }
+        return subscription.isDisposed()
     }
 
     @Override
@@ -146,12 +163,12 @@ class RxPromise<T>  implements Promise<T> {
         try {
             return subject.timeout(timeout, unit).blockingFirst()
         } catch (Throwable e) {
-            if(e.cause instanceof TimeoutException) {
+            if (e.cause instanceof TimeoutException) {
                 throw e.cause
-            }
-            else {
+            } else {
                 throw e
             }
         }
     }
+
 }

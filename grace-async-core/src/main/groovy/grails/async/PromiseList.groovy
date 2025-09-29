@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,9 +15,9 @@
  */
 package grails.async
 
-import groovy.transform.CompileStatic
-
 import java.util.concurrent.TimeUnit
+
+import groovy.transform.CompileStatic
 
 /**
  * A list of promises
@@ -36,6 +36,7 @@ class PromiseList<T> implements Promise<List<T>> {
         initialized = value
         return this
     }
+
     /**
      * Add a promise to the promise list
      *
@@ -101,19 +102,22 @@ class PromiseList<T> implements Promise<List<T>> {
      *
      * @param callable The callable
      */
-    @SuppressWarnings("unchecked")
-    Promise onComplete(Closure callable ) {
+    @Override
+    @SuppressWarnings('unchecked')
+    Promise onComplete(Closure callable) {
         return Promises.onComplete(promises, callable)
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings('unchecked')
     Promise onError(Closure callable) {
         return Promises.onError(promises, callable)
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings('unchecked')
     Promise then(Closure callable) {
-        Promises.onComplete(promises, { List values -> values})
+        Promises.onComplete(promises, { List values -> values })
                 .then(callable)
     }
 
@@ -133,25 +137,23 @@ class PromiseList<T> implements Promise<List<T>> {
 
     @Override
     boolean isDone() {
-        return promises.every() { Promise p -> p.isDone() }
+        return promises.every { Promise p -> p.isDone() }
     }
 
+    @Override
     List get() {
-        if(initialized != null) {
+        if (initialized != null) {
             return initialized
         }
-        else {
-            Promises.waitAll(promises)
-        }
+        Promises.waitAll(promises)
     }
 
     @Override
     List get(long timeout, TimeUnit units) throws Throwable {
-        if(initialized != null) {
+        if (initialized != null) {
             return initialized
         }
-        else {
-            Promises.waitAll(promises, timeout, units)
-        }
+        Promises.waitAll(promises, timeout, units)
     }
+
 }

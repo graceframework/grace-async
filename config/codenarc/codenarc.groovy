@@ -35,7 +35,7 @@ ruleset {
     EmptySwitchStatement
     EmptySynchronizedStatement
     EmptyTryBlock
-    EmptyWhileStatement
+    // EmptyWhileStatement
     // EqualsAndHashCode
     EqualsOverloaded
     ExplicitGarbageCollection
@@ -112,7 +112,7 @@ ruleset {
     // ImplicitClosureParameter
     // ImplicitReturnStatement
     InvertedCondition
-    InvertedIfElse
+    // InvertedIfElse
     // LongLiteralWithLowerCaseL
     // MethodParameterTypeRequired
     // MethodReturnTypeRequired
@@ -351,7 +351,7 @@ ruleset {
     FieldName(ignoreFieldNames: 'serialVersionUID,log,logger')
     InterfaceName
     InterfaceNameSameAsSuperInterface
-    MethodName
+    MethodName(regex: '[a-z]\\w*|.*[ #].*')
     ObjectOverrideMisspelledMethodName
     PackageName
     PackageNameMatchesFilePath
@@ -424,7 +424,7 @@ ruleset {
     UnnecessaryPackageReference
     UnnecessaryParenthesesForMethodCallWithClosure
     UnnecessaryPublicModifier
-    UnnecessaryReturnKeyword
+    // UnnecessaryReturnKeyword
     UnnecessarySafeNavigationOperator
     UnnecessarySelfAssignment
     UnnecessarySemicolon

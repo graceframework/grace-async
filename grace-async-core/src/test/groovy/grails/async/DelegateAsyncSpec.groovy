@@ -15,11 +15,11 @@
  */
 package grails.async
 
+import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 import grails.async.decorator.PromiseDecorator
 import grails.async.decorator.PromiseDecoratorProvider
-import spock.lang.Specification
 
 /**
  * @author Graeme Rocher
@@ -32,16 +32,17 @@ class DelegateAsyncSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"The DelegateAsync annotation is applied to a class."
-            def mathService = new AsyncMathService()
-            def p = mathService.sum(1,2)
-        then:"Methods from the delegate return a promise"
-            p instanceof Promise
+        when: 'The DelegateAsync annotation is applied to a class.'
+        def mathService = new AsyncMathService()
+        def p = mathService.sum(1, 2)
 
-        when:"The the value of the promise is obtained"
-            def val = p.get()
+        then: 'Methods from the delegate return a promise'
+        p instanceof Promise
 
-        then:"It is correct"
+        when: 'The the value of the promise is obtained'
+        def val = p.get()
+
+        then: 'It is correct'
         conditions.eventually {
             val == 3
         }
@@ -51,16 +52,17 @@ class DelegateAsyncSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"The DelegateAsync annotation is applied to a class."
-            def mathService = new AsyncMathService2()
-            def p = mathService.sum(1,2)
-        then:"Methods from the delegate return a promise"
-            p instanceof Promise
+        when: 'The DelegateAsync annotation is applied to a class.'
+        def mathService = new AsyncMathService2()
+        def p = mathService.sum(1, 2)
 
-        when:"The the value of the promise is obtained"
-            def val = p.get()
+        then: 'Methods from the delegate return a promise'
+        p instanceof Promise
 
-        then:"It is correct"
+        when: 'The the value of the promise is obtained'
+        def val = p.get()
+
+        then: 'It is correct'
         conditions.eventually {
             val == 3
         }
@@ -70,49 +72,60 @@ class DelegateAsyncSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"The DelegateAsync annotation is applied to a class."
-            def mathService = new AsyncMathService3()
-            def p = mathService.sum(1,2)
-        then:"Methods from the delegate return a promise"
-            p instanceof Promise
+        when: 'The DelegateAsync annotation is applied to a class.'
+        def mathService = new AsyncMathService3()
+        def p = mathService.sum(1, 2)
 
-        when:"The the value of the promise is obtained"
-            def val = p.get()
+        then: 'Methods from the delegate return a promise'
+        p instanceof Promise
 
-        then:"The decorator is applied to the value"
+        when: 'The the value of the promise is obtained'
+        def val = p.get()
+
+        then: 'The decorator is applied to the value'
         conditions.eventually {
             val == 6
         }
     }
+
 }
 
 class MathService {
+
     Integer sum(int n1, int n2) {
         n1 + n2
     }
+
     void calculate() {
         // no-op
     }
-    
+
     // having this method here makes sure that the
     // transformation can deal with copying parameters
     // that are generics placeholders
-    <T> void someMethod(T arg) {}
+    <T> void someMethod(T arg) {
+    }
+
 }
 
 @DelegateAsync(MathService)
-class AsyncMathService {}
+class AsyncMathService {
+
+}
 
 class AsyncMathService2 {
 
     @DelegateAsync
     MathService ms = new MathService()
+
 }
 
 @DelegateAsync(MathService)
 class AsyncMathService3 implements PromiseDecoratorProvider {
-    List<PromiseDecorator> decorators = [ { Closure c ->
-        return { c.call(*it) * 2  }
-    } as PromiseDecorator ]
+
+    List<PromiseDecorator> decorators = [{ Closure c ->
+        return { c.call(*it) * 2 }
+                                         } as PromiseDecorator]
+
 }
 

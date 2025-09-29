@@ -15,12 +15,13 @@
  */
 package grails.async
 
-import grails.async.decorator.PromiseDecorator
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
+
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.TimeoutException
+import grails.async.decorator.PromiseDecorator
 
 /**
  * @author Graeme Rocher
@@ -33,41 +34,41 @@ class PromiseSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"A decorator is added"
-            def decorator = { Closure c ->
-                return { "*${c.call(*it)}*" }
-            } as PromiseDecorator
+        when: 'A decorator is added'
+        def decorator = { Closure c ->
+            return { "*${c.call(*it)}*" }
+        } as PromiseDecorator
 
-            def p = Promises.createPromise( { 10 }, [decorator])
-            def result = p.get()
+        def p = Promises.createPromise({ 10 }, [decorator])
+        def result = p.get()
 
-        then:"The result is decorate"
+        then: 'The result is decorate'
         conditions.eventually {
-            result == "*10*"
+            result == '*10*'
         }
     }
 
     void "Test promise timeout handling"() {
-        when:"a promise that takes a while is created"
-            def p = Promises.createPromise {
-                sleep 1000
-                println 'completed op'
-            }
-            def result = p.get(100, TimeUnit.MILLISECONDS)
+        when: 'a promise that takes a while is created'
+        def p = Promises.createPromise {
+            sleep 1000
+            println 'completed op'
+        }
+        def result = p.get(100, TimeUnit.MILLISECONDS)
 
-        then:"A timeout error occurs"
-            thrown TimeoutException
+        then: 'A timeout error occurs'
+        thrown TimeoutException
     }
 
     void "Test promise map handling"() {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"A promise map is created"
-            def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four:{2 * 2})
-            def result = map.get()
+        when: 'A promise map is created'
+        def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four: { 2 * 2 })
+        def result = map.get()
 
-        then:"The map is valid"
+        then: 'The map is valid'
         conditions.eventually {
             result == [one: 1, two: 2, four: 4]
         }
@@ -77,52 +78,53 @@ class PromiseSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"A promise list is created from two promises"
-            def p1 = Promises.createPromise { 1 + 1 }
-            def p2 = Promises.createPromise { 2 + 2 }
-            def list = Promises.createPromise(p1, p2)
+        when: 'A promise list is created from two promises'
+        def p1 = Promises.createPromise { 1 + 1 }
+        def p2 = Promises.createPromise { 2 + 2 }
+        def list = Promises.createPromise(p1, p2)
 
-            def result
-            list.onComplete { List v ->
-                result = v
-            }
+        def result
+        list.onComplete { List v ->
+            result = v
+        }
 
-            sleep 400
-        then:"The result is correct"
-            conditions.eventually {
-                result == [2,4]
-            }
+        sleep 400
 
-        when:"A promise list is created from two closures"
-            list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
+        then: 'The result is correct'
+        conditions.eventually {
+            result == [2, 4]
+        }
 
-            list.onComplete { List v ->
-                result = v
-            }
+        when: 'A promise list is created from two closures'
+        list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
 
-            sleep 400
-        then:"The result is correct"
-            conditions.eventually {
-                result == [2,4]
-            }
+        list.onComplete { List v ->
+            result = v
+        }
+
+        sleep 400
+        then: 'The result is correct'
+        conditions.eventually {
+            result == [2, 4]
+        }
     }
 
     void "Test promise onComplete handling"() {
         given:
         def conditions = new PollingConditions(timeout: 2)
 
-        when:"A promise is executed with an onComplete handler"
-            def promise = Promises.createPromise { 1 + 1 }
-            def result
-            def hasError = false
-            promise.onComplete { val ->
-                result = val
-            }
-            promise.onError {
-                hasError = true
-            }
+        when: 'A promise is executed with an onComplete handler'
+        def promise = Promises.createPromise { 1 + 1 }
+        def result
+        def hasError = false
+        promise.onComplete { val ->
+            result = val
+        }
+        promise.onError {
+            hasError = true
+        }
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         conditions.eventually {
             result == 2
             hasError == false
@@ -133,36 +135,37 @@ class PromiseSpec extends Specification {
         given:
         def conditions = new PollingConditions(timeout: 5)
 
-        when:"A promise is executed with an onComplete handler"
+        when: 'A promise is executed with an onComplete handler'
         def promise = Promises.createPromise {
-                throw new RuntimeException("bad")
-            }
-            def result
-            Throwable error
-            promise.onComplete { val ->
-                result = val
-            }
-            promise.onError { err ->
-                error = err
-            }
+            throw new RuntimeException('bad')
+        }
+        def result
+        Throwable error
+        promise.onComplete { val ->
+            result = val
+        }
+        promise.onError { err ->
+            error = err
+        }
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         conditions.eventually {
             result == null
             error != null
-            error.message == "java.lang.RuntimeException: bad"
+            error.message == 'java.lang.RuntimeException: bad'
         }
     }
 
     void "Test promise chaining"() {
         given:
         def conditions = new PollingConditions(timeout: 2)
-        when:"A promise is chained"
-            def promise = Promises.createPromise { 1 + 1 }
-            promise = promise.then { it * 2 } then { it + 6 }
-            def val = promise.get()
 
-        then:'the chain is executed'
+        when: 'A promise is chained'
+        def promise = Promises.createPromise { 1 + 1 }
+        promise = promise.then { it * 2 } then { it + 6 }
+        def val = promise.get()
+
+        then: 'the chain is executed'
         conditions.eventually {
             val == 10
         }
@@ -171,16 +174,17 @@ class PromiseSpec extends Specification {
     void "Test promise chaining with exception"() {
         given:
         def conditions = new PollingConditions(timeout: 2)
-        when:"A promise is chained"
-            def promise = Promises.createPromise { 1 + 1 }
-            promise = promise.then { it * 2 } then { throw new RuntimeException("bad")} then { it + 6 }
-            def val = promise.get()
 
-        then:'the chain is executed'
+        when: 'A promise is chained'
+        def promise = Promises.createPromise { 1 + 1 }
+        promise = promise.then { it * 2 } then { throw new RuntimeException('bad') } then { it + 6 }
+        def val = promise.get()
+
+        then: 'the chain is executed'
         thrown RuntimeException
         conditions.eventually {
             val == null
         }
     }
-}
 
+}

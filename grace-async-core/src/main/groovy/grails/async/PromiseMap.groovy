@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,7 +51,7 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
 
     @Override
     boolean isDone() {
-        return promisesKeys.keySet().every() { Promise p -> p.isDone() }
+        return promisesKeys.keySet().every { Promise p -> p.isDone() }
     }
 
     @Override
@@ -206,10 +206,11 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
      *
      * @return A map where the values are obtained from the promises
      */
+    @Override
     Map<K, V> get() throws Throwable {
         def promises = promises.values()
         Map<K,V> newMap = [:]
-        for(Promise<V> p in promises) {
+        for (Promise<V> p in promises) {
             def value = p.get()
             newMap[promisesKeys.get(p)] = value
         }
@@ -224,23 +225,25 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
      * @param units The timeout units
      * @return A map where the values are obtained from the promises
      */
+    @Override
     Map<K, V> get(long timeout, TimeUnit units) throws Throwable {
         def promises = promises.values()
         Promises.waitAll(new ArrayList<>(promises), timeout, units)
         Map<K,V> newMap = [:]
-        for(Promise<V> p in promises) {
+        for (Promise<V> p in promises) {
             def value = p.get()
             newMap[promisesKeys.get(p)] = value
         }
         return newMap
     }
 
+    @Override
     Promise<Map<K, V>> onComplete(Closure callable) {
         def promises = promises.values().toList()
         Promises.onComplete(promises) { List values ->
             Map<K,V> newMap = [:]
             int i = 0
-            for(value in values) {
+            for (value in values) {
                 def p = promises[i]
                 K key = promisesKeys.get(p)
                 newMap.put((K)key, (V)value)
@@ -252,17 +255,19 @@ class PromiseMap<K,V> implements Promise<Map<K,V>> {
         return this
     }
 
+    @Override
     Promise<Map<K, V>> onError(Closure callable) {
         Promises.onError(promises.values().toList(), callable)
         return this
     }
 
+    @Override
     Promise<Map<K, V>> then(Closure callable) {
-
         onComplete callable
     }
 
     Promise<Map<K, V>> leftShift(Closure callable) {
         then callable
     }
+
 }

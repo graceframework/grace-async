@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,10 +15,11 @@
  */
 package org.grails.async.factory
 
-import grails.async.Promise
+import java.util.concurrent.TimeUnit
+
 import groovy.transform.CompileStatic
 
-import java.util.concurrent.TimeUnit
+import grails.async.Promise
 
 /**
  * A bound promise is a promise which is already resolved and doesn't require any asynchronous processing to calculate the value
@@ -28,7 +29,8 @@ import java.util.concurrent.TimeUnit
  */
 @CompileStatic
 class BoundPromise<T> implements Promise<T> {
-    def T value
+
+    T value
 
     BoundPromise(T value) {
         this.value = value
@@ -49,6 +51,7 @@ class BoundPromise<T> implements Promise<T> {
         return true
     }
 
+    @Override
     T get() throws Throwable {
         if (value instanceof Throwable) {
             throw value
@@ -56,6 +59,7 @@ class BoundPromise<T> implements Promise<T> {
         return value
     }
 
+    @Override
     T get(long timeout, TimeUnit units) throws Throwable {
         return get()
     }
@@ -66,21 +70,23 @@ class BoundPromise<T> implements Promise<T> {
         return this
     }
 
+    @Override
     Promise<T> onComplete(Closure callable) {
         if (!(value instanceof Throwable)) {
-            return new BoundPromise<>(callable.call(value))
+            return new BoundPromise<>((T) callable.call(value))
         }
         return this
     }
 
+    @Override
     Promise<T> onError(Closure callable) {
         if (value instanceof Throwable) {
-            return new BoundPromise<>(callable.call(value))
+            return new BoundPromise<>((T) callable.call(value))
         }
         return this
-
     }
 
+    @Override
     Promise<T> then(Closure callable) {
         if (!(value instanceof Throwable)) {
             try {
@@ -89,8 +95,7 @@ class BoundPromise<T> implements Promise<T> {
             } catch (Throwable e) {
                 return new BoundPromise(e)
             }
-        }
-        else {
+        } else {
             return this
         }
     }
@@ -98,4 +103,5 @@ class BoundPromise<T> implements Promise<T> {
     Promise<T> leftShift(Closure callable) {
         then callable
     }
+
 }

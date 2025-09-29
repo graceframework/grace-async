@@ -1,54 +1,76 @@
+/*
+ * Copyright 2013-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.grails.async.factory.rxjava3
-
-import grails.async.Promises
-import grails.async.decorator.PromiseDecorator
-import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+import spock.lang.Specification
+
+import grails.async.Promises
+import grails.async.decorator.PromiseDecorator
+
+/**
+ * @author Graeme Rocher
+ * @author Michael Yan
+ * @since 2.3
+ */
 class RxPromiseSpec extends Specification {
+
     void "test promise factory"() {
         expect:
         Promises.promiseFactory instanceof RxPromiseFactory
     }
 
     void "Test add promise decorator"() {
-        when:"A decorator is added"
+        when: 'A decorator is added'
         def decorator = { Closure c ->
             return { "*${c.call(*it)}*" }
         } as PromiseDecorator
 
-        def p = Promises.createPromise( { 10 }, [decorator])
+        def p = Promises.createPromise({ 10 }, [decorator])
         def result = p.get()
 
-        then:"The result is decorate"
-        result == "*10*"
-
+        then: 'The result is decorate'
+        result == '*10*'
     }
+
     void "Test promise timeout handling"() {
-        when:"a promise that takes a while is created"
+        when: 'a promise that takes a while is created'
         def p = Promises.createPromise {
             sleep 1000
             println 'completed op'
         }
         def result = p.get(100, TimeUnit.MILLISECONDS)
 
-        then:"A timeout error occurs"
+        then: 'A timeout error occurs'
         thrown TimeoutException
-
     }
+
     void "Test promise map handling"() {
-        when:"A promise map is created"
-        def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four:{2 * 2})
+        when: 'A promise map is created'
+        def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four: { 2 * 2 })
         def result = map.get()
 
-        then:"The map is valid"
+        then: 'The map is valid'
         result == [one: 1, two: 2, four: 4]
     }
 
     void "Test promise list handling"() {
-        when:"A promise list is created from two promises"
+        when: 'A promise list is created from two promises'
         def p1 = Promises.createPromise { 1 + 1 }
         def p2 = Promises.createPromise { 2 + 2 }
         def list = Promises.createPromise(p1, p2)
@@ -58,10 +80,11 @@ class RxPromiseSpec extends Specification {
             result = v
         }
         def o = list.get()
-        then:"The result is correct"
-        o == [2,4]
 
-        when:"A promise list is created from two closures"
+        then: 'The result is correct'
+        o == [2, 4]
+
+        when: 'A promise list is created from two closures'
         list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
 
         list.onComplete { List v ->
@@ -69,14 +92,14 @@ class RxPromiseSpec extends Specification {
         }.get()
 
         o = list.get()
-        then:"The result is correct"
-        result == [2,4]
+
+        then: 'The result is correct'
+        result == [2, 4]
         result == o
     }
 
     void "Test promise onComplete handling"() {
-
-        when:"A promise is executed with an onComplete handler"
+        when: 'A promise is executed with an onComplete handler'
         def promise = Promises.createPromise { 1 + 1 }
         def result
         def hasError = false
@@ -88,18 +111,15 @@ class RxPromiseSpec extends Specification {
         }
         sleep 1000
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         result == 2
         hasError == false
-
-
     }
 
     void "Test promise onError handling"() {
-
-        when:"A promise is executed with an onComplete handler"
+        when: 'A promise is executed with an onComplete handler'
         def promise = Promises.createPromise {
-            throw new RuntimeException("bad")
+            throw new RuntimeException('bad')
         }
         def result
         Throwable error
@@ -111,38 +131,38 @@ class RxPromiseSpec extends Specification {
         }
         sleep 1000
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         result == null
         error != null
-        error.message == "bad"
+        error.message == 'bad'
     }
 
     void "Test promise chaining"() {
-        when:"A promise is chained"
+        when: 'A promise is chained'
+
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise
                 .then {
-            it * 2
-        }
-        .then {
-            it + 6
-        }
+                    it * 2
+                }
+                .then {
+                    it + 6
+                }
         def val = promise.get()
 
-        then:'the chain is executed'
+        then: 'the chain is executed'
         val == 10
     }
 
     void "Test promise chaining with exception"() {
-        when:"A promise is chained"
+        when: 'A promise is chained'
         def promise = Promises.createPromise { 1 + 1 }
-        promise = promise.then { it * 2 } then { throw new RuntimeException("bad")} then { it + 6 }
+        promise = promise.then { it * 2 } then { throw new RuntimeException('bad') } then { it + 6 }
         def val = promise.get()
 
-        then:'the chain is executed'
+        then: 'the chain is executed'
         thrown RuntimeException
         val == null
     }
+
 }
-
-

@@ -1,16 +1,31 @@
+/*
+ * Copyright 2013-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.grails.async.factory.future
-
-import grails.async.Promise
-import grails.async.PromiseFactory
-import groovy.transform.CompileStatic
-import groovy.transform.PackageScope
-import org.grails.async.factory.BoundPromise
 
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
-import java.util.concurrent.locks.ReentrantLock
+
+import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+
+import grails.async.Promise
+import grails.async.PromiseFactory
+import org.grails.async.factory.BoundPromise
 
 /**
  * A child promise of a {@link FutureTaskPromise}
@@ -21,17 +36,18 @@ import java.util.concurrent.locks.ReentrantLock
 @CompileStatic
 @PackageScope
 class FutureTaskChildPromise<T> implements Promise<T> {
+
     final Promise<T> parent
     final Closure<T> callable
     final PromiseFactory promiseFactory
-    private Collection<FutureTaskChildPromise> failureCallbacks = new ConcurrentLinkedQueue<>()
-    private Collection<FutureTaskChildPromise> successCallbacks = new ConcurrentLinkedQueue<>()
+    private final Collection<FutureTaskChildPromise> failureCallbacks = new ConcurrentLinkedQueue<>()
+    private final Collection<FutureTaskChildPromise> successCallbacks = new ConcurrentLinkedQueue<>()
 
     private Promise<T> bound = null
 
     FutureTaskChildPromise(PromiseFactory promiseFactory, Promise<T> parent, Closure<T> callable) {
         this.parent = parent
-        this.callable = promiseFactory.applyDecorators(callable,null)
+        this.callable = promiseFactory.applyDecorators(callable, null)
         this.promiseFactory = promiseFactory
     }
 
@@ -40,11 +56,11 @@ class FutureTaskChildPromise<T> implements Promise<T> {
         try {
             T transformedValue = callable.call(value)
             bound = new BoundPromise<T>(transformedValue)
-            for(callback in successCallbacks) {
+            for (callback in successCallbacks) {
                 callback.accept(transformedValue)
             }
         } catch (Throwable e) {
-            for(callback in failureCallbacks) {
+            for (callback in failureCallbacks) {
                 callback.accept(e)
             }
             throw e
@@ -64,7 +80,6 @@ class FutureTaskChildPromise<T> implements Promise<T> {
         def newPromise = new FutureTaskChildPromise(promiseFactory, this, callable)
         failureCallbacks.add(newPromise)
         return newPromise
-
     }
 
     @Override
@@ -89,46 +104,38 @@ class FutureTaskChildPromise<T> implements Promise<T> {
 
     @Override
     T get() throws InterruptedException, ExecutionException {
-        if(bound != null) {
+        if (bound != null) {
             return bound.get()
         }
-        else {
-            if(parent instanceof FutureTaskPromise) {
-
-                def value = parent.get()
-                if(bound == null) {
-                    def v = callable.call(value)
-                    bound = new BoundPromise<>(v)
-                }
-                return bound.get()
-            }
-            else {
-                def v = callable.call(parent.get())
+        if (parent instanceof FutureTaskPromise) {
+            def value = parent.get()
+            if (bound == null) {
+                def v = callable.call(value)
                 bound = new BoundPromise<>(v)
-                return v
             }
+            return bound.get()
         }
+        def v = callable.call(parent.get())
+        bound = new BoundPromise<>(v)
+        return v
     }
 
     @Override
     T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        if(bound != null) {
+        if (bound != null) {
             return bound.get()
         }
-        else {
-            if(parent instanceof FutureTaskPromise) {
-                def value = parent.get(timeout, unit)
-                if(bound == null) {
-                    def v = callable.call(value)
-                    bound = new BoundPromise<>(v)
-                }
-                return bound.get()
-            }
-            else {
-                def v = callable.call(parent.get(timeout, unit))
+        if (parent instanceof FutureTaskPromise) {
+            def value = parent.get(timeout, unit)
+            if (bound == null) {
+                def v = callable.call(value)
                 bound = new BoundPromise<>(v)
-                return v
             }
+            return bound.get()
         }
+        def v = callable.call(parent.get(timeout, unit))
+        bound = new BoundPromise<>(v)
+        return v
     }
+
 }

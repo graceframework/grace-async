@@ -15,12 +15,14 @@
  */
 package grails.async
 
-import grails.async.decorator.PromiseDecorator
-import org.grails.async.factory.gpars.GparsPromiseFactory
-import spock.lang.Specification
-import spock.util.concurrent.PollingConditions
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+
+import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
+
+import grails.async.decorator.PromiseDecorator
+import org.grails.async.factory.gpars.GparsPromiseFactory
 
 /**
  * @author Graeme Rocher
@@ -28,6 +30,7 @@ import java.util.concurrent.TimeoutException
  * @since 2.3
  */
 class GparsPromiseSpec extends Specification {
+
     void "test promise factory"() {
         expect:
         Promises.promiseFactory instanceof GparsPromiseFactory
@@ -35,39 +38,41 @@ class GparsPromiseSpec extends Specification {
 
     void "Test add promise decorator"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A decorator is added"
+
+        when: 'A decorator is added'
         def decorator = { Closure c ->
             return { "*${c.call(*it)}*" }
         } as PromiseDecorator
 
-        def p = Promises.createPromise( { 10 }, [decorator])
+        def p = Promises.createPromise({ 10 }, [decorator])
         def result = p.get()
 
-        then:"The result is decorate"
+        then: 'The result is decorate'
         conditions.eventually {
-            result == "*10*"
+            result == '*10*'
         }
     }
 
     void "Test promise timeout handling"() {
-        when:"a promise that takes a while is created"
+        when: 'a promise that takes a while is created'
         def p = Promises.createPromise {
             sleep 1000
             println 'completed op'
         }
         def result = p.get(100, TimeUnit.MILLISECONDS)
 
-        then:"A timeout error occurs"
+        then: 'A timeout error occurs'
         thrown TimeoutException
     }
 
     void "Test promise map handling"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise map is created"
-        def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four:{2 * 2})
+
+        when: 'A promise map is created'
+        def map = Promises.createPromise(one: { 1 }, two: { 1 + 1 }, four: { 2 * 2 })
         def result = map.get()
 
-        then:"The map is valid"
+        then: 'The map is valid'
         conditions.eventually {
             result == [one: 1, two: 2, four: 4]
         }
@@ -75,7 +80,8 @@ class GparsPromiseSpec extends Specification {
 
     void "Test promise list handling"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise list is created from two promises"
+
+        when: 'A promise list is created from two promises'
         def p1 = Promises.createPromise { 1 + 1 }
         def p2 = Promises.createPromise { 2 + 2 }
         def list = Promises.createPromise(p1, p2)
@@ -85,27 +91,28 @@ class GparsPromiseSpec extends Specification {
             result = v
         }
 
-        then:"The result is correct"
+        then: 'The result is correct'
         conditions.eventually {
-            result == [2,4]
+            result == [2, 4]
         }
 
-        when:"A promise list is created from two closures"
+        when: 'A promise list is created from two closures'
         list = Promises.createPromise({ 1 + 1 }, { 2 + 2 })
 
         list.onComplete { List v ->
             result = v
         }
 
-        then:"The result is correct"
+        then: 'The result is correct'
         conditions.eventually {
-            result == [2,4]
+            result == [2, 4]
         }
     }
 
     void "Test promise onComplete handling"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise is executed with an onComplete handler"
+
+        when: 'A promise is executed with an onComplete handler'
         def promise = Promises.createPromise { 1 + 1 }
         def result
         def hasError = false
@@ -116,7 +123,7 @@ class GparsPromiseSpec extends Specification {
             hasError = true
         }
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         conditions.eventually {
             result == 2
             hasError == false
@@ -125,9 +132,10 @@ class GparsPromiseSpec extends Specification {
 
     void "Test promise onError handling"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise is executed with an onComplete handler"
+
+        when: 'A promise is executed with an onComplete handler'
         def promise = Promises.createPromise {
-            throw new RuntimeException("bad")
+            throw new RuntimeException('bad')
         }
         def result
         Throwable error
@@ -138,22 +146,23 @@ class GparsPromiseSpec extends Specification {
             error = err
         }
 
-        then:"The onComplete handler is invoked and the onError handler is ignored"
+        then: 'The onComplete handler is invoked and the onError handler is ignored'
         conditions.eventually {
             result == null
             error != null
-            error.message == "bad"
+            error.message == 'bad'
         }
     }
 
     void "Test promise chaining"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise is chained"
+
+        when: 'A promise is chained'
         def promise = Promises.createPromise { 1 + 1 }
         promise = promise.then { it * 2 } then { it + 6 }
         def val = promise.get()
 
-        then:'the chain is executed'
+        then: 'the chain is executed'
         conditions.eventually {
             val == 10
         }
@@ -161,16 +170,17 @@ class GparsPromiseSpec extends Specification {
 
     void "Test promise chaining with exception"() {
         def conditions = new PollingConditions(timeout: 10)
-        when:"A promise is chained"
+
+        when: 'A promise is chained'
         def promise = Promises.createPromise { 1 + 1 }
-        promise = promise.then { it * 2 } then { throw new RuntimeException("bad")} then { it + 6 }
+        promise = promise.then { it * 2 } then { throw new RuntimeException('bad') } then { it + 6 }
         def val = promise.get()
 
-        then:'the chain is executed'
+        then: 'the chain is executed'
         thrown RuntimeException
         conditions.eventually {
             val == null
         }
     }
-}
 
+}

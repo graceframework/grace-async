@@ -1,9 +1,19 @@
+/*
+ * Copyright 2013-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.grails.async.factory.future
-
-import grails.async.Promise
-import grails.async.PromiseFactory
-import groovy.transform.CompileStatic
-import org.grails.async.factory.BoundPromise
 
 import java.util.concurrent.Callable
 import java.util.concurrent.ConcurrentLinkedQueue
@@ -11,6 +21,12 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.FutureTask
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+
+import groovy.transform.CompileStatic
+
+import grails.async.Promise
+import grails.async.PromiseFactory
+import org.grails.async.factory.BoundPromise
 
 /**
  * A Promise that is a {@link FutureTask}
@@ -50,19 +66,19 @@ class FutureTaskPromise<T> extends FutureTask<T> implements Promise<T> {
 
     @Override
     T get() throws InterruptedException, ExecutionException {
-        return (T)(boundValue != null ? boundValue : super.get())
+        return (T) (boundValue != null ? boundValue : super.get())
     }
 
     @Override
     T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        return (T)(boundValue != null ? boundValue : super.get(timeout, unit))
+        return (T) (boundValue != null ? boundValue : super.get(timeout, unit))
     }
 
     @Override
     protected void set(T t) {
         super.set(t)
         synchronized (successCallbacks) {
-            for(callback in successCallbacks) {
+            for (callback in successCallbacks) {
                 callback.accept(t)
             }
         }
@@ -72,7 +88,7 @@ class FutureTaskPromise<T> extends FutureTask<T> implements Promise<T> {
     protected void setException(Throwable t) {
         super.setException(t)
         synchronized (failureCallbacks) {
-            for(callback in failureCallbacks) {
+            for (callback in failureCallbacks) {
                 callback.accept(t)
             }
         }
@@ -81,16 +97,15 @@ class FutureTaskPromise<T> extends FutureTask<T> implements Promise<T> {
     @Override
     Promise<T> onComplete(Closure callable) {
         synchronized (successCallbacks) {
-            if(isDone()) {
+            if (isDone()) {
                 try {
                     def v = get()
-                    return new BoundPromise<T>((T)v).onComplete(callable)
+                    return new BoundPromise<T>((T) v).onComplete(callable)
                 } catch (Throwable e) {
                     return this
                 }
-            }
-            else {
-                def newPromise = new FutureTaskChildPromise(promiseFactory,this,callable)
+            } else {
+                def newPromise = new FutureTaskChildPromise(promiseFactory, this, callable)
                 successCallbacks.add(newPromise)
                 return newPromise
             }
@@ -100,16 +115,15 @@ class FutureTaskPromise<T> extends FutureTask<T> implements Promise<T> {
     @Override
     Promise<T> onError(Closure callable) {
         synchronized (failureCallbacks) {
-            if(isDone()) {
+            if (isDone()) {
                 try {
                     get()
                     return this
                 } catch (Throwable e) {
-                    return new BoundPromise<T>((T)callable.call(e))
+                    return new BoundPromise<T>((T) callable.call(e))
                 }
-            }
-            else {
-                def newPromise = new FutureTaskChildPromise(promiseFactory,this,callable)
+            } else {
+                def newPromise = new FutureTaskChildPromise(promiseFactory, this, callable)
                 failureCallbacks.add(newPromise)
                 return newPromise
             }
@@ -120,4 +134,5 @@ class FutureTaskPromise<T> extends FutureTask<T> implements Promise<T> {
     Promise<T> then(Closure callable) {
         return onComplete(callable)
     }
+
 }

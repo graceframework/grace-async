@@ -1,11 +1,11 @@
 /*
- * Copyright 2013 SpringSource
+ * Copyright 2013-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,14 +15,14 @@
  */
 package org.grails.async.factory.gpars
 
-import grails.async.Promise
-import grails.async.PromiseFactory
-import grails.async.Promises
+import java.util.concurrent.TimeUnit
+
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import groovyx.gpars.dataflow.Dataflow
 
-import java.util.concurrent.TimeUnit
+import grails.async.Promise
+import grails.async.PromiseFactory
 
 /**
  * Implementation of {@link Promise} interface for Gpars
@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
  * @since 2.3
  */
 @CompileStatic
-class  GparsPromise<T> implements Promise<T> {
+class GparsPromise<T> implements Promise<T> {
 
     final groovyx.gpars.dataflow.Promise internalPromise
     final PromiseFactory promiseFactory
@@ -47,12 +47,10 @@ class  GparsPromise<T> implements Promise<T> {
 
     @Override
     boolean cancel(boolean mayInterruptIfRunning) {
-        if(isDone()) {
+        if (isDone()) {
             return false
         }
-        else {
-            throw new UnsupportedOperationException("Cancellation not supported")
-        }
+        throw new UnsupportedOperationException('Cancellation not supported')
     }
 
     @Override
@@ -65,10 +63,12 @@ class  GparsPromise<T> implements Promise<T> {
         return internalPromise.isBound() || internalPromise.isError()
     }
 
+    @Override
     T get() {
         internalPromise.get()
     }
 
+    @Override
     T get(long timeout, TimeUnit units) throws Throwable {
         internalPromise.get(timeout, units)
     }
@@ -84,7 +84,8 @@ class  GparsPromise<T> implements Promise<T> {
         then callable
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings('unchecked')
     Promise onComplete(Closure callable) {
         callable = promiseFactory.applyDecorators(callable, null)
         internalPromise.whenBound { val ->
@@ -95,7 +96,8 @@ class  GparsPromise<T> implements Promise<T> {
         return this
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings('unchecked')
     Promise onError(Closure callable) {
         callable = promiseFactory.applyDecorators(callable, null)
         internalPromise.whenBound { val ->
@@ -106,9 +108,11 @@ class  GparsPromise<T> implements Promise<T> {
         return this
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings('unchecked')
     Promise then(Closure callable) {
         callable = promiseFactory.applyDecorators(callable, null)
         return new GparsPromise(promiseFactory, internalPromise.then(callable))
     }
+
 }
