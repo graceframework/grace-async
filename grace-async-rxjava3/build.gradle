@@ -1,5 +1,8 @@
+plugins {
+    id 'grace.build.common'
+}
+
 dependencies {
-    api project(":grace-async-core")
-    implementation "io.reactivex.rxjava3:rxjava"
-    testImplementation "org.slf4j:slf4j-simple"
+    api project(':grace-async-core')
+    implementation libs.rxjava3
 }

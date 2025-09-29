@@ -1,0 +1,45 @@
+[versions]
+bytebuddy = "1.15.11"
+gpars = "1.2.1"
+grace-gradle = "2024.0.0-M1"
+gradle-nexus-publish = "2.0.0"
+gradle-test-retry = "1.6.2"
+groovy = "4.0.28"
+jakarta-annotation = "2.1.1"
+javaparser = "3.26.4"
+junit-jupiter = "5.11.4"
+junit-platform = "1.11.4"
+objenesis = "3.4"
+rxjava = "1.3.8"
+rxjava2 = "2.2.21"
+rxjava3 = "3.1.11"
+slf4j = "2.0.17"
+spock = "2.3-groovy-4.0"
+
+[libraries]
+bytebuddy = { module = "net.bytebuddy:byte-buddy", version.ref = "bytebuddy" }
+gpars = { module = "org.codehaus.gpars:gpars", version.ref = "gpars" }
+groovy-ant = { module = "org.apache.groovy:groovy-ant", version.ref = "groovy" }
+groovy-core = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
+groovy-test = { module = "org.apache.groovy:groovy-test", version.ref = "groovy" }
+groovy-test-junit5 = { module = "org.apache.groovy:groovy-test-junit5", version.ref = "groovy" }
+jakarta-annotation-api = { module = "jakarta.annotation:jakarta.annotation-api", version.ref = "jakarta-annotation" }
+javaparser = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit-jupiter" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
+junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junit-platform" }
+junit-platform-runner = { module = "org.junit.platform:junit-platform-runner", version.ref = "junit-platform" }
+objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
+rxjava = { module = "io.reactivex:rxjava", version.ref = "rxjava" }
+rxjava2 = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2" }
+rxjava3 = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava3" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-jcl = { module = "org.slf4j:jcl-over-slf4j", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
+spock-spring = { module = "org.spockframework:spock-spring", version.ref = "spock" }
+
+[plugins]
+grace-doc = { id = "org.graceframework.grace-doc", version.ref = "grace-gradle" }
+gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradle-nexus-publish" }
+gradle-test-retry = { id = "org.gradle.test-retry", version.ref = "gradle-test-retry" }
