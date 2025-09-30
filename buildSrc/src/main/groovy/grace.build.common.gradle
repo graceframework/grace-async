@@ -11,7 +11,6 @@ version = project.projectVersion
 group = 'org.graceframework.async'
 
 repositories {
-    mavenLocal()
     mavenCentral()
     gradlePluginPortal()
     if (project.projectVersion.endsWith('-SNAPSHOT')) {
