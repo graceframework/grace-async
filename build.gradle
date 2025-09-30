@@ -18,8 +18,30 @@ ext.isReleaseVersion = !projectVersion.endsWith('SNAPSHOT')
 version = project.projectVersion
 group = 'org.graceframework.async'
 
+repositories {
+    mavenCentral()
+    if (project.projectVersion.endsWith('-SNAPSHOT')) {
+        maven {
+            name = 'Maven Central Portal Snapshots'
+            url = 'https://central.sonatype.com/repository/maven-snapshots/'
+
+            content {
+                includeGroupAndSubgroups 'org.graceframework'
+            }
+            mavenContent {
+                snapshotsOnly()
+            }
+        }
+    }
+}
+
 configurations {
     documentation
+}
+
+dependencies {
+    documentation libs.javaparser
+    documentation libs.groovy.core
 }
 
 tasks.withType(Test) {
@@ -72,7 +94,7 @@ tasks.withType(Groovydoc) {
 }
 
 docs {
-    dependsOn groovydoc
+    // dependsOn groovydoc
     sourceDir = project.file('src/main/docs')
 }
 
