@@ -4,9 +4,8 @@
 [![Grace Document](https://img.shields.io/badge/Grace_Document-latest-blue?style=flat&logo=asciidoctor&logoColor=E40046&labelColor=ffffff&color=f49b06)](https://graceframework.org/grace-async/latest/guide/index.html)
 [![Grace on X](https://img.shields.io/twitter/follow/graceframework?style=social)](https://x.com/graceframework)
 
-[![Groovy Version](https://img.shields.io/badge/Groovy-4.0.27-blue?style=flat&color=4298b8)](https://groovy-lang.org/releasenotes/groovy-4.0.html)
-[![Grace Version](https://img.shields.io/badge/Grace-2024.0.0-blue?style=flat&color=f49b06)](https://github.com/graceframework/grace-framework/releases/tag/v2024.0.0-M1)
-[![Spring Boot Version](https://img.shields.io/badge/Spring_Boot-3.4.7-blue?style=flat&color=6db33f)](https://github.com/spring-projects/spring-boot/releases/tag/v3.4.7)
+[![Java Version](https://img.shields.io/badge/Java-17-blue?style=flat&logo=openjdk&color=437291)](https://docs.oracle.com/en/java/javase/17/)
+[![Groovy Version](https://img.shields.io/badge/Groovy-4.0.28-blue?style=flat&color=4298b8)](https://groovy-lang.org/releasenotes/groovy-4.0.html)
 
 # Grace Async Framework
 
@@ -15,6 +14,7 @@ This project contains APIs and libraries that integrate Grace with various async
 
 > [!IMPORTANT]
 > Since 7.0, Grace `events` plugin and the related modules have already been split into its' own repository [`grace-events`](https://github.com/graceframework/grace-events).
+> And `grace-plugin-async` have been merged into the [Grace framework](https://github.com/graceframework/grace-framework/tree/2024.0.x/grace-plugin-async).
 
 ## Versions
 
