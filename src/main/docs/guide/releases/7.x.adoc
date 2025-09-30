@@ -1,0 +1,36 @@
+=== 7.0.0-M1
+
+link:{github}/releases/tag/v7.0.0-M1[release notes]
+
+🛠 Improvements
+
+* Update docs
+* Update README
+* Code formatting
+* Restructure Gradle builds link:{github}/issues/80[#80]
+  - Use Gradle version catalog to simplify dependency management
+  - Sharing Build Logic using buildSrc
+  - Update Checkstyle and CodeNarc plugin
+  - Update CI to skip checkstyle and codenarc
+* Move `grace-plugin-async` to the core framework link:{github}/issues/79[#79]
+* Enables testing in CI
+* Update tests
+* Improve `DelegateAsyncTransformation` to support grace-datastore-gorm-async link:{github}/issues/78[#78]
+* Change grace-async-* submodules' group to 'org.graceframework.async' link:{github}/issues/59[#59]
+* Update README - Update document links - Update badge version of Grace
+* Remove deprecated `grails.artefact.AsyncController` link:{github}/issues/72[#72]
+* Splitting events plugin out into it's own repository link:{github}/issues/58[#58]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2024.0.0-M1 link:{github}/issues/76[#76]
+* Upgrade to Gradle 8.14.3 link:{github}/issues/77[#77]
+* Upgrade to Groovy 4.0.27 link:{github}/issues/75[#75]
+
+⚙️ Tasks
+
+* Bump gradle/actions from 4.0.0 to 4.4.2
+* Bump actions/checkout from 4 to 5
+* Migrate to Central Portal OSSRH Staging API link:{github}/issues/70[#70]
+* Update GitHub workflows - Switch to 7.0.x
+* Bump version: 7.0.0-SNAPSHOT

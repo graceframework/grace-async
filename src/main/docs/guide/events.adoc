@@ -8,8 +8,10 @@ To use the Events abstraction you should add a dependency on the `events` plugin
 [source,groovy,subs="attributes"]
 .build.gradle
 ----
-implementation "org.graceframework.plugins:events:{version}"
+implementation "org.graceframework:grace-plugin-events"
 ----
+
+IMPORTANT: Since 7.0, Grace `events` modules have already been split into its' own repository link:https://github.com/graceframework/grace-events[`grace-events`]. And `grace-plugin-events` have been merged into the link:https://github.com/graceframework/grace-framework/tree/2024.0.x/grace-plugin-events[Grace framework].
 
 If no asynchronous framework in present on the classpath then by default Grace creates an EventBus based off of the currently active `PromiseFactory`.
 The default implementation is link:{api}/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html[CachedThreadPoolPromiseFactory] which uses a thread pool that will create threads as needed (the same as `java.util.concurrent.Executors.newCachedThreadPool()`).
