@@ -1,7 +1,7 @@
 [versions]
 bytebuddy = "1.15.11"
 gpars = "1.2.1"
-grace-gradle = "2024.0.0-M1"
+grace-gradle = "2024.0.0-M2"
 gradle-nexus-publish = "2.0.0"
 gradle-test-retry = "1.6.2"
 groovy = "4.0.28"
