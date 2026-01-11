@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     api project(':grace-async-core')
-    implementation libs.gpars, {
+    api libs.gpars, {
         exclude group:'org.multiverse', module:'multiverse-core'
         exclude group:'org.codehaus.groovy', module: 'groovy-all'
     }
