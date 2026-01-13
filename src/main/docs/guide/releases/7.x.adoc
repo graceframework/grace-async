@@ -1,3 +1,23 @@
+=== 7.0.0-RC1
+
+link:{github}/releases/tag/v7.0.0-RC1[release notes]
+
+🛠 Improvements
+
+* Update README
+* Add release notes for 7.0.0-RC1
+* Make asynchronous libraries as an api dependency link:{github}/issues/84[#84]
+
+🚀 Dependency Upgrades
+
+* Upgrade to Grace 2024.0.0-M2 link:{github}/issues/81[#81]
+* Upgrade to Groovy 4.0.29 link:{github}/issues/82[#82]
+* Upgrade to RxJava3 3.1.12 link:{github}/issues/83[#83]
+
+⚙️ Tasks
+
+* Release v7.0.0-RC1
+
 === 7.0.0-M1
 
 link:{github}/releases/tag/v7.0.0-M1[release notes]
