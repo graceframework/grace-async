@@ -18,7 +18,7 @@ class TaskController {
             sleep(1000)
             throw new RuntimeException("bad")
         }.onError {
-            render text:"error occured",status: 500
+            render text: "error occured", status: 500
         }
     }
 

@@ -1,15 +1,17 @@
 package pubsub.demo
 
-import grails.events.annotation.Subscriber
-import org.grails.datastore.mapping.engine.event.PreInsertEvent
+import java.util.concurrent.ConcurrentLinkedDeque
+
 import org.springframework.stereotype.Component
 
-import java.util.concurrent.ConcurrentLinkedDeque
+import grails.events.annotation.Subscriber
+import org.grails.datastore.mapping.engine.event.PreInsertEvent
 
 @Component
 class BookSubscriber {
 
     List<String> newBooks =[]
+
     @Subscriber("newBook")
     void withBook(Book book) {
         newBooks.add(book.title)

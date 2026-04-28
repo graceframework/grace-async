@@ -1,6 +1,7 @@
 plugins {
     id "eclipse"
     id "idea"
+    id "groovy"
     id "org.graceframework.grace-app"
     id "org.graceframework.asset-pipeline" version '7.0.0'
     id "org.graceframework.grace-gsp"
@@ -20,10 +21,7 @@ configurations {
 dependencies {
     developmentOnly "org.springframework.boot:spring-boot-devtools"
     console "org.graceframework:grace-console"
-    implementation "org.graceframework:grace-plugin-async", {
-        exclude group: 'org.graceframework.async', module: 'grace-async-rxjava3'
-    }
-    implementation project(':grace-async-rxjava3')
+    implementation "org.graceframework:grace-boot-async"
     implementation "org.graceframework:grace-boot-cache"
     implementation "org.graceframework:grace-boot-events"
     implementation "org.graceframework:grace-boot-hibernate"
@@ -34,6 +32,7 @@ dependencies {
     implementation "org.graceframework:grace-boot-web"
     implementation "org.graceframework:grace-plugin-database-migration"
     implementation "org.graceframework:grace-plugin-gsp"
+    implementation "org.graceframework:grace-plugin-management"
     implementation "org.graceframework:grace-plugin-services"
     implementation "org.graceframework:grace-plugin-taglibs"
     implementation "org.graceframework:grace-views-json"

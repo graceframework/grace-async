@@ -1,27 +1,30 @@
 package pubsub.demo
 
-import grails.testing.mixin.integration.Integration
-import io.micronaut.core.type.Argument
-import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.exceptions.HttpClientResponseException
-import spock.lang.Ignore
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.test.web.server.LocalServerPort
+import spock.lang.Specification
 
-/**
- * Created by graemerocher on 30/05/2017.
- */
+import grails.testing.mixin.integration.Integration
+
 @Integration
-@Ignore
-class TaskControllerSpec extends HttpClientSpec {
+class TaskControllerSpec extends Specification {
+
+    @LocalServerPort
+    private int port
+
+    @Autowired
+    private TestRestTemplate restTemplate
 
     void "test async error handling"() {
-        when:
-        HttpRequest request = HttpRequest.GET("/task/error")
-        client.toBlocking().exchange(request, Argument.of(String), Argument.of(String))
+        when: "The home page is requested"
+        ResponseEntity<String> response = this.restTemplate.getForEntity("http://localhost:" + port + "/task/error", String)
 
-        then:
-        HttpClientResponseException e = thrown()
-        e.response.status == HttpStatus.INTERNAL_SERVER_ERROR
-        e.response.body() == 'error occured'
+        then: "The response is 500"
+        response.statusCode == HttpStatus.INTERNAL_SERVER_ERROR
+        response.body == 'error occured'
     }
+
 }
