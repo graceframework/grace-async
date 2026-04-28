@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2025 the original author or authors.
+ * Copyright 2013-2026 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,10 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 import groovy.lang.Closure;
 import groovy.lang.GroovyObjectSupport;
@@ -68,8 +70,6 @@ public class DelegateAsyncTransformation implements ASTTransformation {
 
     private static final ArgumentListExpression NO_ARGS = new ArgumentListExpression();
     private static final String VOID = "void";
-    private static final String DEFAULT_ASYNC_TRANSACTIONAL_METHOD_TRANSFORMER =
-            "org.grails.async.transform.internal.DefaultDelegateAsyncTransactionalMethodTransformer";
     public static final ClassNode GROOVY_OBJECT_CLASS_NODE = new ClassNode(GroovyObjectSupport.class);
     public static final ClassNode OBJECT_CLASS_NODE = new ClassNode(Object.class);
 
@@ -218,13 +218,14 @@ public class DelegateAsyncTransformation implements ASTTransformation {
     }
 
     protected DelegateAsyncTransactionalMethodTransformer lookupAsyncTransactionalMethodTransformer() {
-        try {
-            Class<?> transformerClass = getClass().getClassLoader().loadClass(DEFAULT_ASYNC_TRANSACTIONAL_METHOD_TRANSFORMER);
-            return (DelegateAsyncTransactionalMethodTransformer) transformerClass.newInstance();
+        Iterator<DelegateAsyncTransactionalMethodTransformer> delegateTransformers =
+                ServiceLoader.load(DelegateAsyncTransactionalMethodTransformer.class, this.getClass().getClassLoader()).iterator();
+        if (delegateTransformers.hasNext()) {
+            return delegateTransformers.next();
         }
-        catch (Throwable ignored) {
+        else {
+            return new NoopDelegateAsyncTransactionalMethodTransformer();
         }
-        return new NoopDelegateAsyncTransactionalMethodTransformer();
     }
 
     private static boolean isCandidateMethod(MethodNode declaredMethod) {
