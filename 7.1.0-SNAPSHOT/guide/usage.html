@@ -150,12 +150,12 @@ The default implementation is <a href="../api/org/grails/async/factory/future/Ca
 </div>
 <div class="paragraph">
 <p>However, the design of the promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations.
-For example to use RxJava 1.x simply add the RxJava dependency to <code>build.gradle</code>:</p>
+For example to use RxJava 3.x simply add the RxJava3 dependency to <code>build.gradle</code>:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework:grace-async-rxjava:7.1.0-SNAPSHOT"</code></pre>
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework.async:grace-async-rxjava3:7.1.0-SNAPSHOT"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -242,12 +242,12 @@ Since 7.0, Grace <code>events</code> modules have already been split into its' o
 The default implementation is <a href="../api/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html">CachedThreadPoolPromiseFactory</a> which uses a thread pool that will create threads as needed (the same as <code>java.util.concurrent.Executors.newCachedThreadPool()</code>).</p>
 </div>
 <div class="paragraph">
-<p>If you wish to use a popular async framework such as RxJava as the <code>EventBus</code> implementation then you will need to add the appropriate dependency. For example for RxJava 1.x:</p>
+<p>If you wish to use a popular async framework such as RxJava3 as the <code>EventBus</code> implementation then you will need to add the appropriate dependency. For example for RxJava 3.x:</p>
 </div>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework:grace-events-rxjava:7.1.0-SNAPSHOT"</code></pre>
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework.events:grace-events-rxjava3:7.1.0-SNAPSHOT"</code></pre>
 </div>
 </div>
 <div class="paragraph">
