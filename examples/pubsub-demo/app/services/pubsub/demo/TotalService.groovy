@@ -10,6 +10,7 @@ class TotalService {
     @Subscriber
     void onSum(int total) {
         accumulatedTotal += total
+        log.info "TotalService: accumulatedTotal = $accumulatedTotal, sum = $total"
     }
 
     @Subscriber

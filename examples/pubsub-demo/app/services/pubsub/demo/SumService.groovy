@@ -8,6 +8,7 @@ class SumService {
     @Publisher
     @Transactional
     int sum(int a, int b) {
+        log.info "SumService: sum($a, $b)"
         return a + b
     }
 }

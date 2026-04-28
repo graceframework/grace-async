@@ -11,7 +11,7 @@ model {
 json {
 	message "Welcome to Grace!"
     environment Environment.current.name
-    appversion grailsApplication.metadata.getApplicationVersion()
+    appversion Metadata.current.getApplicationVersion()
     graceversion GrailsUtil.grailsVersion
     appprofile grailsApplication.config.getProperty('grails.profile')
     groovyversion GroovySystem.getVersion()

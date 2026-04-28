@@ -1,9 +1,9 @@
 package pubsub.demo
 
-
 import static grails.async.web.WebPromises.*
 
 class TaskController {
+
 	static responseFormats = ['json', 'xml']
 	
     def index() {
@@ -21,4 +21,5 @@ class TaskController {
             render text:"error occured",status: 500
         }
     }
+
 }

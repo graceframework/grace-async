@@ -7,5 +7,5 @@ include 'grace-async-rxjava2'
 include 'grace-async-rxjava3'
 
 // examples
-// include 'pubsub-demo'
-// project(":pubsub-demo").projectDir = new File(settingsDir, "examples/pubsub-demo")
+include 'pubsub-demo'
+project(":pubsub-demo").projectDir = new File(settingsDir, "examples/pubsub-demo")
