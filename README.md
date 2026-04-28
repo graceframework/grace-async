@@ -5,7 +5,7 @@
 [![Grace on X](https://img.shields.io/twitter/follow/graceframework?style=social)](https://x.com/graceframework)
 
 [![Java Version](https://img.shields.io/badge/Java-17-blue?style=flat&logo=openjdk&color=437291)](https://docs.oracle.com/en/java/javase/17/)
-[![Groovy Version](https://img.shields.io/badge/Groovy-4.0.30-blue?style=flat&color=4298b8)](https://groovy-lang.org/releasenotes/groovy-4.0.html)
+[![Groovy Version](https://img.shields.io/badge/Groovy-4.0.31-blue?style=flat&color=4298b8)](https://groovy-lang.org/releasenotes/groovy-4.0.html)
 
 # Grace Async Framework
 
@@ -22,6 +22,7 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 
 | Plugin Version | Grace Version |
 |----------------|---------------|
+| 7.1.x          | 2024.1.x      |
 | 7.0.x          | 2024.0.x      |
 | 6.3.x          | 2023.3.x      |
 | 6.2.x          | 2023.2.x      |
@@ -33,7 +34,7 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 
 ## Ducumentation
 
-* [7.0.x](https://graceframework.org/grace-async/7.0.x/)
+* [7.1.x](https://graceframework.org/grace-async/7.1.x/)
 
 ## Links
 
