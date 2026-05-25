@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath libs.groovy.toml
+    }
+}
+
 plugins {
     id 'java-library'
     id 'groovy'
@@ -14,6 +23,11 @@ ext.'signing.keyId' = rootProject.hasProperty('signing.keyId') ? rootProject.get
 ext.'signing.password' = rootProject.hasProperty('signing.password') ? rootProject.getProperty('signing.password') : System.getenv('SIGNING_PASSPHRASE')
 ext.'signing.secretKeyRingFile' = rootProject.hasProperty('signing.secretKeyRingFile') ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
 ext.isReleaseVersion = !projectVersion.endsWith('SNAPSHOT')
+
+def toml = new groovy.toml.TomlSlurper()
+def versions = toml.parse(rootProject.file('gradle/libs.versions.toml')).versions
+def groovyVersion = versions['groovy']
+def rxJava3Version = versions['rxjava3.version']
 
 version = project.projectVersion
 group = 'org.graceframework.async'
@@ -91,6 +105,9 @@ tasks.withType(Groovydoc) {
     }
     source = files
     classpath += configurations.documentation
+    link('https://docs.oracle.com/en/java/javase/17/docs/api/java.base/', 'java.', 'jakarta.')
+    link("https://docs.groovy-lang.org/docs/groovy-${groovyVersion}/html/gapi/",  'groovy.', 'org.codehaus.groovy.', 'org.apache.groovy.')
+    link("http://reactivex.io/RxJava/3.x/javadoc/${rxJava3Version}/",  'io.reactivex.rxjava3.')
 }
 
 publishGuide {
