@@ -3,7 +3,7 @@ plugins {
     id "idea"
     id "groovy"
     id "org.graceframework.grace-app"
-    id "org.graceframework.asset-pipeline" version '7.0.0'
+    id "org.graceframework.asset-pipeline" version '7.1.0-RC1'
     id "org.graceframework.grace-gsp"
     id "org.graceframework.grace-json"
 }

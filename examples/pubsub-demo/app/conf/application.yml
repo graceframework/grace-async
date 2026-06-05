@@ -23,8 +23,6 @@ spring:
                 - '*.properties'
     jpa:
         open-in-view: false
-    liquibase:
-        enabled: false
 management:
     endpoints:
         enabled-by-default: true
@@ -40,7 +38,6 @@ hibernate:
         use_query_cache: false
 dataSource:
     pooled: true
-    jmxExport: true
     driverClassName: org.h2.Driver
     username: sa
     password: ''
