@@ -1,5 +1,5 @@
 [versions]
-bytebuddy = "1.15.11"
+bytebuddy = "1.17.8"
 gpars = "1.2.1"
 grace-gradle = "2024.1.0-RC2"
 gradle-nexus-publish = "2.0.0"
