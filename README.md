@@ -22,6 +22,7 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 
 | Plugin Version | Grace Version |
 |----------------|---------------|
+| 7.2.x          | 2024.2.x      |
 | 7.1.x          | 2024.1.x      |
 | 7.0.x          | 2024.0.x      |
 | 6.3.x          | 2023.3.x      |
@@ -34,7 +35,7 @@ To make it easier for users to use and upgrade, Plugin adopts a version policy c
 
 ## Ducumentation
 
-* [7.1.x](https://graceframework.org/grace-async/7.1.x/)
+* [7.2.x](https://graceframework.org/grace-async/7.2.x/)
 
 ## Links
 
