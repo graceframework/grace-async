@@ -7,6 +7,11 @@ plugins {
     id 'codenarc'
 }
 
+ext.'signing.keyId' = rootProject.hasProperty('signing.keyId') ? rootProject.getProperty('signing.keyId') : System.getenv('SIGNING_KEY')
+ext.'signing.password' = rootProject.hasProperty('signing.password') ? rootProject.getProperty('signing.password') : System.getenv('SIGNING_PASSPHRASE')
+ext.'signing.secretKeyRingFile' = rootProject.hasProperty('signing.secretKeyRingFile') ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
+ext.isReleaseVersion = !projectVersion.endsWith('SNAPSHOT')
+
 version = project.projectVersion
 group = 'org.graceframework.async'
 

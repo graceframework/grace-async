@@ -19,11 +19,6 @@ plugins {
     alias libs.plugins.gradle.test.retry
 }
 
-ext.'signing.keyId' = rootProject.hasProperty('signing.keyId') ? rootProject.getProperty('signing.keyId') : System.getenv('SIGNING_KEY')
-ext.'signing.password' = rootProject.hasProperty('signing.password') ? rootProject.getProperty('signing.password') : System.getenv('SIGNING_PASSPHRASE')
-ext.'signing.secretKeyRingFile' = rootProject.hasProperty('signing.secretKeyRingFile') ? rootProject.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
-ext.isReleaseVersion = !projectVersion.endsWith('SNAPSHOT')
-
 def toml = new groovy.toml.TomlSlurper()
 def versions = toml.parse(rootProject.file('gradle/libs.versions.toml')).versions
 def groovyVersion = versions['groovy']
