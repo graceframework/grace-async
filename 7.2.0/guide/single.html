@@ -1,0 +1,1722 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>Grace Async Framework 7.2.0</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+    </head>
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <div class="navHeader">
+                
+                <span id="logo">
+                    <a href="https://graceframework.org" title="Go to Grace Framework Website">
+                        <img src="../img/grace.svg" alt="Grace Framework" />
+                    </a>
+                </span>
+                
+                <div class="docHeader">
+                    <h1 class="docTitle">Grace Async Framework</h1>
+                    <h3 class="docSubTitle">Provides various asynchronous libraries and frameworks that integrate Grace</h3>
+                    <span class="docVersion">7.2.0</span>
+                </div>
+            </div>
+            <div class="navLinks">
+                <ul>
+                    <li>
+                        <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releases"><strong>2</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>3</strong><span>Usage</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#support"><strong>4</strong><span>Support</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+                    <li class="separator selected">
+                        <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                    </li>
+                    <li class="separator selected">
+                        <a id="ref-button" href="../api/index.html">API Docs</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <table id="colset" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Grace Async Framework</h1>
+                            <p><strong>Authors:</strong> Michael Yan</p>
+                            <p><strong>Version:</strong> 7.2.0</p>
+                            
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#releases"><strong>2</strong><span>Release History</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#7.x"><strong>2.1</strong><span>What's new in 7.x</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#6.x"><strong>2.2</strong><span>What's new in 6.x</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#usage"><strong>3</strong><span>Usage</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#async"><strong>3.1</strong><span>Async Plugin</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#events"><strong>3.2</strong><span>Events Plugin</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#support"><strong>4</strong><span>Support</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>This project contains APIs and libraries that integrate Grace with various asynchronous libraries and frameworks such as <a href="https://github.com/GPars/GPars">GPars</a> and <a href="https://github.com/ReactiveX/RxJava/tree/1.x">RxJava</a>, <a href="https://github.com/ReactiveX/RxJava/releases/tag/v2.2.21">RxJava2</a>, <a href="https://github.com/ReactiveX/RxJava/releases">RxJava3</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Async framework aim to simplify concurrent programming within the framework and include the concept of Promises and a unified event model,
+and the Events framework provides a new Events API that replaces the previous implementation that was based on Reactor <a href="https://github.com/reactor/reactor/tree/v2.0.8.RELEASE">2.x</a> (which is no longer maintained and deprecated).</p>
+</div>
+
+
+<h1 id="releases"><a class="anchor" href="#releases"></a>2 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/releases.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To make it easier for users to use and upgrade, Plugin adopts a version policy consistent with the <a href="https://github.com/graceframework/grace-framework">Grace Framework</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plugin Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grace Version</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/7.2.x">7.2.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024.2.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/7.1.x">7.1.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024.1.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/7.0.x">7.0.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024.0.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/6.3.x">6.3.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023.3.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/6.2.x">6.2.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023.2.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/6.1.x">6.1.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023.1.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/6.0.x">6.0.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2023.0.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/5.2.x">5.2.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022.2.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/5.1.x">5.1.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022.1.x</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/graceframework/grace-async/tree/5.0.x">5.0.x</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2022.0.x</p></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2 id="7.x"><a class="anchor" href="#7.x"></a>2.1 What's new in 7.x</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/releases/7.x.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_7_2_0">7.2.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.2.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.2.0</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a9864a0 Upgrade to JUnit Jupiter 5.14.4 and JUnit Platform 1.14.4 <a href="https://github.com/graceframework/grace-async/issues/121">#121</a></p>
+</li>
+<li>
+<p>0757c15 Upgrade to Gradle 8.14.7 <a href="https://github.com/graceframework/grace-async/issues/120">#120</a></p>
+</li>
+<li>
+<p>364c3db Upgrade Java version in sdkmanrc to 17.0.20-zulu <a href="https://github.com/graceframework/grace-async/issues/115">#115</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.2.0</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_2_0_rc1">7.2.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.2.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.2.0-RC1</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace Gradle Plugin 2024.1.2 <a href="https://github.com/graceframework/grace-async/issues/106">#106</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.33 <a href="https://github.com/graceframework/grace-async/issues/107">#107</a></p>
+</li>
+<li>
+<p>Upgrade to JavaParser 3.28.2 <a href="https://github.com/graceframework/grace-async/issues/108">#108</a></p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.20 <a href="https://github.com/graceframework/grace-async/issues/109">#109</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.2.0-RC1</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_2_0_m1">7.2.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.2.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.2.0-M1</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Update doc.properties - switch to 7.2.x branch</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace Gradle Plugin 2024.1.0 <a href="https://github.com/graceframework/grace-async/issues/104">#104</a></p>
+</li>
+<li>
+<p>Upgrade to Spock 2.4 <a href="https://github.com/graceframework/grace-async/issues/105">#105</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.2.0-M1</p>
+</li>
+<li>
+<p>Update github workflows Switch to '7.2.x' branch</p>
+</li>
+<li>
+<p>Bump version: 7.2.0-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_1_0">7.1.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.1.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.1.0</p>
+</li>
+<li>
+<p>Update examples to Grace 2024.1.0-RC2 <a href="https://github.com/graceframework/grace-async/issues/103">#103</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Byte Buddy 1.17.8 <a href="https://github.com/graceframework/grace-async/issues/101">#101</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Gradle Plugin 2024.1.0-RC2 <a href="https://github.com/graceframework/grace-async/issues/99">#99</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.32 <a href="https://github.com/graceframework/grace-async/issues/100">#100</a></p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.18 <a href="https://github.com/graceframework/grace-async/issues/102">#102</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.1.0</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_1_0_rc1">7.1.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.1.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.1.0-RC1</p>
+</li>
+<li>
+<p>7783184 Add more groovydoc <code>link</code> to fix wrong javadoc links <a href="https://github.com/graceframework/grace-async/issues/98">#98</a></p>
+</li>
+<li>
+<p>717b3a0 Add .sdkmanrc with latest java version 17.0.19-zulu <a href="https://github.com/graceframework/grace-async/issues/96">#96</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>8a5efe6 Upgrade to Gradle 8.14.5 <a href="https://github.com/graceframework/grace-async/issues/97">#97</a></p>
+</li>
+<li>
+<p>dc9ad9e Upgrade Release Drafter Gradle Action to v7 <a href="https://github.com/graceframework/grace-async/issues/95">#95</a></p>
+</li>
+<li>
+<p>da48945 Upgrade GitHub workflows: migrate java distribution from <code>adopt</code> to <code>zulu</code> <a href="https://github.com/graceframework/grace-async/issues/94">#94</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.1.0-RC1</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_1_0_m1">7.1.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.1.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.1.0-M1</p>
+</li>
+<li>
+<p>Use java.util.ServiceLoader API to provide <code>DelegateAsyncTransactionalMethodTransformer</code> <a href="https://github.com/graceframework/grace-async/issues/92">#92</a></p>
+</li>
+<li>
+<p>Update doc.properties - switch to 7.1.x branch</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace Gradle Plugin 2024.1.0-M2 <a href="https://github.com/graceframework/grace-async/issues/88">#88</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.31 <a href="https://github.com/graceframework/grace-async/issues/89">#89</a></p>
+</li>
+<li>
+<p>Upgrade to JUnit Jupiter 5.12.2 <a href="https://github.com/graceframework/grace-async/issues/90">#90</a></p>
+</li>
+<li>
+<p>Upgrade to JUnit Platform 1.12.2 <a href="https://github.com/graceframework/grace-async/issues/91">#91</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.1.0-M1</p>
+</li>
+<li>
+<p>Switch to branch 7.1.x Update GitHub workflows</p>
+</li>
+<li>
+<p>Next development version: 7.1.0-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_0_0">7.0.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.0.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add release notes for 7.0.0</p>
+</li>
+<li>
+<p>Update README - Update badget version of Groovy</p>
+</li>
+<li>
+<p>Update copyright in doc.properties</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2024.0.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/85">#85</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle 8.14.4 <a href="https://github.com/graceframework/grace-async/issues/87">#87</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.30 <a href="https://github.com/graceframework/grace-async/issues/86">#86</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.0.0</p>
+</li>
+<li>
+<p>Upgrade to gradle/actions/setup-gradle@v5.0.2</p>
+</li>
+<li>
+<p>Upgrade to actions/setup-java@v5</p>
+</li>
+<li>
+<p>Upgrade to actions/checkout@v6</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_0_0_rc1">7.0.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.0.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Add release notes for 7.0.0-RC1</p>
+</li>
+<li>
+<p>Make asynchronous libraries as an api dependency <a href="https://github.com/graceframework/grace-async/issues/84">#84</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2024.0.0-M2 <a href="https://github.com/graceframework/grace-async/issues/81">#81</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.29 <a href="https://github.com/graceframework/grace-async/issues/82">#82</a></p>
+</li>
+<li>
+<p>Upgrade to RxJava3 3.1.12 <a href="https://github.com/graceframework/grace-async/issues/83">#83</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v7.0.0-RC1</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_7_0_0_m1">7.0.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v7.0.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update docs</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Code formatting</p>
+</li>
+<li>
+<p>Restructure Gradle builds <a href="https://github.com/graceframework/grace-async/issues/80">#80</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use Gradle version catalog to simplify dependency management</p>
+</li>
+<li>
+<p>Sharing Build Logic using buildSrc</p>
+</li>
+<li>
+<p>Update Checkstyle and CodeNarc plugin</p>
+</li>
+<li>
+<p>Update CI to skip checkstyle and codenarc</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Move <code>grace-plugin-async</code> to the core framework <a href="https://github.com/graceframework/grace-async/issues/79">#79</a></p>
+</li>
+<li>
+<p>Enables testing in CI</p>
+</li>
+<li>
+<p>Update tests</p>
+</li>
+<li>
+<p>Improve <code>DelegateAsyncTransformation</code> to support grace-datastore-gorm-async <a href="https://github.com/graceframework/grace-async/issues/78">#78</a></p>
+</li>
+<li>
+<p>Change grace-async-* submodules' group to 'org.graceframework.async' <a href="https://github.com/graceframework/grace-async/issues/59">#59</a></p>
+</li>
+<li>
+<p>Update README - Update document links - Update badge version of Grace</p>
+</li>
+<li>
+<p>Remove deprecated <code>grails.artefact.AsyncController</code> <a href="https://github.com/graceframework/grace-async/issues/72">#72</a></p>
+</li>
+<li>
+<p>Splitting events plugin out into it&#8217;s own repository <a href="https://github.com/graceframework/grace-async/issues/58">#58</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2024.0.0-M1 <a href="https://github.com/graceframework/grace-async/issues/76">#76</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle 8.14.3 <a href="https://github.com/graceframework/grace-async/issues/77">#77</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.27 <a href="https://github.com/graceframework/grace-async/issues/75">#75</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>⚙️ Tasks</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Bump gradle/actions from 4.0.0 to 4.4.2</p>
+</li>
+<li>
+<p>Bump actions/checkout from 4 to 5</p>
+</li>
+<li>
+<p>Migrate to Central Portal OSSRH Staging API <a href="https://github.com/graceframework/grace-async/issues/70">#70</a></p>
+</li>
+<li>
+<p>Update GitHub workflows - Switch to 7.0.x</p>
+</li>
+<li>
+<p>Bump version: 7.0.0-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+<h2 id="6.x"><a class="anchor" href="#6.x"></a>2.2 What's new in 6.x</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/releases/6.x.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_6_3_0">6.3.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.3.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update README - Add document badge</p>
+</li>
+<li>
+<p>Use javaParserCoreVersion in the build dependencies</p>
+</li>
+<li>
+<p>Add publishing docs action for release workflow</p>
+</li>
+<li>
+<p>Add docs</p>
+</li>
+<li>
+<p>Add Gradle docs task</p>
+</li>
+<li>
+<p>Add Gradle docs workflow</p>
+</li>
+<li>
+<p>Use RxJava, RxJava2, RxJava3 GORM dependencies' versions in the BOM <a href="https://github.com/graceframework/grace-async/issues/65">#65</a></p>
+</li>
+<li>
+<p>Use GORM dependencies' versions in the BOM <a href="https://github.com/graceframework/grace-async/issues/64">#64</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.3.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/62">#62</a></p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.3.0-RC2 <a href="https://github.com/graceframework/grace-async/issues/67">#67</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.3.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/63">#63</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle 8.14 <a href="https://github.com/graceframework/grace-async/issues/66">#66</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_3_0_rc1">6.3.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.3.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update README Update badge versions of Grace and Spring Boot</p>
+</li>
+<li>
+<p>Streamline Gradle build scripts: using the Spring Dependency Management Plugin to manage dependencies and versions <a href="https://github.com/graceframework/grace-async/issues/60">#60</a></p>
+</li>
+<li>
+<p>Add Sonatype OSS Snapshots repository <a href="https://github.com/graceframework/grace-async/issues/57">#57</a></p>
+</li>
+<li>
+<p>Remove dependency on events plugin <a href="https://github.com/graceframework/grace-async/issues/56">#56</a></p>
+</li>
+<li>
+<p>Explicitly add dependencies on jakarta.annotation-api and grace-datastore-core <a href="https://github.com/graceframework/grace-async/issues/55">#55</a></p>
+</li>
+<li>
+<p>Remove the unnecessary workaround for removing the generated extra dependencyManagement of POM <a href="https://github.com/graceframework/grace-async/issues/50">#50</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🐞 Bug Fixes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add missing dependecies of spring-boot-autoconfigure in async plugin <a href="https://github.com/graceframework/grace-async/issues/53">#53</a></p>
+</li>
+<li>
+<p>Correct the description of generated POM for events modules <a href="https://github.com/graceframework/grace-async/issues/52">#52</a></p>
+</li>
+<li>
+<p>Don&#8217;t apply plugin: 'io.spring.dependency-management' on project&#8217;s modules <a href="https://github.com/graceframework/grace-async/issues/51">#51</a> <a href="https://github.com/graceframework/grace-async/issues/50">#50</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.3.0-M2 <a href="https://github.com/graceframework/grace-async/issues/45">#45</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.3.0-M1 <a href="https://github.com/graceframework/grace-async/issues/47">#47</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle 8.13 <a href="https://github.com/graceframework/grace-async/issues/54">#54</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.26 <a href="https://github.com/graceframework/grace-async/issues/46">#46</a></p>
+</li>
+<li>
+<p>Upgrade to Java Parser 3.26.4 <a href="https://github.com/graceframework/grace-async/issues/61">#61</a></p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.1.18 <a href="https://github.com/graceframework/grace-async/issues/48">#48</a></p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.17 <a href="https://github.com/graceframework/grace-async/issues/49">#49</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_3_0_m1">6.3.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.3.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove unused Gradle version properties <a href="https://github.com/graceframework/grace-async/issues/44">#44</a></p>
+</li>
+<li>
+<p>Removes excluded Groovy 3.0 from GORM dependencies <a href="https://github.com/graceframework/grace-async/issues/43">#43</a></p>
+</li>
+<li>
+<p>Update README Update badge of Grace to current version</p>
+</li>
+<li>
+<p>Cleanup gradle.properties</p>
+</li>
+<li>
+<p>Update github workflows Switch to 6.3.x branch</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.3.0-M1 <a href="https://github.com/graceframework/grace-async/issues/42">#42</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_2_0">6.2.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.2.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Update GitHub issue template <a href="https://github.com/graceframework/grace-async/issues/39">#39</a></p>
+</li>
+<li>
+<p>Update build scripts to avoid deprecation warnings with Gradle 8 <a href="https://github.com/graceframework/grace-async/issues/38">#38</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.2.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/35">#35</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.2.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/36">#36</a></p>
+</li>
+<li>
+<p>Upgrade to Test Retry Gradle Plugin 1.6.0 <a href="https://github.com/graceframework/grace-async/issues/37">#37</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_2_0_rc1">6.2.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.2.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.2.0-M3 <a href="https://github.com/graceframework/grace-async/issues/32">#32</a></p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.2.0-M2 <a href="https://github.com/graceframework/grace-async/issues/28">#28</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.2.0-M1 <a href="https://github.com/graceframework/grace-async/issues/29">#29</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle 8.12 <a href="https://github.com/graceframework/grace-async/issues/33">#33</a></p>
+</li>
+<li>
+<p>Upgrade to RxJava 3.1.10 <a href="https://github.com/graceframework/grace-async/issues/31">#31</a></p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.1.16 <a href="https://github.com/graceframework/grace-async/issues/30">#30</a></p>
+</li>
+<li>
+<p>Upgrade to Spring Dependency Management Plugin 1.1.7 <a href="https://github.com/graceframework/grace-async/issues/34">#34</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_2_0_m1">6.2.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.2.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Update README Update badge of Spring Boot to current version</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Update github workflows</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Byte Buddy 1.14.19 <a href="https://github.com/graceframework/grace-async/issues/24">#24</a></p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.2.0-M1 <a href="https://github.com/graceframework/grace-async/issues/21">#21</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle Wrapper 7.6.4 <a href="https://github.com/graceframework/grace-async/issues/23">#23</a></p>
+</li>
+<li>
+<p>Upgrade to JUnit Platform 1.10.5 <a href="https://github.com/graceframework/grace-async/issues/26">#26</a></p>
+</li>
+<li>
+<p>Upgrade to JUnit Jupiter 5.10.5 <a href="https://github.com/graceframework/grace-async/issues/25">#25</a></p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.1.15 <a href="https://github.com/graceframework/grace-async/issues/22">#22</a></p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.16 <a href="https://github.com/graceframework/grace-async/issues/27">#27</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_1_0">6.1.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.1.0">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use Java 17 toolchain <a href="https://github.com/graceframework/grace-async/issues/18">#18</a></p>
+</li>
+<li>
+<p>Use <code>gradlePluginPortal()</code> <a href="https://github.com/graceframework/grace-async/issues/17">#17</a></p>
+</li>
+<li>
+<p>Update Badges</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.1.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/14">#14</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.1.0-RC1 <a href="https://github.com/graceframework/grace-async/issues/16">#16</a></p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.24 <a href="https://github.com/graceframework/grace-async/issues/15">#15</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_1_0_rc1">6.1.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.1.0-RC1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace Data 2023.1.0-M3 <a href="https://github.com/graceframework/grace-async/issues/13">#13</a></p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.1.0-M3 <a href="https://github.com/graceframework/grace-async/issues/11">#11</a></p>
+</li>
+<li>
+<p>Upgrade to Gradle Nexus Publish Plugin 2.0.0 <a href="https://github.com/graceframework/grace-async/issues/12">#12</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_1_0_m3">6.1.0-M3</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M3">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Only add dependency <code>jakarta.annotation-api</code> to <code>grace-async-core</code> <a href="https://github.com/graceframework/grace-async/issues/10">#10</a></p>
+</li>
+<li>
+<p>Generate Spring Boot configuration metadata file <a href="https://github.com/graceframework/grace-async/issues/9">#9</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.1.0-M2 <a href="https://github.com/graceframework/grace-async/issues/7">#7</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.1.0-M2 <a href="https://github.com/graceframework/grace-async/issues/8">#8</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_1_0_m2">6.1.0-M2</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M2">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Auto-Configure Events Plugin <a href="https://github.com/graceframework/grace-async/issues/5">#5</a></p>
+</li>
+<li>
+<p>Auto-Configure Async Plugin <a href="https://github.com/graceframework/grace-async/issues/4">#4</a></p>
+</li>
+<li>
+<p>Update Examples Upgrade to Grace 2023.1.0-M1 <a href="https://github.com/graceframework/grace-async/issues/3">#3</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🐞 Bug Fixes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Resolve JUnit version conflicts <a href="https://github.com/graceframework/grace-async/issues/6">#6</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Grace 2023.1.0-M1 <a href="https://github.com/graceframework/grace-async/issues/1">#1</a></p>
+</li>
+<li>
+<p>Upgrade to Grace Data 2023.1.0-M1 <a href="https://github.com/graceframework/grace-async/issues/2">#2</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_1_0_m1">6.1.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.1.0-M1">release notes</a></p>
+</div>
+<div class="paragraph">
+<p>🛠 Improvements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove setting role type <code>BeanDefinition.ROLE_INFRASTRUCTURE</code> of bean <code>grailsEventBus</code></p>
+</li>
+<li>
+<p>Remove setting role type <code>BeanDefinition.ROLE_INFRASTRUCTURE</code> of bean <code>asyncPromiseResponseActionResultTransformer</code></p>
+</li>
+<li>
+<p>Define <code>jakartaAnnotationVersion</code> 2.1.1 in <code>gradle.properties</code></p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+<li>
+<p>Change README.adoc to markdown</p>
+</li>
+<li>
+<p>Update README</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>🚀 Dependency Upgrades</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade to Byte Buddy 1.14.16</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.2</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.1</p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.23</p>
+</li>
+<li>
+<p>Upgrade to GORM 2023.0.1</p>
+</li>
+<li>
+<p>Upgrade to Jakarta Inject 2.0.1</p>
+</li>
+<li>
+<p>Upgrade to JavaParser 3.26.2</p>
+</li>
+<li>
+<p>Upgrade to JUnit Jupiter 5.9.3 and JUnit Platform 1.9.3</p>
+</li>
+<li>
+<p>Upgrade to Objenesis 3.4</p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.13</p>
+</li>
+<li>
+<p>Upgrade to Spring Dependency Management Plugin 1.1.6</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_1">6.0.1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.1">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.1</p>
+</li>
+<li>
+<p>Upgrade to RxJava 3.1.9</p>
+</li>
+<li>
+<p>Upgrade to SLF4J 2.0.9</p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.0.23</p>
+</li>
+<li>
+<p>Upgrade to Grace GORM 2023.0.0</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0</p>
+</li>
+<li>
+<p>Set version to 6.0.1-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0">6.0.0</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0</p>
+</li>
+<li>
+<p>Upgrade to GORM 2023.0.0-RC1</p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.22</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0-RC2</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0_rc1">6.0.0-RC1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0-RC1">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0-RC1</p>
+</li>
+<li>
+<p>Make dependency <code>grace-plugin-events</code> and <code>grace-events-compat</code> compileOnly</p>
+</li>
+<li>
+<p>Make dependency <code>grace-events-compat</code> compileOnly</p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.0.22</p>
+</li>
+<li>
+<p>Upgrade to GORM 2023.0.0-M5</p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.21</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0-M7</p>
+</li>
+<li>
+<p>Add artifact <code>grails-plugin.xml</code></p>
+</li>
+<li>
+<p>Update github workflows</p>
+</li>
+<li>
+<p>Update github workflows</p>
+</li>
+<li>
+<p>Back to 6.0.0-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0_m4">6.0.0-M4</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M4">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0-M4</p>
+</li>
+<li>
+<p>Set <code>archiveClassifier</code> with 'plugin'</p>
+</li>
+<li>
+<p>Revert "Upgrade to Groovy 4.0.21"</p>
+</li>
+<li>
+<p>Remove the legacy reactor <code>EventBus</code></p>
+</li>
+<li>
+<p>Fixes group of grace-test</p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.0.14</p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.21</p>
+</li>
+<li>
+<p>Upgrade to Grace GORM 2023.0.0-M4</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0-M6</p>
+</li>
+<li>
+<p>Grace: update github workflows</p>
+</li>
+<li>
+<p>Set version to 6.0.0-SNAPSHOT</p>
+</li>
+<li>
+<p>Grace: migrate to grace</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0_m3">6.0.0-M3</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M3">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0-M3</p>
+</li>
+<li>
+<p>Upgrade to Grace GORM 2023.0.0-M3</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0-M5</p>
+</li>
+<li>
+<p>Update github workflows</p>
+</li>
+<li>
+<p>Migrate to Grace</p>
+</li>
+<li>
+<p>Release v6.0.0-M2</p>
+</li>
+<li>
+<p>Upgrade to Hibernate core 5.6.15.Final</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0_m2">6.0.0-M2</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M2">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0-M2</p>
+</li>
+<li>
+<p>Remove unused travci files</p>
+</li>
+<li>
+<p>Update plugins info</p>
+</li>
+<li>
+<p>Migrate to grace app dir</p>
+</li>
+<li>
+<p>Rename submodules</p>
+</li>
+<li>
+<p>Grace: update gradle build scripts</p>
+</li>
+<li>
+<p>Grace: update gradle build scripts</p>
+</li>
+<li>
+<p>Upgrade to Grace GORM 2023.0.0-M2</p>
+</li>
+<li>
+<p>Upgrade to Grace 2023.0.0-M2</p>
+</li>
+<li>
+<p>Grace: update github workflows</p>
+</li>
+<li>
+<p>Grace: migrate to grace</p>
+</li>
+<li>
+<p>Upgrade to RxJava 3.1.6</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_0_0_m1">6.0.0-M1</h3>
+<div class="paragraph">
+<p><a href="https://github.com/graceframework/grace-async/releases/tag/v6.0.0-M1">release notes</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Release v6.0.0-M1</p>
+</li>
+<li>
+<p>Upgrade to Grace GORM 2023.0.0-M1</p>
+</li>
+<li>
+<p>Grace: update github workflows</p>
+</li>
+<li>
+<p>Grace: update github workflows</p>
+</li>
+<li>
+<p>Grace: migrate to Groovy 4</p>
+</li>
+<li>
+<p>Fixes Groovy STC errors</p>
+</li>
+<li>
+<p>Upgrade to Hibernate core 5.6.15.Final</p>
+</li>
+<li>
+<p>Upgrade to Groovy 4.0.11</p>
+</li>
+<li>
+<p>Upgrade to Spring Framework 6.0.8</p>
+</li>
+<li>
+<p>Support RxJava 3.0</p>
+</li>
+<li>
+<p>Update build.gradle</p>
+</li>
+<li>
+<p>Update build.gradle</p>
+</li>
+<li>
+<p>Update examples</p>
+</li>
+<li>
+<p>Update Dependencies</p>
+</li>
+<li>
+<p>Update build.gradle to Gradle 7</p>
+</li>
+<li>
+<p>Support Jakarta EE: migrate to jakarta.* namespace</p>
+</li>
+<li>
+<p>Upgrade to Gradle 7.6.1</p>
+</li>
+<li>
+<p>Next development version: 6.0.0-SNAPSHOT</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+<h1 id="usage"><a class="anchor" href="#usage"></a>3 Usage</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/usage.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+
+
+
+<h2 id="async"><a class="anchor" href="#async"></a>3.1 Async Plugin</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/async.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use the Async framework you should add a dependency on the <code>async</code> plugin to your <code>build.gradle</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework:grace-plugin-async"</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<code>grace-plugin-async</code> have been merged into the <a href="https://github.com/graceframework/grace-framework/tree/2024.0.x/grace-plugin-async">Grace framework</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default the <code>Promises</code> static methods use an instance of <code>PromiseFactory</code>. This <code>PromiseFactory</code> interface has various implementations.
+The default implementation is <a href="../api/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html">CachedThreadPoolPromiseFactory</a> which uses a thread pool that will create threads as needed (the same as <code>java.util.concurrent.Executors.newCachedThreadPool()</code>)</p>
+</div>
+<div class="paragraph">
+<p>However, the design of the promises framework is such that you can swap out the underlying implementation for your own or one of the pre-supported implementations.
+For example to use RxJava 3.x simply add the RxJava3 dependency to <code>build.gradle</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework.async:grace-async-rxjava3:7.2.0"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table summarizes async framework support and the necessary dependency:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. PromiseFactory Implementations</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Framework</th>
+<th class="tableblock halign-left valign-top">Dependency</th>
+<th class="tableblock halign-left valign-top">Implementation Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GPars 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-gpars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.gpars.GparsPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava.RxPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava2.RxPromiseFactory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-async-rxjava3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.async.factory.rxjava3.RxPromiseFactory</code></p></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2 id="events"><a class="anchor" href="#events"></a>3.2 Events Plugin</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/events.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>This project introduces a new Events API that replaces the previous implementation that was based on Reactor 2.x (which is no longer maintained and deprecated).</p>
+</div>
+<div class="paragraph">
+<p>The Events framework introduces a new <a href="../api/grails/events/bus/EventBus.html">EventBus</a> abstraction.
+Like the <code>PromiseFactory</code> notion, there are implementations of the <code>EventBus</code> interface for common asynchronous frameworks like GPars and RxJava.</p>
+</div>
+<div class="paragraph">
+<p>To use the Events abstraction you should add a dependency on the <code>events</code> plugin to your <code>build.gradle</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework:grace-plugin-events"</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Since 7.0, Grace <code>events</code> modules have already been split into its' own repository <a href="https://github.com/graceframework/grace-events"><code>grace-events</code></a>. And <code>grace-plugin-events</code> have been merged into the <a href="https://github.com/graceframework/grace-framework/tree/2024.0.x/grace-plugin-events">Grace framework</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If no asynchronous framework in present on the classpath then by default Grace creates an EventBus based off of the currently active <code>PromiseFactory</code>.
+The default implementation is <a href="../api/org/grails/async/factory/future/CachedThreadPoolPromiseFactory.html">CachedThreadPoolPromiseFactory</a> which uses a thread pool that will create threads as needed (the same as <code>java.util.concurrent.Executors.newCachedThreadPool()</code>).</p>
+</div>
+<div class="paragraph">
+<p>If you wish to use a popular async framework such as RxJava3 as the <code>EventBus</code> implementation then you will need to add the appropriate dependency. For example for RxJava 3.x:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">implementation "org.graceframework.events:grace-events-rxjava3:7.2.0"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following table summarizes async framework support and the necessary dependency:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. EventBus Implementations</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Framework</th>
+<th class="tableblock halign-left valign-top">Dependency</th>
+<th class="tableblock halign-left valign-top">Implementation Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GPars 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-events-gpars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.events.gpars.ActorEventBus</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 1.2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-events-rxjava</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.events.rxjava.RxEventBus</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 2.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-events-rxjava2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.events.rxjava2.RxEventBus</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RxJava 3.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>grace-events-rxjava3</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>org.grails.events.rxjava3.RxEventBus</code></p></td>
+</tr>
+</tbody>
+</table>
+
+
+<h1 id="support"><a class="anchor" href="#support"></a>4 Support</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/graceframework/grace-async/edit/7.2.x/src/main/docs/guide/support.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For support, please use the <a href="https://github.com/orgs/graceframework/discussions">Grace Discussions</a> or open an issue on <a href="https://github.com/graceframework/grace-async/issues">Github Issues</a>.</p>
+</div>
+
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
+        <div id="footer">
+            Copyright &copy; 2022-2026 Michael Yan and the original authors. The content is licensed under a Creative Commons Attribution 4.0 International (CC BY SA 4.0) license.
+            
+        </div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+    </body>
+</html>
