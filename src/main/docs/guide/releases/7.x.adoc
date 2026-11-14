@@ -1,3 +1,21 @@
+=== 7.2.0
+
+link:{github}/releases/tag/v7.2.0[release notes]
+
+🛠 Improvements
+
+* Add release notes for 7.2.0
+
+🚀 Dependency Upgrades
+
+* a9864a0 Upgrade to JUnit Jupiter 5.14.4 and JUnit Platform 1.14.4 link:{github}/issues/121[#121]
+* 0757c15 Upgrade to Gradle 8.14.7 link:{github}/issues/120[#120]
+* 364c3db Upgrade Java version in sdkmanrc to 17.0.20-zulu link:{github}/issues/115[#115]
+
+⚙️ Tasks
+
+* Release v7.2.0
+
 === 7.2.0-RC1
 
 link:{github}/releases/tag/v7.2.0-RC1[release notes]
