@@ -28,6 +28,7 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junit-jupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-jupiter" }
+junit-platform-suite = { module = "org.junit.platform:junit-platform-suite", version.ref = "junit-jupiter" }
 objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
 rxjava = { module = "io.reactivex:rxjava", version.ref = "rxjava" }
 rxjava2 = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2" }
