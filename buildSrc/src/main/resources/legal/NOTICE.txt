@@ -1,4 +1,4 @@
-Grace Framework ${version}
+Grace Async Framework ${version}
 Copyright (c) 2022-${copyright} Grace Framework.
 
 This product is licensed to you under the Apache License, Version 2.0
